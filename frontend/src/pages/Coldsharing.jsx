@@ -1,4 +1,4 @@
-// src/pages/ColdSharing.jsx
+// src/pages/Coldsharing.jsx
 import React, { useEffect } from "react";
 import {
   Box,
@@ -6,345 +6,651 @@ import {
   Heading,
   Text,
   Button,
-  Image,
+  HStack,
+  Stack,
   SimpleGrid,
   Icon,
-  Stack,
-  List,
-  ListItem,
-  ListIcon,
-  Link,
+  Badge,
+  chakra,
+  Image,
+  keyframes,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import {
-  FaArrowRight,
-  FaSearchLocation,
-  FaCheckCircle,
-  FaLeaf,
-  FaTruck,
-  FaWarehouse,
-  FaBoxOpen,
-  FaAward,
-  FaNewspaper,
-} from "react-icons/fa";
+import { motion, useAnimation } from "framer-motion";
+import { FaArrowRight } from "react-icons/fa";
+import { FiThermometer, FiServer, FiSearch, FiShield } from "react-icons/fi";
 
-const MotionBox = motion(Box);
+/* Motion wrappers */
+const MBox = motion(Box);
+const MHeading = motion(Heading);
+const MText = motion(Text);
 
-function scrollToId(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-}
+/* Brand color (fallback) */
+const ORANGE = "nitra.accent";
+const ORANGE_FALLBACK = "#E76F51";
 
-export default function ColdSharing() {
-  // ======= SEO senza dipendenze (title, meta, og, JSON-LD) =======
+/* ============================ PAGE ============================ */
+export default function Coldsharing() {
   useEffect(() => {
-    const setMeta = (selector, attr, content) => {
-      let el = document.querySelector(selector);
-      if (!el) {
-        el = document.createElement("meta");
-        // supporta name=... e property=...
-        if (selector.includes("name=")) {
-          el.setAttribute("name", selector.match(/name='([^']+)'/)?.[1] || "");
-        } else if (selector.includes("property=")) {
-          el.setAttribute("property", selector.match(/property='([^']+)'/)?.[1] || "");
-        }
-        document.head.appendChild(el);
-      }
-      el.setAttribute(attr, content);
-    };
-
-    document.title = "ColdSharing | Il primo marketplace B2B per la condivisione del freddo";
-    setMeta("meta[name='description']", "content",
-      "ColdSharing, sviluppato da Marvincla, è la piattaforma B2B che digitalizza la condivisione del freddo. Scopri come ottimizzare celle frigorifere e trasporti nella filiera agroalimentare."
-    );
-    setMeta("meta[name='keywords']", "content",
-      "ColdSharing, Marvincla, marketplace freddo, logistica agroalimentare, celle frigorifere, container frigo, sostenibilità, Puglia, Start Cup"
-    );
-    setMeta("meta[property='og:title']", "content",
-      "ColdSharing — Condividere il freddo per una filiera più efficiente"
-    );
-    setMeta("meta[property='og:description']", "content",
-      "La piattaforma che digitalizza la condivisione del freddo tra imprese. Un progetto sviluppato da Marvincla."
-    );
-    setMeta("meta[property='og:type']", "content", "website");
-    setMeta("meta[property='og:image']", "content", "/Coldsharing.png");
-
-    // JSON-LD
-    const ldId = "ld-softwareapplication-coldsharing";
-    let ld = document.getElementById(ldId);
-    if (!ld) {
-      ld = document.createElement("script");
-      ld.type = "application/ld+json";
-      ld.id = ldId;
-      document.head.appendChild(ld);
-    }
-    ld.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      name: "ColdSharing",
-      alternateName: "Cold Sharing",
-      url: "https://cellefrigo.net.it",
-      image: "https://marvincla.it/Coldsharing.png",
-      author: { "@type": "Organization", name: "Marvincla", url: "https://marvincla.it" },
-      applicationCategory: "BusinessApplication",
-      operatingSystem: "Web",
-      description:
-        "ColdSharing è la piattaforma B2B che digitalizza la condivisione del freddo tra imprese agroalimentari, logistiche e operatori del settore.",
-      offers: { "@type": "Offer", price: "0", priceCurrency: "EUR", category: "Free", url: "https://cellefrigo.net.it" },
-      sameAs: [
-        "https://www.regione.puglia.it/web/competitivita-e-innovazione/-/start-cup-puglia-2023-il-18-ottobre-la-finale-a-lecce",
-        "https://www.corrieredelmezzogiorno.it/",
-      ],
-    });
-
-    // cleanup opzionale: lascia meta/ld per caching SEO; non li rimuoviamo
+    document.title = "ColdSharing | Il marketplace del freddo";
   }, []);
 
   return (
     <>
-      {/* ====================== HERO ====================== */}
-      <Box position="relative" overflow="hidden">
-        <Image
-          src="/Sfondo Cold Sharing.png"
-          alt="ColdSharing Hero"
-          w="100%"
-          h={["80vh", "90vh", "100vh"]}
-          objectFit="cover"
-          filter="brightness(0.65)"
-          loading="eager"
-        />
+      <HeroSequence />
+      <ColdsharingStory />
+      <IdeaSection />
+      <ReasonsShowcase />
+      <ColdRoomsFillAnimation />
+      <CTA />
+    </>
+  );
+}
+
+/* ============================ HERO (CSS keyframes) ============================ */
+function HeroSequence() {
+  // keyframes
+  const fadeSlide = keyframes`
+    0%   { opacity: 0; transform: translateY(16px) scale(.98); }
+    20%  { opacity: 1; transform: translateY(0)    scale(1); }
+    60%  { opacity: 1; transform: translateY(0)    scale(1); }
+    100% { opacity: 0; transform: translateY(-16px) scale(.98); }
+  `;
+  const fadeHold = keyframes`
+    0%   { opacity: 0; transform: translateY(12px) scale(.98); }
+    100% { opacity: 1; transform: translateY(0)    scale(1); }
+  `;
+  const appear = keyframes`
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  `;
+
+  // tempi
+  const T1 = 1.6;
+  const T2 = 1.6;
+  const GAP = 0.1;
+  const DELAY2 = T1 + GAP;
+  const DELAY3 = T1 + GAP + T2;
+  const CTA_DELAY = DELAY3 + 0.6;
+
+  return (
+    <Box position="relative" minH="100vh" bg="black" overflow="hidden">
+      <Container maxW="7xl" h="100vh" position="relative" px={{ base: 6, md: 8 }}>
         <Box
           position="absolute"
-          inset="0"
-          display="flex"
-          flexDir="column"
-          justifyContent="center"
+          inset={0}
+          display="grid"
+          placeItems="center"
+          textAlign="center"
           color="white"
-          px={[6, 12, 24]}
+          pointerEvents="none"
         >
-          <MotionBox
-            initial={{ opacity: 0, y: 36 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            maxW="5xl"
+          {/* 1) Collaborazione */}
+          <Heading
+            position="absolute"
+            left="25%"
+            top="30%"
+            transform="translate(-50%, -50%)"
+            lineHeight="1.05"
+            fontWeight={800}
+            fontSize={["7.2vw", "6.4vw", "5.2vw"]}
+            textShadow="0 12px 36px rgba(0,0,0,.55)"
+            sx={{ animation: `${fadeSlide} ${T1}s ease-out 0s both` }}
           >
-            <Heading fontSize={["3xl", "4xl", "5xl"]} mb={4} lineHeight="1.2">
-              Il futuro della logistica agroalimentare è collaborativo
-            </Heading>
-            <Text fontSize="xl" maxW="3xl" mb={8} color="whiteAlpha.900">
-              ColdSharing è la piattaforma che digitalizza la condivisione del freddo tra imprese.
-              Meno sprechi, più efficienza, più sostenibilità.
-            </Text>
-            <Button
-              colorScheme="teal"
-              size="lg"
-              px={8}
-              py={6}
-              borderRadius="full"
-              onClick={() => scrollToId("cos-e")}
-            >
-              Scopri come funziona →
-            </Button>
-          </MotionBox>
-        </Box>
-      </Box>
-
-      {/* ====================== COS’È ====================== */}
-      <Container maxW="7xl" py={{ base: 12, md: 16, lg: 20 }} id="cos-e">
-        <Heading size="lg" color="teal.600" mb={4}>
-          Cos’è ColdSharing
-        </Heading>
-        <Text fontSize="lg" color="gray.700" maxW="5xl" mb={6}>
-          ColdSharing, sviluppato da <b>Marvincla</b>, è il primo marketplace B2B dedicato alla
-          condivisione di spazi e mezzi refrigerati. Con un clic, imprese agroalimentari, logistiche e
-          operatori del freddo possono <b>offrire o prenotare capacità refrigerata</b> in modo
-          digitale, tracciabile e sostenibile.
-        </Text>
-
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} alignItems="center">
-          <Image src="/Coldsharing.png" alt="Interfaccia ColdSharing" rounded="2xl" shadow="lg" />
-          <Box>
-            <Heading size="md" mb={4}>Perché nasce ColdSharing</Heading>
-            <Text color="gray.700" mb={4}>
-              Ogni giorno centinaia di celle frigorifere restano inutilizzate, mentre altre imprese
-              affrontano costi elevati per reperire spazi e mezzi. ColdSharing nasce per <b>collegare
-              domanda e offerta</b>, creando una rete logistica più efficiente e sostenibile.
-            </Text>
-            <List spacing={3} color="gray.700">
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Disponibilità in tempo reale e geolocalizzata</ListItem>
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Prenotazioni digitali con tracciabilità e notifiche</ListItem>
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Collaborazione tra operatori della filiera del freddo</ListItem>
-            </List>
-          </Box>
-        </SimpleGrid>
-      </Container>
-
-      {/* ====================== COME FUNZIONA ====================== */}
-      <Box id="come-funziona" bg="gray.50" py={{ base: 12, md: 16, lg: 20 }}>
-        <Container maxW="7xl">
-          <Heading textAlign="center" mb={10}>
-            Come funziona
+            Dalla collaborazione
+            <br />
+            con Marvincla
           </Heading>
 
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} textAlign="center">
-            <Box>
-              <Icon as={FaSearchLocation} color="teal.500" boxSize={10} mb={3} />
-              <Heading size="sm" mb={2}>1 · Cerca</Heading>
-              <Text color="gray.700">Trova spazi o mezzi refrigerati disponibili nella tua zona, in tempo reale.</Text>
-            </Box>
-            <Box>
-              <Icon as={FaCheckCircle} color="teal.500" boxSize={10} mb={3} />
-              <Heading size="sm" mb={2}>2 · Prenota</Heading>
-              <Text color="gray.700">Gestisci prenotazioni e pagamenti in modo digitale e trasparente.</Text>
-            </Box>
-            <Box>
-              <Icon as={FaLeaf} color="teal.500" boxSize={10} mb={3} />
-              <Heading size="sm" mb={2}>3 · Condividi</Heading>
-              <Text color="gray.700">Ottimizza risorse, riduci costi ed emissioni e valorizza il tuo spazio.</Text>
-            </Box>
-          </SimpleGrid>
+          {/* 2) Nasce */}
+          <Heading
+            position="absolute"
+            left="40%"
+            top="35%"
+            transform="translate(-50%, -50%)"
+            lineHeight="1.05"
+            fontWeight={800}
+            fontSize={["9vw", "7.2vw", "6vw"]}
+            textShadow="0 12px 36px rgba(0,0,0,.55)"
+            sx={{ animation: `${fadeSlide} ${T2}s ease-out ${DELAY2}s both` }}
+          >
+            nasce
+          </Heading>
 
-          <Box textAlign="center" mt={12}>
+          {/* 3) COLDSHARING */}
+          <Heading
+            position="absolute"
+            left="10%"
+            top="31%"
+            transform="translate(-50%, -50%)"
+            lineHeight="1.0"
+            fontWeight={900}
+            letterSpacing="-0.01em"
+            fontSize={["15vw", "13vw", "10.5vw"]}
+            textShadow="0 14px 40px rgba(0,0,0,.6)"
+            sx={{ animation: `${fadeHold} .65s ease-out ${DELAY3}s both` }}
+          >
+            COLDSHARING
+          </Heading>
+
+          {/* Sottotitolo + CTA */}
+          <Text
+            mt={{ base: 28, md: 32 }}
+            color="whiteAlpha.900"
+            fontSize={{ base: "md", md: "xl" }}
+            pointerEvents="auto"
+            sx={{ animation: `${appear} .45s ease-out ${CTA_DELAY}s both` }}
+          >
+            Il marketplace B2B per cercare o condividere celle frigorifere
+          </Text>
+
+          <Box
+            mt={6}
+            pointerEvents="auto"
+            sx={{ animation: `${appear} .45s ease-out ${CTA_DELAY + 0.1}s both` }}
+          >
             <Button
-              colorScheme="teal"
-              size="lg"
-              rightIcon={<FaArrowRight />}
               as="a"
-              href="https://cellefrigo.net.it"
+              href="https://cellefrigo.net"
               target="_blank"
               rel="noreferrer"
+              size="lg"
+              rightIcon={<FaArrowRight />}
+              bg={ORANGE}
+              _hover={{ bg: ORANGE, boxShadow: "0 12px 28px rgba(176,65,37,.35)" }}
+              sx={{ "--chakra-colors-nitra-accent": ORANGE_FALLBACK }}
             >
-              Registrati su ColdSharing — è gratuito!
+              Registrati gratis
             </Button>
           </Box>
-        </Container>
-      </Box>
 
-      {/* ====================== COSA OFFRE ====================== */}
-      <Container maxW="7xl" py={{ base: 12, md: 16, lg: 20 }}>
-        <Heading size="md" mb={8}>Cosa offre</Heading>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
-          <MotionBox p={6} borderWidth="1px" rounded="2xl" bg="white" whileHover={{ y: -3 }} transition="0.2s">
-            <Icon as={FaWarehouse} color="teal.500" boxSize={8} mb={3} />
-            <Heading size="sm" mb={2}>Celle frigorifere</Heading>
-            <Text color="gray.600">Stoccaggi temporanei in ambienti certificati e monitorati.</Text>
-          </MotionBox>
-          <MotionBox p={6} borderWidth="1px" rounded="2xl" bg="white" whileHover={{ y: -3 }} transition="0.2s">
-            <Icon as={FaBoxOpen} color="teal.500" boxSize={8} mb={3} />
-            <Heading size="sm" mb={2}>Container frigo</Heading>
-            <Text color="gray.600">Capacità modulare e flessibile per picchi di domanda.</Text>
-          </MotionBox>
-          <MotionBox p={6} borderWidth="1px" rounded="2xl" bg="white" whileHover={{ y: -3 }} transition="0.2s">
-            <Icon as={FaTruck} color="teal.500" boxSize={8} mb={3} />
-            <Heading size="sm" mb={2}>Trasporto refrigerato</Heading>
-            <Text color="gray.600">Camion e furgoni a temperatura controllata.</Text>
-          </MotionBox>
-        </SimpleGrid>
+          <Text
+            mt={8}
+            color="whiteAlpha.700"
+            sx={{ animation: `${appear} .45s ease-out ${CTA_DELAY + 0.2}s both` }}
+          >
+            ↓ Scorri
+          </Text>
+        </Box>
       </Container>
 
-      {/* ====================== VANTAGGI ====================== */}
-      <Container maxW="7xl" py={{ base: 12, md: 16, lg: 20 }}>
-        <Heading size="lg" mb={6}>Perché scegliere ColdSharing</Heading>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
-          <Box>
-            <Heading size="sm" mb={3}>Vantaggi per le imprese</Heading>
-            <List spacing={3} color="gray.700">
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Riduci i costi operativi e gli sprechi</ListItem>
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Digitalizza la gestione logistica e amministrativa</ListItem>
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Accedi a nuovi partner commerciali</ListItem>
-            </List>
+      {/* separatore */}
+      <Box position="absolute" bottom="-1px" left={0} right={0}>
+        <Box as="svg" viewBox="0 0 1440 80" w="100%" h={{ base: 12, md: 16 }}>
+          <path d="M0,32 C240,64 480,64 720,32 C960,0 1200,0 1440,32 L1440,80 L0,80 Z" fill="#fff" />
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
+/* ====================== STORY + PROBLEMI (uniti) ====================== */
+function ColdsharingStory() {
+  const top3 = [
+    {
+      emoji: "🧪",
+      t: "Esigenze specifiche",
+      d: "Ogni prodotto richiede parametri diversi (T°, umidità, ricambi d’aria). Trovare lo spazio giusto è complesso.",
+    },
+    {
+      emoji: "📦",
+      t: "Soluzioni frammentate",
+      d: "Impianti simili con performance e scopi diversi: confronto difficile, decisioni lente.",
+    },
+    {
+      emoji: "🔍",
+      t: "Poche info affidabili",
+      d: "Disponibilità, certificazioni e prezzi spesso non sono chiari o aggiornati.",
+    },
+  ];
+  const bottom2 = [
+    {
+      emoji: "🤝",
+      t: "Mancanza di fiducia",
+      d: "Timori su pagamenti e trasparenza frenano la condivisione tra aziende.",
+    },
+    {
+      emoji: "🌦️",
+      t: "Impatto climatico",
+      d: "Eventi meteo estremi creano squilibri di domanda/offerta e urgenze improvvise.",
+    },
+  ];
+
+  return (
+    <Box bg="white" py={{ base: 14, md: 22 }} position="relative" overflow="hidden">
+      {/* glow */}
+      <Box position="absolute" top="5%" left="10%" w="900px" h="900px" rounded="full" bg="rgba(0,160,255,0.08)" filter="blur(180px)" />
+      <Box position="absolute" bottom="-10%" right="-10%" w="1000px" h="1000px" rounded="full" bg="rgba(255,140,80,0.08)" filter="blur(200px)" />
+
+      <Container maxW="7xl" position="relative">
+        <MHeading
+          textAlign="center"
+          fontSize={{ base: "2xl", md: "4xl" }}
+          fontWeight="800"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          Trovare uno spazio refrigerato è molto difficile.
+        </MHeading>
+
+        <MText
+          mt={4}
+          maxW="3xl"
+          mx="auto"
+          textAlign="center"
+          fontSize={{ base: "md", md: "lg" }}
+          color="gray.700"
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          Oggi, trovare una <b>cella frigo, container o mezzo refrigerato</b> è ancora complicato:
+          specifiche non comparabili, poche informazioni affidabili e decisioni lente.
+        </MText>
+
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, md: 6 }} mt={{ base: 8, md: 12 }}>
+          {top3.map((x, i) => (
+            <PrettyProblemCard key={i} emoji={x.emoji} title={x.t} desc={x.d} />
+          ))}
+        </SimpleGrid>
+
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, md: 6 }} maxW="5xl" mx="auto" mt={{ base: 6, md: 8 }}>
+          {bottom2.map((x, i) => (
+            <PrettyProblemCard key={i} emoji={x.emoji} title={x.t} desc={x.d} />
+          ))}
+        </SimpleGrid>
+      </Container>
+    </Box>
+  );
+}
+
+function PrettyProblemCard({ emoji, title, desc }) {
+  return (
+    <MBox
+      bg="white"
+      border="1px solid"
+      borderColor="blackAlpha.100"
+      rounded="xl"
+      p={{ base: 5, md: 6 }}
+      shadow="lg"
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.45 }}
+      _hover={{ boxShadow: "xl", transform: "translateY(-2px)" }}
+    >
+      <HStack align="start" spacing={3} mb={1}>
+        <Box fontSize="xl">{emoji}</Box>
+        <Heading size="md">{title}</Heading>
+      </HStack>
+      <Text color="gray.600">{desc}</Text>
+    </MBox>
+  );
+}
+
+/* ============================= IDEA ============================= */
+function IdeaSection() {
+  return (
+    <Box position="relative" bg="black" color="white" py={{ base: 16, md: 24 }} overflow="hidden">
+      <Box position="absolute" top="-20%" left="-10%" w="60vw" h="60vw" rounded="full" bg="rgba(14,74,103,0.25)" filter="blur(90px)" />
+      <Box position="absolute" bottom="-30%" right="-15%" w="70vw" h="70vw" rounded="full" bg="rgba(176,65,37,0.25)" filter="blur(110px)" />
+
+      <Container maxW="7xl" position="relative">
+        <SimpleGrid columns={{ base: 1, md: 5 }} spacing={{ base: 10, md: 12 }} alignItems="center">
+          <Box gridColumn={{ md: "1 / span 2" }} display="grid" placeItems="center">
+            <LampSVG />
           </Box>
-          <Box>
-            <Heading size="sm" mb={3}>Impatto sostenibile</Heading>
-            <List spacing={3} color="gray.700">
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Ottimizza l’uso di energia e infrastrutture</ListItem>
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Riduci emissioni di CO₂ e chilometri a vuoto</ListItem>
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Promuovi una logistica agroalimentare più green</ListItem>
-            </List>
+
+          <Box gridColumn={{ md: "3 / span 3" }}>
+            <Heading as="h2" lineHeight={1.05} mb={{ base: 2, md: 3 }} textAlign="left" letterSpacing="-0.02em">
+              <chakra.span
+                display="block"
+                fontWeight="900"
+                fontSize={{ base: "8vw", md: "5.2vw", lg: "4.2vw" }}
+                color="white"
+                textShadow="0 10px 30px rgba(0,0,0,.35)"
+              >
+                COLDSHARING
+              </chakra.span>
+
+              <chakra.span
+                display="inline"
+                fontWeight="900"
+                bgGradient="linear(to-r, nitra.accent, #FF8A5C)"
+                bgClip="text"
+                fontSize={{ base: "5.6vw", md: "2.6vw", lg: "2.2vw" }}
+              >
+                Marketplace B2B
+              </chakra.span>{" "}
+              <chakra.span display="inline" fontWeight="800" color="white" fontSize={{ base: "5.6vw", md: "2.6vw", lg: "2.2vw" }}>
+                per la condivisione
+                <br /> del tuo locale refrigerato
+              </chakra.span>
+            </Heading>
+
+            <Box w={{ base: "140px", md: "180px" }} h="3px" bg="nitra.accent" rounded="full" mb={{ base: 4, md: 5 }} opacity={0.9} />
+
+            <Text color="whiteAlpha.900" fontSize={{ base: "md", md: "lg" }} maxW="42rem" opacity={0.92}>
+              Mettiamo in contatto chi ha capacità frigorifera con chi ne ha bisogno in <b>pochi minuti</b>:
+              ricerca geolocalizzata, prenotazioni sicure e tracciabilità completa.
+            </Text>
           </Box>
         </SimpleGrid>
       </Container>
+    </Box>
+  );
+}
 
-      {/* ====================== RICONOSCIMENTI & STAMPA ====================== */}
-      <Box bg="gray.50" py={{ base: 12, md: 16, lg: 20 }}>
-        <Container maxW="7xl">
-          <Heading textAlign="center" mb={10}>Riconoscimenti e stampa</Heading>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-            <MotionBox p={6} rounded="2xl" borderWidth="1px" whileHover={{ y: -3 }} transition="0.2s" bg="white">
-              <Stack direction="row" align="center" mb={3}>
-                <Icon as={FaAward} color="teal.500" boxSize={8} />
-                <Heading size="sm">Finalista Start Cup Puglia 2023</Heading>
-              </Stack>
-              <Text color="gray.700" mb={3}>
-                ColdSharing è tra i progetti finalisti della <b>Start Cup Puglia 2023</b>, la
-                competizione per l’innovazione promossa da Regione Puglia e ARTI.
-              </Text>
-              <Link
-                href="https://www.regione.puglia.it/web/competitivita-e-innovazione/-/start-cup-puglia-2023-il-18-ottobre-la-finale-a-lecce"
-                color="teal.600"
-                fontWeight="medium"
-                isExternal
-                rel="noreferrer"
-              >
-                Leggi l’articolo ufficiale →
-              </Link>
-            </MotionBox>
+function LampSVG() {
+  return (
+    <Box as="svg" viewBox="0 0 160 200" w={{ base: "180px", md: "240px" }} style={{ overflow: "visible" }}>
+      <defs>
+        <radialGradient id="bulb" cx="50%" cy="35%" r="70%">
+          <stop offset="0%" stopColor="#FFF9C4" />
+          <stop offset="100%" stopColor="#FFE066" />
+        </radialGradient>
+        <filter id="softGlow">
+          <feGaussianBlur stdDeviation="8" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
 
-            <MotionBox p={6} rounded="2xl" borderWidth="1px" whileHover={{ y: -3 }} transition="0.2s" bg="white">
-              <Stack direction="row" align="center" mb={3}>
-                <Icon as={FaAward} color="teal.500" boxSize={8} />
-                <Heading size="sm">La Repubblica</Heading>
-              </Stack>
-              <Text color="gray.700" mb={3}>
-                Il progetto ColdSharing è stato raccontato anche dal <b>La Repubblica</b>,
-                come esempio di innovazione digitale e sostenibilità nella logistica agroalimentare.
-              </Text>
-              <Link
-                href="https://www.regione.puglia.it/web/competitivita-e-innovazione/-/start-cup-puglia-2023-il-18-ottobre-la-finale-a-lecce"
-                color="teal.600"
-                fontWeight="medium"
-                isExternal
-                rel="noreferrer"
+      <circle cx="80" cy="72" r="64" fill="#FFD24A" opacity="0.25" filter="url(#softGlow)" />
+      <path
+        d="M80 16c-30 0-54 22-54 50 0 16 8 30 20 39 7 5 10 12 10 18h48c0-6 3-13 10-18 12-9 20-23 20-39 0-28-24-50-54-50z"
+        fill="url(#bulb)"
+        stroke="#FFE066"
+        strokeWidth="2"
+      />
+      <rect x="60" y="124" width="40" height="14" rx="5" fill="#6C7A86" />
+      <rect x="56" y="138" width="48" height="12" rx="5" fill="#6C7A86" />
+      <rect x="60" y="150" width="40" height="10" rx="5" fill="#6C7A86" />
+    </Box>
+  );
+}
+
+/* ===================== VANTAGGI / SHOWCASE ===================== */
+function ReasonsShowcase() {
+  return (
+    <Box bgGradient="linear(to-b, gray.50, white)" py={{ base: 14, md: 20 }}>
+      <Container maxW="7xl">
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 10, md: 16 }} alignItems="center">
+          {/* Colonna sinistra: elenco motivi */}
+          <Box>
+            <Heading fontSize={{ base: "2xl", md: "3xl" }} mb={6} lineHeight="1.2">
+              5 motivi per cui <br /> dovresti usarlo.
+            </Heading>
+            <Stack spacing={4}>
+              <ReasonItem
+                emoji="🔍"
+                title="Trovi il locale adatto a te"
+                desc="Scegli celle frigorifere certificate vicino a te, filtrando per prodotto, temperatura e capienza."
+              />
+              <ReasonItem
+                emoji="💸"
+                title="Nessun investimento iniziale"
+                desc="Usi solo lo spazio che ti serve e quando ti serve: paghi a consumo, senza costi fissi o investimenti."
+              />
+              <ReasonItem
+                emoji="⚙️"
+                title="Meno costi di gestione"
+                desc="Ottimizza la tua capacità frigorifera e riduci sprechi e costi energetici condividendo lo spazio."
+              />
+              <ReasonItem
+                emoji="♻️"
+                title="Economia circolare"
+                desc="Massimizzi l’uso delle infrastrutture esistenti riducendo l’impatto ambientale e migliorando l’efficienza."
+              />
+              <ReasonItem
+                emoji="🤝"
+                title="Networking"
+                desc="Connetti la tua azienda con produttori, trasportatori e operatori della filiera del freddo."
+              />
+            </Stack>
+            <HStack mt={8} spacing={3}>
+              <Button
+                as="a"
+                href="https://cellefrigo.net"
+                target="_blank"
+                size="lg"
+                rightIcon={<FaArrowRight />}
+                bg={ORANGE}
+                _hover={{ bg: ORANGE, boxShadow: "0 12px 28px rgba(176,65,37,.35)" }}
+                sx={{ "--chakra-colors-nitra-accent": ORANGE_FALLBACK }}
               >
-                Leggi l’articolo ufficiale →
-              </Link>
-            </MotionBox>
-          </SimpleGrid>
-        </Container>
+                Richiedilo gratis
+              </Button>
+              <Text color="gray.600">Nessun vincolo. Provalo ora.</Text>
+            </HStack>
+          </Box>
+
+          {/* Colonna destra: mockup carte sovrapposte con immagine */}
+          <Box position="relative" minH={{ base: "360px", md: "480px" }}>
+            <PreviewCard
+              z={3}
+              top="8%"
+              left="5%"
+              w={{ base: "78%", md: "60%" }}
+              title="Celle frigorifere"
+              subtitle="Prodotto: Uva"
+              img="/coldsharinglogo.png"
+            />
+            <PreviewCard
+              z={2}
+              top="28%"
+              left="28%"
+              w={{ base: "75%", md: "60%" }}
+              title="Container refrigerato"
+              subtitle="Prodotto: Carne"
+              img="/frutta.jpg"
+            />
+            <PreviewCard
+              z={1}
+              top="50%"
+              left="8%"
+              w={{ base: "82%", md: "62%" }}
+              title="Trasporto refrigerato"
+              subtitle="Prodotto: Pesce"
+              img="/ittico.jpg"
+            />
+          </Box>
+        </SimpleGrid>
+      </Container>
+    </Box>
+  );
+}
+
+function ReasonItem({ emoji, title, desc }) {
+  return (
+    <HStack
+      align="start"
+      spacing={3}
+      bg="white"
+      border="1px solid"
+      borderColor="blackAlpha.100"
+      rounded="xl"
+      px={4}
+      py={3}
+      shadow="lg"
+    >
+      <Box fontSize="xl">{emoji}</Box>
+      <Box>
+        <Text fontWeight="700">{title}</Text>
+        <Text color="gray.600">{desc}</Text>
+      </Box>
+    </HStack>
+  );
+}
+
+/* ======= CARDS CON IMMAGINE (mockup ColdSharing) ======= */
+function PreviewCard({ z = 1, top, left, w, title, subtitle, img }) {
+  return (
+    <MBox
+      position="absolute"
+      top={top}
+      left={left}
+      w={w}
+      zIndex={z}
+      rounded="2xl"
+      bg="white"
+      border="1px solid #eaeaea"
+      shadow="xl"
+      p={4}
+      display="flex"
+      flexDirection="column"
+      gap={3}
+      initial={{ y: 30, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6 }}
+    >
+      <Badge colorScheme="blue" variant="subtle" fontSize="0.7rem" px={2} py={0.5} width="fit-content">
+        🔍 COLDSHARING
+      </Badge>
+
+      <Box>
+        <Heading size="sm">{title}</Heading>
+        <Text fontSize="sm" color="gray.600">
+          {subtitle}
+        </Text>
       </Box>
 
-      {/* ====================== LEGAME CON MARVINCLA ====================== */}
-      <Box bg="white" py={{ base: 12, md: 16, lg: 20 }}>
-        <Container maxW="7xl" textAlign="center">
-          <Heading size="md" mb={4}>Un progetto sviluppato da Marvincla</Heading>
-          <Text color="gray.700" maxW="4xl" mx="auto">
-            ColdSharing nasce all’interno di <b>Marvincla</b>, la startup che accompagna le imprese agroalimentari
-            nella trasformazione digitale. È il primo esempio concreto della nostra visione: creare tecnologie
-            che connettono persone, dati e risorse per rendere la filiera più efficiente e sostenibile.
-          </Text>
-        </Container>
+      {/* Area immagine */}
+      <Box h="140px" rounded="lg" overflow="hidden" bg="gray.100" border="1px dashed #ddd">
+        <Image src={img} alt={title} w="100%" h="100%" objectFit="cover" />
+      </Box>
+    </MBox>
+  );
+}
+
+/* ================== ANIMAZIONE BARRE SEQUENZIALI ================== */
+function ColdRoomsFillAnimation() {
+  const c1 = useAnimation();
+  const c2 = useAnimation();
+  const c3 = useAnimation();
+
+  const D1 = 2.2, D2 = 2.0, D3 = 2.0, PAUSA = 1.0;
+
+  useEffect(() => {
+    let alive = true;
+    (async function run() {
+      while (alive) {
+        await Promise.all([
+          c1.start({ width: "0%", transition: { duration: 0 } }),
+          c2.start({ width: "0%", transition: { duration: 0 } }),
+          c3.start({ width: "0%", transition: { duration: 0 } }),
+        ]);
+        await c1.start({ width: "100%", transition: { duration: D1, ease: "easeInOut" } });
+        await c2.start({ width: "100%", transition: { duration: D2, ease: "easeInOut" } });
+        await c3.start({ width: "100%", transition: { duration: D3, ease: "easeInOut" } });
+        await new Promise(r => setTimeout(r, PAUSA * 1000));
+      }
+    })();
+    return () => { alive = false; };
+  }, []);
+
+  return (
+    <Box bg="white" py={{ base: 12, md: 16 }}>
+      <Container maxW="6xl">
+        <Heading textAlign="center" size="lg" mb={8}>Come funziona</Heading>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+          <BarCard title="1. Cerca" desc="Filtra per prodotto, temperatura e posizione. Vedi disponibilità reale." variant="blue" ctrl={c1}/>
+          <BarCard title="2. Prenota" desc="Gestione digitale di prezzi, contratti e pagamenti (escrow) in sicurezza." variant="blend" ctrl={c2}/>
+          <BarCard title="3. Refrigera" desc="Deposito e monitoraggio: accessi, temperature, report e audit trail." variant="orange" ctrl={c3}/>
+        </SimpleGrid>
+      </Container>
+    </Box>
+  );
+}
+
+function BarCard({ title, desc, variant, ctrl }) {
+  // ✅ Colori brand
+  const BLUE = "#0B394F";
+  const ORANGE = "#B04125";
+
+  // ✅ Sfumatura blu → arancione
+  const fillBg =
+    variant === "blue"
+      ? BLUE
+      : variant === "orange"
+      ? ORANGE
+      : `linear-gradient(90deg, ${BLUE} 0%, ${ORANGE} 100%)`;
+
+  return (
+    <MBox
+      p={5}
+      rounded="xl"
+      border="1px solid"
+      borderColor="blackAlpha.100"
+      shadow="lg"
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
+    >
+      <HStack justify="space-between" mb={3}>
+        <Heading size="md">{title}</Heading>
+        <Icon as={FiServer} color="gray.500" />
+      </HStack>
+
+      {/* Track + progress fill */}
+      <Box h="12px" bg="gray.100" rounded="full" overflow="hidden">
+        <MBox
+          h="12px"
+          rounded="full"
+          initial={{ width: "0%" }}
+          animate={ctrl}
+          style={{
+            background: fillBg,
+            borderTopRightRadius: 999,
+            borderBottomRightRadius: 999,
+          }}
+        />
       </Box>
 
-      {/* ====================== CTA ====================== */}
-      <Box bg="teal.700" color="white" textAlign="center" py={{ base: 12, md: 16 }}>
-        <Container maxW="7xl">
-          <Heading mb={3}>ColdSharing. Condividere il freddo non è mai stato così semplice.</Heading>
-          <Text color="whiteAlpha.900" mb={6}>
-            Unisciti alla rete che ridisegna il futuro della logistica agroalimentare.
-          </Text>
+      <Text mt={3} color="gray.600">
+        {desc}
+      </Text>
+    </MBox>
+  );
+}
+
+/* =============================== CTA =============================== */
+function CTA() {
+  return (
+    <Box bg="nitra.primary" color="white" textAlign="center" py={{ base: 14, md: 20 }}>
+      <Container maxW="6xl">
+        <Heading mb={3}>Cosa aspetti? Realizziamo il tuo locale refrigerato e condividilo subito.</Heading>
+        <Text mb={6} color="whiteAlpha.900">Monetizza subito. Inizia ora.</Text>
+        <HStack spacing={4} justify="center" wrap="wrap">
           <Button
             as="a"
             href="https://cellefrigo.net"
             target="_blank"
             rel="noreferrer"
-            colorScheme="whiteAlpha"
             size="lg"
-            rightIcon={<FaArrowRight />}
+            bg={ORANGE}
+            _hover={{ bg: ORANGE, boxShadow: "0 12px 28px rgba(176,65,37,.35)" }}
+            sx={{ "--chakra-colors-nitra-accent": ORANGE_FALLBACK }}
           >
-            Inizia ora
+            Accedi in ColdSharing
           </Button>
-        </Container>
-      </Box>
-    </>
+          <Button
+            as="a"
+            href="contatti"
+            size="lg"
+            variant="outline"
+            color="white"
+            borderColor="whiteAlpha.700"
+            _hover={{ bg: "whiteAlpha.200" }}
+          >
+            Parla con Nitra System
+          </Button>
+        </HStack>
+      </Container>
+    </Box>
   );
 }

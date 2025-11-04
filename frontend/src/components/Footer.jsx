@@ -1,148 +1,234 @@
-// src/components/ui/Footer.jsx
+// src/components/Footer.jsx
 import {
   Box,
   Container,
   SimpleGrid,
   Heading,
   Text,
-  HStack,
-  Divider,
-  Image,
-  Link,
-  VStack,
   Stack,
-  IconButton,
+  HStack,
+  Link,
+  Icon,
+  Divider,
+  Button,
+  Flex,
+  VisuallyHidden,
 } from "@chakra-ui/react";
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaEnvelope } from "react-icons/fa";
+import { Link as RouterLink, useParams, useLocation, useNavigate } from "react-router-dom";
+import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { useEffect } from "react";
 
 export default function Footer() {
+  const { lang = "it" } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // ---- routing helpers
+  const routes = {
+    home: "",
+    azienda: "azienda",
+    cosa: "cosafacciamo",
+    cold: "coldsharing",
+    partner: "partnercollaborazioni",
+    privacy: "privacy",
+    cookies: "cookies",
+    contatti: "contatti",
+  };
+  const make = (key) => `/${lang}/${routes[key]}`.replace(/\/$/, "");
+
+  // ---- switch lingua mantenendo la pagina corrente
+  const switchLang = () => {
+    const target = lang === "it" ? "en" : "it";
+    const pathNoLang = location.pathname.replace(/^\/(it|en)/, "") || "/";
+    navigate(`/${target}${pathNoLang}`);
+    localStorage.setItem("i18nextLng", target);
+  };
+
+  // ---- JSON-LD Organization (aiuta SEO locale)
+  useEffect(() => {
+    const id = "ld-org-nitra";
+    let el = document.getElementById(id);
+    if (!el) {
+      el = document.createElement("script");
+      el.id = id;
+      el.type = "application/ld+json";
+      document.head.appendChild(el);
+    }
+    el.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Nitra System Ltd",
+      email: "nitrasystem@gmail.com",
+      url: typeof window !== "undefined" ? window.location.origin : "",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Road Baba Tonca n. 5A",
+        addressLocality: "Sliven",
+        addressCountry: "BG",
+        postalCode: "8800",
+      },
+      telephone: ["+359 894 482 526", "+39 335 617 9483"],
+      sameAs: [],
+    });
+  }, []);
+
   return (
-    <Box bg="gray.900" color="gray.200" py={12} mt={10}>
+    <Box as="footer" bg="nitra.dark" color="white" mt={16} pt={10} pb={6}>
       <Container maxW="7xl">
-        <SimpleGrid columns={[1, 2, 4]} spacing={10} mb={8}>
-          {/* LOGO + DESCRIZIONE */}
-          <VStack align="flex-start" spacing={4}>
-            <Image
-              src="/Logotrasparentemarvincla.png"
-              alt="Logo Marvincla"
-              w="160px"
-            />
-            <Text fontSize="sm" color="gray.400" maxW="260px">
-              Marvincla è una startup innovativa che unisce tecnologia, dati e strategia per connettere la filiera agroalimentare.
+        <SimpleGrid
+          columns={{ base: 1, md: 2, lg: 4 }}
+          spacing={{ base: 8, md: 10, lg: 12 }}
+        >
+          {/* Col 1 - Intro breve */}
+          <Stack spacing={3} pr={{ lg: 8 }}>
+            <Heading as="h2" size="md">
+              Nitra System
+            </Heading>
+            <Text fontSize="sm" opacity={0.9}>
+              Impianti frigoriferi industriali per agroalimentare, farmaceutico e
+              manifatturiero.
             </Text>
-          </VStack>
+          </Stack>
 
-          {/* CONTATTI */}
-          <Box>
-            <Heading size="sm" mb={4} color="white">
-              Contatti
+          {/* Col 2 - Link utili */}
+          <Stack spacing={2}>
+            <Heading as="h3" size="sm" color="nitra.accent">
+              {lang === "it" ? "Link utili" : "Useful links"}
             </Heading>
-            <Text>Email: <Link href="mailto:marvinclasrl@gmail.com" color="teal.300">marvinclasrl@gmail.com</Link></Text>
-            <Text>Tel: +39 111 222 3333</Text>
-            <Text>P.IVA: 08760160724</Text>
-            <Text mt={2}>Via Giuseppe Semerari, 7<br />70132 Bari (BA), Italia</Text>
-          </Box>
-
-          {/* LINK UTILI */}
-          <Box>
-            <Heading size="sm" mb={4} color="white">
-              Link utili
-            </Heading>
-            <Stack spacing={2}>
-              <Link href="/" _hover={{ color: "teal.300" }}>Home</Link>
-              <Link href="/chisiamo" _hover={{ color: "teal.300" }}>Chi siamo</Link>
-              <Link href="/cosafacciamo" _hover={{ color: "teal.300" }}>Cosa facciamo</Link>
-              <Link href="/coldsharing" _hover={{ color: "teal.300" }}>ColdSharing</Link>
-              <Link href="/partnercollaborazioni" _hover={{ color: "teal.300" }}>Partner & Collaborazioni</Link>
-              <Link href="/contatti" _hover={{ color: "teal.300" }}>Contatti</Link>
-            </Stack>
-          </Box>
-
-          {/* PARTNER + SOCIAL */}
-          <Box>
-            <Heading size="sm" mb={4} color="white">
-              Partner e collaborazioni
-            </Heading>
-            <Stack spacing={1} mb={4}>
+            {[
+              { key: "home", label: lang === "it" ? "Home" : "Home" },
+              { key: "azienda", label: lang === "it" ? "Azienda" : "Company" },
+              { key: "cosa", label: lang === "it" ? "Cosa facciamo" : "Solutions" },
+              { key: "cold", label: "Coldsharing" },
+              { key: "partner", label: lang === "it" ? "Partner e Collaborazioni" : "Partners" },
+              { key: "contatti", label: lang === "it" ? "Contatti" : "Contacts" },
+            ].map((it) => (
               <Link
-                href="https://www.refromitalia.it/"
-                color="teal.300"
-                _hover={{ textDecoration: "underline" }}
-                isExternal
+                key={it.key}
+                as={RouterLink}
+                to={make(it.key)}
+                fontSize="sm"
+                _hover={{ color: "nitra.accent" }}
               >
-                Refrom Italia Srl
+                {it.label}
               </Link>
-              {/* ATTENZIONE: modificare tutto sotto e fare una pagina nascosta per nitra system*/}
-              <Link
-                href="https://www.refromitalia.it/" 
-                color="teal.300"
-                _hover={{ textDecoration: "underline" }}
-                isExternal
-              >
-                Nitra System Ltd
-              </Link>
-            </Stack>
+            ))}
+          </Stack>
 
-          {/* RICONOSCIMENTI */}
-          <Box>
-            <Heading size="sm" mb={4} color="white">
-              Riconoscimenti
+          {/* Col 3 - Legale */}
+          <Stack spacing={2}>
+            <Heading as="h3" size="sm" color="nitra.accent">
+              {lang === "it" ? "Legale" : "Legal"}
             </Heading>
-            <Stack spacing={1} mb={4}>
-              Finalista Start Cup Puglia 2023 —{" "}
-                <Link
-                  href="https://www.regione.puglia.it/web/competitivita-e-innovazione/-/start-cup-puglia-2023-il-18-ottobre-la-finale-a-lecce"
-                  color="teal.600"
-                  isExternal
-                  >
-                  leggi l’articolo
+            <Link
+              as={RouterLink}
+              to={`/${lang}/privacy`}
+              fontSize="sm"
+              _hover={{ color: "nitra.accent" }}
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              as={RouterLink}
+              to={`/${lang}/cookies`}
+              fontSize="sm"
+              _hover={{ color: "nitra.accent" }}
+            >
+              Cookie Policy
+            </Link>
+          </Stack>
+
+          {/* Col 4 - Contatti */}
+          <Stack spacing={3}>
+            <Heading as="h3" size="sm" color="nitra.accent">
+              {lang === "it" ? "Contatti" : "Contacts"}
+            </Heading>
+
+            <HStack align="start" spacing={3}>
+              <Icon as={FaMapMarkerAlt} boxSize={4} mt={1} color="nitra.accent" />
+              <Link
+                href="https://maps.google.com/?q=Road+Baba+Tonca+5A,+Sliven,+Bulgaria"
+                isExternal
+                fontSize="sm"
+                _hover={{ color: "nitra.accent" }}
+                aria-label="Apri la sede Nitra System su Google Maps"
+              >
+                8800 Sliven – Bulgaria
+                <br />
+                Road Baba Tonca n. 5A
+              </Link>
+            </HStack>
+
+            <HStack align="start" spacing={3}>
+              <Icon as={FaMapMarkerAlt} boxSize={4} mt={1} color="nitra.accent" />
+              <Link
+                href="https://www.google.com/maps?q=Via+Emanuele+Melisurgo+5+Bari+Italy&output=embed"
+                isExternal
+                fontSize="sm"
+                _hover={{ color: "nitra.accent" }}
+                aria-label="Apri la sede Nitra System su Google Maps"
+              >
+                70132 Bari – Italia
+                <br />
+                Via Emanuele Melisurgo n. 5
+              </Link>
+            </HStack>
+
+            <HStack spacing={3} align="start">
+              <Icon as={FaPhone} boxSize={4} mt={1} color="nitra.accent" />
+              <Stack spacing={1} fontSize="sm">
+                <Link href="tel:+359894482526" _hover={{ color: "nitra.accent" }}>
+                 +359 894 482 526
+                 <br/>
+                 +39 335 617 9483
                 </Link>
-            </Stack>
-          </Box>
+              </Stack>
+            </HStack>
 
             <HStack spacing={3}>
-              <IconButton
-                as="a"
-                href="mailto:marvinclasrl@gmail.com"
-                aria-label="Email"
-                icon={<FaEnvelope />}
-                variant="ghost"
-                colorScheme="teal"
-              />
-              <IconButton
-                as="a"
-                href="https://www.linkedin.com"
-                aria-label="LinkedIn"
-                icon={<FaLinkedinIn />}
-                variant="ghost"
-                colorScheme="teal"
-              />
-              <IconButton
-                as="a"
-                href="https://www.instagram.com"
-                aria-label="Instagram"
-                icon={<FaInstagram />}
-                variant="ghost"
-                colorScheme="teal"
-              />
-              <IconButton
-                as="a"
-                href="https://www.facebook.com"
-                aria-label="Facebook"
-                icon={<FaFacebookF />}
-                variant="ghost"
-                colorScheme="teal"
-              />
+              <Icon as={FaEnvelope} boxSize={4} color="nitra.accent" />
+              <Link
+                href="mailto:nitrasystem@gmail.com"
+                fontSize="sm"
+                _hover={{ color: "nitra.accent" }}
+              >
+                nitrasystem@gmail.com
+              </Link>
             </HStack>
-          </Box>
+          </Stack>
         </SimpleGrid>
 
-        <Text textAlign="center" fontSize="sm" color="gray.500">
-          © {new Date().getFullYear()} <b>Marvincla S.r.l</b> — Tutti i diritti riservati.  
-          <br /> Innovazione al servizio della filiera agroalimentare.
-          <br /> REA BA - 648160 – C. S. €10.000 i.v.
-          <br /><Link href="/cookies" _hover={{ color: "teal.300" }}>Cookies Policy</Link> -  <Link href="/Privacy" _hover={{ color: "teal.300" }}> Privacy</Link>
-        </Text>
+        <Divider borderColor="whiteAlpha.300" my={6} />
+
+        {/* Bottom bar */}
+        <Flex
+          align="center"
+          justify="space-between"
+          direction={{ base: "column", md: "row" }}
+          gap={3}
+        >
+          <Text fontSize="xs" opacity={0.8}>
+            © {new Date().getFullYear()} Nitra System Ltd · P.IVA BG 2046612801
+          </Text>
+          <Text fontSize="xs" opacity={0.8}>
+           Sito realizzato da Marvincla S.R.L. - Polo digitale del settore agroalimentare.
+          </Text>
+
+          {/* Lingue visibili, stile “pill” */}
+          <HStack spacing={2}>
+            <VisuallyHidden>Language switch</VisuallyHidden>
+            <Button
+              size="xs"
+              variant="outline"
+              borderColor="nitra.accent"
+              color="white"
+              _hover={{ bg: "nitra.accent", color: "white" }}
+              onClick={switchLang}
+            >
+              {lang === "it" ? "English version" : "Versione italiana"}
+            </Button>
+          </HStack>
+        </Flex>
       </Container>
     </Box>
   );

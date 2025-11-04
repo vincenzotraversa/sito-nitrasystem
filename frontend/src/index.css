@@ -1,68 +1,54 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* --- Reset di base, compatibile con Chakra --- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html, body, #root {
+  height: 100%;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background: #ffffff;   /* niente tema scuro di default */
+  color: inherit;        /* lascia a Chakra la tipografia */
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.5;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Link base neutri (Chakra gestisce i componenti <Link>) */
+a { color: inherit; text-decoration: none; }
+
+/* Immagini fluide */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Form elementi coerenti */
+input, button, textarea, select {
+  font: inherit;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Evita il centering forzato dello starter Vite */
+#root {
+  display: block;        /* niente place-items:center */
+}
+
+/* Helpers per la navbar fissa: evita che il primo contenuto resti coperto */
+:root {
+  --navbar-h: 72px;      /* regola se necessario */
+}
+main[data-with-fixed-navbar="true"] {
+  padding-top: var(--navbar-h);
+}
+
+/* (opzionale) Token cromatici grezzi da usare fuori da Chakra */
+:root {
+  --nitra-primary: #0E4A67;  /* blu tecnico */
+  --nitra-accent:  #B04125;  /* rosso logo */
+  --nitra-bg:      #F3F7FA;  /* grigio ghiaccio */
 }

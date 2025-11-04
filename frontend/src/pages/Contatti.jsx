@@ -1,582 +1,566 @@
 // src/pages/Contatti.jsx
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
   Heading,
   Text,
-  SimpleGrid,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  Select,
-  Checkbox,
-  Button,
   VStack,
-  HStack,
-  Icon,
-  useToast,
-  FormErrorMessage,
-  Divider,
-  Link,
-  Card,
-  CardHeader,
-  CardBody,
+  SimpleGrid,
   Stack,
-  Tag,
+  Link as ChakraLink,
+  Button,
+  AspectRatio,
+  Divider,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import {
-  FaPhoneAlt,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaClock,
-  FaArrowRight,
-  FaNewspaper,
-  FaAward,
-} from "react-icons/fa";
+import { Link as RouterLink } from "react-router-dom";
 
-const MotionBox = motion(Box);
+function setMeta(name, content) {
+  let el = document.querySelector(`meta[name='${name}']`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute("name", name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
 
-// ===== util =====
-const getParam = (name) => new URLSearchParams(window.location.search).get(name) || "";
+function setProperty(property, content) {
+  let el = document.querySelector(`meta[property='${property}']`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute("property", property);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+function setLink(rel, href) {
+  let el = document.querySelector(`link[rel='${rel}']`);
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", rel);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("href", href);
+}
+
+function setJSONLD(id, json) {
+  let el = document.getElementById(id);
+  if (!el) {
+    el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.id = id;
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(json);
+}
 
 export default function Contatti() {
-  const toast = useToast();
-
-  // ======= ADV / Attribution: leggo UTM e GCLID una volta sola =======
-  const attribution = useMemo(
-    () => ({
-      utm_source: getParam("utm_source"),
-      utm_medium: getParam("utm_medium"),
-      utm_campaign: getParam("utm_campaign"),
-      utm_term: getParam("utm_term"),
-      utm_content: getParam("utm_content"),
-      gclid: getParam("gclid"),
-      referrer: document.referrer || "",
-      landing_path: window.location.pathname + window.location.search,
-    }),
-    []
-  );
-
-  // ======= SEO senza librerie =======
   useEffect(() => {
-    const setMeta = (selector, attr, content) => {
-      let el = document.querySelector(selector);
-      if (!el) {
-        el = document.createElement("meta");
-        if (selector.includes("name=")) {
-          el.setAttribute("name", selector.match(/name='([^']+)'/)?.[1] || "");
-        } else if (selector.includes("property=")) {
-          el.setAttribute("property", selector.match(/property='([^']+)'/)?.[1] || "");
+    /* ---------- SEO BASICS ---------- */
+    const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://www.nitrasystem.example";
+    const pageUrl = `${baseUrl}/contatti`;
+    const title = "Contatti | Nitra System Ltd – Impianti frigoriferi industriali";
+    const description =
+      "Contatta Nitra System: consulenza e progettazione di impianti frigoriferi industriali e commerciali. Sedi a Sliven (BG) e Bari (IT). Risposta entro 24 ore.";
+
+    document.title = title;
+    setMeta("description", description);
+    setMeta("keywords", "contatti, impianti frigoriferi industriali, refrigerazione, celle frigo, chiller, Bulgaria, Italia, Bari, Sliven, consulenza, manutenzione");
+    setMeta("robots", "index,follow");
+    setLink("canonical", pageUrl);
+
+    /* ---------- OPEN GRAPH / TWITTER ---------- */
+    setProperty("og:type", "website");
+    setProperty("og:title", title);
+    setProperty("og:description", description);
+    setProperty("og:url", pageUrl);
+    setProperty("og:image", `${baseUrl}/contattaci.webp`);
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", title);
+    setMeta("twitter:description", description);
+    setMeta("twitter:image", `${baseUrl}/contattaci.webp`);
+
+    /* ---------- JSON-LD: ContactPage + Organization + Breadcrumb ---------- */
+    setJSONLD(
+      "ld-contactpage",
+      {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contatti - Nitra System Ltd",
+        "url": pageUrl,
+        "description": description,
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
+            { "@type": "ListItem", "position": 2, "name": "Contatti", "item": pageUrl }
+          ]
+        },
+        "about": {
+          "@type": "Organization",
+          "name": "Nitra System Ltd",
+          "url": baseUrl,
+          "email": "mailto:nitrasystem@gmail.com",
+          "telephone": ["+359894482526", "+393356179483"],
+          "logo": `${baseUrl}/logonitra.png`,
+          "address": [
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Road Baba Tonca 5A",
+              "addressLocality": "Sliven",
+              "postalCode": "8800",
+              "addressCountry": "BG"
+            },
+            {
+              "@type": "PostalAddress",
+              "streetAddress": "Via Emanuele Melisurgo 5",
+              "addressLocality": "Bari",
+              "postalCode": "70132",
+              "addressCountry": "IT"
+            }
+          ],
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "telephone": "+359894482526",
+              "contactType": "customer support",
+              "areaServed": ["BG","IT","EU"],
+              "availableLanguage": ["it","en","bg"]
+            }
+          ]
         }
-        document.head.appendChild(el);
       }
-      el.setAttribute(attr, content);
-    };
+    );
 
-    const setLink = (rel, href) => {
-      let el = document.querySelector(`link[rel='${rel}']`);
-      if (!el) {
-        el = document.createElement("link");
-        el.setAttribute("rel", rel);
-        document.head.appendChild(el);
+    setJSONLD(
+      "ld-breadcrumb",
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
+          { "@type": "ListItem", "position": 2, "name": "Contatti", "item": pageUrl }
+        ]
       }
-      el.setAttribute("href", href);
-    };
-
-    document.title = "Contatti | Marvincla — Parla con noi";
-    setMeta(
-      "meta[name='description']",
-      "content",
-      "Parla con Marvincla: strategia, sviluppo software, AI e piattaforme per l’agroalimentare. Compila il form: rispondiamo entro 1–2 giorni lavorativi."
     );
-    setMeta("meta[property='og:title']", "content", "Contatti — Marvincla");
-    setMeta(
-      "meta[property='og:description']",
-      "content",
-      "Chiedi una consulenza o una demo. Ti aiutiamo a trasformare i processi in risultati misurabili."
-    );
-    setMeta("meta[property='og:type']", "content", "website");
-    setMeta("meta[property='og:image']", "content", "/og-contatti.jpg");
-    setLink("canonical", "https://marvincla.it/contatti");
 
-    // JSON-LD ContactPage + Organization (aiuta PR/authoritativeness)
-    const ldId = "ld-contactpage";
-    let ld = document.getElementById(ldId);
-    if (!ld) {
-      ld = document.createElement("script");
-      ld.type = "application/ld+json";
-      ld.id = ldId;
-      document.head.appendChild(ld);
-    }
-    ld.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "ContactPage",
-      name: "Contatti Marvincla",
-      url: "https://marvincla.it/contatti",
-      description:
-        "Contatta Marvincla: consulenza digitale, Business Intelligence, AI e piattaforme per la filiera agroalimentare.",
-      publisher: {
-        "@type": "Organization",
-        name: "Marvincla",
-        url: "https://marvincla.it",
-        logo: "https://marvincla.it/logo-marvincla.png",
-        sameAs: [
-          "https://www.regione.puglia.it/web/competitivita-e-innovazione/-/start-cup-puglia-2023-il-18-ottobre-la-finale-a-lecce",
-          "https://www.corrieredelmezzogiorno.it/",
-        ],
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Via Giuseppe Semerari, 7",
-          addressLocality: "Bari",
-          postalCode: "70132",
-          addressCountry: "IT",
-        },
-        contactPoint: [
+    /* ---------- FACOLTATIVO: FAQ per rich snippet ---------- */
+    setJSONLD(
+      "ld-faq",
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
           {
-            "@type": "ContactPoint",
-            contactType: "customer support",
-            email: "info@marvincla.it",
-            telephone: "+39 000 000 0000",
-            areaServed: "IT",
-            availableLanguage: ["it"],
+            "@type": "Question",
+            "name": "In quanto tempo rispondete?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Generalmente entro 24 ore lavorative." }
           },
-        ],
-      },
-    });
-
-    // FAQ JSON-LD (consigliato per rich results)
-    const faqId = "ld-faq";
-    let faq = document.getElementById(faqId);
-    if (!faq) {
-      faq = document.createElement("script");
-      faq.type = "application/ld+json";
-      faq.id = faqId;
-      document.head.appendChild(faq);
-    }
-    faq.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "In quanto tempo rispondete?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Di norma entro 1–2 giorni lavorativi. Per richieste urgenti indicalo nel form.",
+          {
+            "@type": "Question",
+            "name": "In quali paesi operate?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Operiamo in Italia, Bulgaria e in tutta l’Unione Europea." }
           },
-        },
-        {
-          "@type": "Question",
-          name: "Offrite demo o call iniziale?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Sì, possiamo organizzare una call esplorativa gratuita di 30 minuti.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Lavorate solo nell’agroalimentare?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "La specializzazione è l’agroalimentare, ma collaboriamo anche su progetti data-driven affini.",
-          },
-        },
-      ],
-    });
+          {
+            "@type": "Question",
+            "name": "Quali settori servite?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Agroalimentare, farmaceutico e manifatturiero, con impianti su misura." }
+          }
+        ]
+      }
+    );
   }, []);
 
-  // ======= Form State =======
-  const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState({
-    nome: "",
-    email: "",
-    azienda: "",
-    telefono: "",
-    motivo: "",
-    budget: "",
-    timing: "",
-    source: "",
-    messaggio: "",
-    newsletter: false,
-    privacy: false,
-    botField: "", // honeypot
-  });
-  const [touched, setTouched] = useState({});
-
-  const errors = {
-    nome: !values.nome ? "Inserisci il tuo nome" : "",
-    email: !values.email
-      ? "Inserisci la tua email"
-      : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)
-      ? "Email non valida"
-      : "",
-    motivo: !values.motivo ? "Seleziona un motivo" : "",
-    messaggio: values.messaggio.length < 10 ? "Scrivi almeno 10 caratteri" : "",
-    privacy: !values.privacy ? "Devi accettare l’informativa privacy" : "",
-  };
-  const isInvalid = (field) => touched[field] && errors[field];
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setValues((v) => ({ ...v, [name]: type === "checkbox" ? checked : value }));
-  };
-
-  // ======= Submit =======
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    // honeypot
-    if (values.botField) return;
-
-    setTouched({
-      nome: true,
-      email: true,
-      motivo: true,
-      messaggio: true,
-      privacy: true,
-    });
-
-    if (errors.nome || errors.email || errors.motivo || errors.messaggio || errors.privacy) {
-      toast({ title: "Controlla i campi richiesti.", status: "warning", duration: 3000, isClosable: true });
-      return;
+  /* ---------- Analytics helper opzionale ---------- */
+  const track = (event, payload = {}) => {
+    if (window.dataLayer) {
+      window.dataLayer.push({ event, ...payload });
     }
-
-    try {
-      setLoading(true);
-
-      // Payload completo per CRM / backend
-      const payload = {
-        ...values,
-        attribution,
-        submitted_at: new Date().toISOString(),
-        page: window.location.href,
-      };
-
-      // TODO: invia al tuo endpoint/EmailJS/Formspark/Netlify ecc.
-      // await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-
-      console.log("Form inviato:", payload);
-
-      // Tracking: GTM & gtag se presenti
-      if (window.dataLayer) {
-        window.dataLayer.push({ event: "lead_submit", lead_type: "contact", ...attribution });
-      }
-      if (window.gtag) {
-        window.gtag("event", "generate_lead", { value: 1 });
-      }
-
-      toast({
-        title: "Messaggio inviato!",
-        description: "Ti risponderemo al più presto.",
-        status: "success",
-        duration: 4000,
-        isClosable: true,
-      });
-
-      setValues({
-        nome: "",
-        email: "",
-        azienda: "",
-        telefono: "",
-        motivo: "",
-        budget: "",
-        timing: "",
-        source: "",
-        messaggio: "",
-        newsletter: false,
-        privacy: false,
-        botField: "",
-      });
-      setTouched({});
-    } catch (err) {
-      toast({
-        title: "Errore durante l’invio.",
-        description: "Riprova tra pochi minuti.",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
-    } finally {
-      setLoading(false);
-    }
-  }
+  };
 
   return (
     <>
-      {/* ===== HERO ===== */}
-      <Box bg="teal.700" color="white" py={{ base: 12, md: 14, lg: 16 }}>
+      {/* HERO */}
+      <Box
+        position="relative"
+        h={["40vh", "50vh", "60vh"]}
+        backgroundImage="url('/contattaci.webp')"
+        backgroundSize="cover"
+        backgroundPosition="center"
+        mt={{ base: "72px", md: "80px" }}
+        role="img"
+        aria-label="Contatta Nitra System per impianti frigoriferi industriali"
+      >
+        <Box
+          position="absolute"
+          inset="0"
+          bg="rgba(14,74,103,0.55)"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          color="white"
+          px={4}
+        >
+          <VStack spacing={4}>
+            <Heading as="h1" size={["xl", "2xl", "3xl"]}>
+              Raccontaci il tuo progetto!
+            </Heading>
+          </VStack>
+        </Box>
+      </Box>
+
+      {/* INFORMAZIONI CONTATTO */}
+      <Container maxW="7xl" py={[12, 16]}>
+        <SimpleGrid columns={[1, 2]} spacing={10}>
+          {/* Sinistra: testo motivazionale */}
+          <Box>
+            <Heading color="#0E4A67" mb={4}>
+              Siamo qui per te
+            </Heading>
+            <Text fontSize="lg" color="gray.700" mb={4}>
+              Ogni progetto ha una storia, ogni operazione un obiettivo: garantire performance, efficienza e continuità per il tuo impianto frigorifero. Contattarci significa trovare un partner che ascolta, progetta e realizza con esperienza internazionale.
+            </Text>
+            <Text fontSize="lg" color="gray.700">
+              Ti risponderemo entro 24 ore e ti guideremo passo dopo passo — dalla richiesta iniziale fino al collaudo e alla manutenzione.
+            </Text>
+          </Box>
+
+          {/* Destra: dati contatto */}
+          <Box>
+            <Heading color="#0E4A67" mb={4}>
+              Dati azienda
+            </Heading>
+            <Stack spacing={2} fontSize="md" color="gray.700">
+              <Text><b>Sede centrale:</b> 8800 Sliven – Bulgaria, Road Baba Tonca n. 5A</Text>
+              <Text mt={4}><b>Tel.:</b> 00359 894 482 526 / (+39) 335 617 9483</Text>
+              <Text>
+                <b>Email:</b>{" "}
+                <ChakraLink
+                  href="mailto:nitrasystem@gmail.com"
+                  color="nitra.accent"
+                  onClick={() => track("contact_click", { method: "email" })}
+                >
+                  nitrasystem@gmail.com
+                </ChakraLink>
+              </Text>
+              <Text><b>P.IVA:</b> BG 2046612801</Text>
+            </Stack>
+          </Box>
+        </SimpleGrid>
+      </Container>
+
+      {/* SEDI OPERATIVE: MAPPE */}
+      <Box bg="white" py={[8, 12]}>
         <Container maxW="7xl">
-          <Heading size="2xl" mb={4}>Contattaci</Heading>
-          <Text fontSize="lg" opacity={0.9} maxW="3xl">
-            Raccontaci il tuo progetto: trasformiamo obiettivi e vincoli in un percorso digitale
-            concreto e misurabile. Rispondiamo entro 1–2 giorni lavorativi.
-          </Text>
+          <Box
+            border="1px solid"
+            borderColor="gray.200"
+            rounded="xl"
+            p={[5, 8]}
+            boxShadow="sm"
+          >
+            <Heading size="lg" color="#0E4A67" mb={1}>
+              Sedi operative
+            </Heading>
+            <Text color="#0E4A67" mb={6}>
+              Le nostre due sedi operative con mappa interattiva.
+            </Text>
+
+            <SimpleGrid columns={[1, 2]} spacing={[6, 8]}>
+              {/* Bulgaria */}
+              <Box>
+                <Heading size="md" color="#0E4A67" mb={2}>
+                  Bulgaria
+                </Heading>
+                <Text color="gray.700" mb={3}>
+                  8800 Sliven – Road Baba Tonca n. 5A
+                </Text>
+                <AspectRatio ratio={16 / 9} rounded="lg" overflow="hidden" border="1px solid" borderColor="gray.200">
+                  <iframe
+                    title="Mappa Sede Operativa Bulgaria"
+                    src="https://www.google.com/maps?q=8800+Sliven+Road+Baba+Tonca+5A&output=embed"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </AspectRatio>
+                <ChakraLink
+                  mt={3}
+                  display="inline-block"
+                  href="https://www.google.com/maps/search/?api=1&query=8800+Sliven+Road+Baba+Tonca+5A"
+                  isExternal
+                  color="nitra.accent"
+                  onClick={() => track("map_click", { location: "BG" })}
+                >
+                  Apri su Google Maps →
+                </ChakraLink>
+              </Box>
+
+              {/* Italia */}
+              <Box>
+                <Heading size="md" color="#0E4A67" mb={2}>
+                  Italia
+                </Heading>
+                <Text color="gray.700" mb={3}>
+                  70132 Bari – Via Emanuele Melisurgo n. 5
+                </Text>
+                <AspectRatio ratio={16 / 9} rounded="lg" overflow="hidden" border="1px solid" borderColor="gray.200">
+                  <iframe
+                    title="Mappa Sede Operativa Italia"
+                    src="https://www.google.com/maps?q=Via+Emanuele+Melisurgo+5+Bari+Italy&output=embed"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </AspectRatio>
+                <ChakraLink
+                  mt={3}
+                  display="inline-block"
+                  href="https://www.google.com/maps/search/?api=1&query=Via+Emanuele+Melisurgo+5+Bari+Italy"
+                  isExternal
+                  color="nitra.accent"
+                  onClick={() => track("map_click", { location: "IT" })}
+                >
+                  Apri su Google Maps →
+                </ChakraLink>
+              </Box>
+            </SimpleGrid>
+
+            <Divider my={6} />
+            <Text fontSize="sm" color="gray.500">
+              Le mappe sono a scopo informativo; per appuntamenti contattaci via email o telefono.
+            </Text>
+          </Box>
         </Container>
       </Box>
 
-      <Container maxW="7xl" py={{ base: 12, md: 16, lg: 20 }}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 8, md: 12, lg: 16 }} alignItems="start">
-          {/* ===== FORM ===== */}
-          <MotionBox initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-            <Heading size="lg" mb={6}>Richiedi una consulenza</Heading>
+      {/* FORM DI CONTATTO (accessibile + antispam + analytics) */}
+      <Box bg="nitra.bg" py={[10, 16]}>
+        <Container maxW="6xl">
+          <Heading textAlign="center" color="nitra.primary" mb={6}>
+            Richiedi una consulenza gratuita
+          </Heading>
 
-            <Box as="form" onSubmit={handleSubmit}>
-              <VStack spacing={5} align="stretch">
-                {/* honeypot antispam invisibile */}
-                <Input
-                  name="botField"
-                  value={values.botField}
-                  onChange={handleChange}
-                  position="absolute"
-                  left="-9999px"
-                  aria-hidden="true"
-                  tabIndex={-1}
+          <Box
+            as="form"
+            method="post"
+            action="/api/contact"
+            autoComplete="off"
+            onSubmit={() => track("lead_submit", { form: "contact" })}
+          >
+            {/* honeypot antispam */}
+            <input
+              type="text"
+              name="_hp"
+              tabIndex="-1"
+              autoComplete="off"
+              style={{ position: "absolute", left: "-9999px" }}
+              aria-hidden="true"
+            />
+
+            <SimpleGrid columns={[1, 2]} spacing={6} mb={6}>
+              {/* Nome */}
+              <label style={{ width: "100%" }}>
+                <span className="sr-only">Nome</span>
+                <input
+                  type="text"
+                  name="nome"
+                  placeholder="Nome*"
+                  required
+                  aria-required="true"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                  }}
                 />
+              </label>
 
-                <FormControl isInvalid={!!isInvalid("nome")}>
-                  <FormLabel>Nome e cognome *</FormLabel>
-                  <Input
-                    name="nome"
-                    placeholder="Es. Mario Rossi"
-                    value={values.nome}
-                    onChange={handleChange}
-                    onBlur={() => setTouched((t) => ({ ...t, nome: true }))}
-                  />
-                  <FormErrorMessage>{errors.nome}</FormErrorMessage>
-                </FormControl>
+              {/* Azienda */}
+              <label style={{ width: "100%" }}>
+                <span className="sr-only">Azienda</span>
+                <input
+                  type="text"
+                  name="azienda"
+                  placeholder="Azienda"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                  }}
+                />
+              </label>
 
-                <FormControl isInvalid={!!isInvalid("email")}>
-                  <FormLabel>Email *</FormLabel>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="esempio@email.com"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={() => setTouched((t) => ({ ...t, email: true }))}
-                  />
-                  <FormErrorMessage>{errors.email}</FormErrorMessage>
-                </FormControl>
+              {/* Email */}
+              <label style={{ width: "100%" }}>
+                <span className="sr-only">Email</span>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email*"
+                  required
+                  aria-required="true"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                  }}
+                />
+              </label>
 
-                <HStack spacing={4} align="start">
-                  <FormControl>
-                    <FormLabel>Azienda</FormLabel>
-                    <Input name="azienda" placeholder="Nome azienda" value={values.azienda} onChange={handleChange} />
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel>Telefono</FormLabel>
-                    <Input name="telefono" placeholder="+39 ..." value={values.telefono} onChange={handleChange} />
-                  </FormControl>
-                </HStack>
+              {/* Telefono */}
+              <label style={{ width: "100%" }}>
+                <span className="sr-only">Telefono</span>
+                <input
+                  type="tel"
+                  name="telefono"
+                  placeholder="Telefono"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                  }}
+                />
+              </label>
+            </SimpleGrid>
 
-                <FormControl isInvalid={!!isInvalid("motivo")}>
-                  <FormLabel>Motivo del contatto *</FormLabel>
-                  <Select
-                    name="motivo"
-                    placeholder="Seleziona"
-                    value={values.motivo}
-                    onChange={handleChange}
-                    onBlur={() => setTouched((t) => ({ ...t, motivo: true }))}
-                  >
-                    <option value="demo-coldsharing">Demo / ColdSharing</option>
-                    <option value="sviluppo-software">Sviluppo software / integrazioni</option>
-                    <option value="business-intelligence">Dati & Business Intelligence</option>
-                    <option value="ai">Intelligenza Artificiale</option>
-                    <option value="partnership">Partnership / PR</option>
-                    <option value="altro">Altro</option>
-                  </Select>
-                  <FormErrorMessage>{errors.motivo}</FormErrorMessage>
-                </FormControl>
+            {/* Settore e Origine */}
+            <SimpleGrid columns={[1, 2]} spacing={6} mb={6}>
+              {/* Settore */}
+              <label style={{ width: "100%" }}>
+                <span className="sr-only">Settore aziendale</span>
+                <select
+                  name="settore"
+                  defaultValue=""
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    color: "#333",
+                  }}
+                >
+                  <option value="" disabled>
+                    Seleziona il tuo settore
+                  </option>
+                  <option value="agroalimentare">Agroalimentare</option>
+                  <option value="farmaceutico">Farmaceutico</option>
+                  <option value="manifatturiero">Manifatturiero</option>
+                  <option value="logistica">Logistica / Distribuzione</option>
+                  <option value="altro">Altro</option>
+                </select>
+              </label>
 
-                <HStack spacing={4}>
-                  <FormControl>
-                    <FormLabel>Budget indicativo</FormLabel>
-                    <Select name="budget" placeholder="Seleziona" value={values.budget} onChange={handleChange}>
-                      <option value="<10k">Fino a €10k</option>
-                      <option value="10-30k">€10k–30k</option>
-                      <option value="30-60k">€30k–60k</option>
-                      <option value=">60k">Oltre €60k</option>
-                    </Select>
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel>Tempistiche</FormLabel>
-                    <Select name="timing" placeholder="Seleziona" value={values.timing} onChange={handleChange}>
-                      <option value="immediato">Immediato</option>
-                      <option value="1-3 mesi">1–3 mesi</option>
-                      <option value="3-6 mesi">3–6 mesi</option>
-                      <option value="da valutare">Da valutare</option>
-                    </Select>
-                  </FormControl>
-                </HStack>
+              {/* Come ci hai trovato */}
+              <label style={{ width: "100%" }}>
+                <span className="sr-only">Come ci hai trovato</span>
+                <select
+                  name="origine"
+                  defaultValue=""
+                  required
+                  aria-required="true"
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    color: "#333",
+                  }}
+                >
+                  <option value="" disabled>
+                    Come ci hai trovato?*
+                  </option>
+                  <option value="google">Ricerca su Google</option>
+                  <option value="social">Social network (LinkedIn, Facebook, Instagram)</option>
+                  <option value="passaparola">Passaparola o conoscenza personale</option>
+                  <option value="fiera">Evento o fiera di settore</option>
+                  <option value="altro">Altro</option>
+                </select>
+              </label>
+            </SimpleGrid>
 
-                <FormControl>
-                  <FormLabel>Come ci hai trovati?</FormLabel>
-                  <Select name="source" placeholder="Seleziona" value={values.source} onChange={handleChange}>
-                    <option value="google-adv">Google Ads</option>
-                    <option value="linkedin-adv">LinkedIn Ads</option>
-                    <option value="ricerca-organica">Ricerca organica</option>
-                    <option value="pr-media">PR / Media</option>
-                    <option value="passaparola">Passaparola</option>
-                    <option value="evento">Evento / Fiera</option>
-                  </Select>
-                </FormControl>
+            {/* Quando vuoi essere ricontattato */}
+            <label style={{ width: "100%", display: "block", marginBottom: "24px" }}>
+              <span className="sr-only">Quando vuoi essere ricontattato</span>
+              <select
+                name="richiamo"
+                defaultValue=""
+                style={{
+                  width: "100%",
+                  padding: "12px",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  color: "#333",
+                }}
+              >
+                <option value="" disabled>
+                  Quando preferisci essere ricontattato?
+                </option>
+                <option value="mattina">Mattina</option>
+                <option value="pomeriggio">Pomeriggio</option>
+                <option value="sera">Sera</option>
+                <option value="qualsiasi">Qualsiasi momento</option>
+              </select>
+            </label>
 
-                <FormControl isInvalid={!!isInvalid("messaggio")}>
-                  <FormLabel>Messaggio *</FormLabel>
-                  <Textarea
-                    name="messaggio"
-                    rows={6}
-                    placeholder="Raccontaci obiettivi, contesto e vincoli principali…"
-                    value={values.messaggio}
-                    onChange={handleChange}
-                    onBlur={() => setTouched((t) => ({ ...t, messaggio: true }))}
-                  />
-                  <FormErrorMessage>{errors.messaggio}</FormErrorMessage>
-                </FormControl>
-
-                <HStack align="start" spacing={6}>
-                  <Checkbox name="newsletter" isChecked={values.newsletter} onChange={handleChange}>
-                    Voglio ricevere aggiornamenti su progetti, casi studio e eventi.
-                  </Checkbox>
-                </HStack>
-
-                <FormControl isInvalid={!!isInvalid("privacy")}>
-                  <Checkbox name="privacy" isChecked={values.privacy} onChange={handleChange}>
-                    Acconsento al trattamento dei dati secondo l’{" "}
-                    <Link href="/privacy" color="teal.600" textDecoration="underline">
-                      informativa privacy
-                    </Link>.
-                  </Checkbox>
-                  <FormErrorMessage>{errors.privacy}</FormErrorMessage>
-                </FormControl>
-
-                {/* Campi nascosti per UTM/GCLID (ADV attribution) */}
-                <input type="hidden" name="utm_source" value={attribution.utm_source} />
-                <input type="hidden" name="utm_medium" value={attribution.utm_medium} />
-                <input type="hidden" name="utm_campaign" value={attribution.utm_campaign} />
-                <input type="hidden" name="utm_term" value={attribution.utm_term} />
-                <input type="hidden" name="utm_content" value={attribution.utm_content} />
-                <input type="hidden" name="gclid" value={attribution.gclid} />
-                <input type="hidden" name="referrer" value={attribution.referrer} />
-                <input type="hidden" name="landing_path" value={attribution.landing_path} />
-
-                <Button type="submit" colorScheme="teal" rightIcon={<FaArrowRight />} isLoading={loading} alignSelf="flex-start">
-                  Invia richiesta
-                </Button>
-              </VStack>
-            </Box>
-          </MotionBox>
-
-          {/* ===== INFO / TRUST ===== */}
-          <MotionBox initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }} viewport={{ once: true }}>
-            <Heading size="lg" mb={6}>I nostri contatti</Heading>
-
-            <Card mb={6} variant="outline">
-              <CardHeader pb={0}>
-                <Heading size="sm" color="teal.700">Marvincla S.R.L. — Polo digitale per l’agroalimentare</Heading>
-              </CardHeader>
-              <CardBody>
-                <VStack align="stretch" spacing={3}>
-                  <HStack><Icon as={FaEnvelope} color="teal.500" /><Text><Link href="mailto:info@marvincla.it">info@marvincla.it</Link></Text></HStack>
-                  <HStack><Icon as={FaPhoneAlt} color="teal.500" /><Text><Link href="tel:+39000000000">+39 000 000 0000</Link></Text></HStack>
-                  <HStack align="start"><Icon as={FaMapMarkerAlt} color="teal.500" mt="2px" /><Text>Via Giuseppe Semerari, 7, 70132 Bari (BA) - Italia</Text></HStack>
-                  <HStack><Icon as={FaClock} color="teal.500" /><Text>Lun–Ven 09:00/13:00 – 14:00/18:00</Text></HStack>
-                </VStack>
-              </CardBody>
-            </Card>
-
-            {/* Trust: PR & Riconoscimenti */}
-            <Card mb={6} variant="outline">
-              <CardHeader pb={0}>
-                <Heading size="sm">Rassegna stampa e riconoscimenti</Heading>
-              </CardHeader>
-              <CardBody>
-                <Stack spacing={3}>
-                  <HStack>
-                    <Icon as={FaAward} color="teal.500" />
-                    <Text>
-                      Finalisti <b>Start Cup Puglia 2023</b> —{" "}
-                      <Link
-                        href="https://www.regione.puglia.it/web/competitivita-e-innovazione/-/start-cup-puglia-2023-il-18-ottobre-la-finale-a-lecce"
-                        isExternal
-                        rel="noreferrer"
-                        color="teal.600"
-                        textDecoration="underline"
-                      >
-                        articolo ufficiale
-                      </Link>
-                    </Text>
-                  </HStack>
-                  <HStack>
-                    <Icon as={FaNewspaper} color="teal.500" />
-                    <Text>Uscite su <b>La Repubblica</b> — rassegna stampa 2023</Text>
-                  </HStack>
-                  <HStack spacing={2}>
-                    <Tag colorScheme="teal" variant="subtle">PR</Tag>
-                    <Tag colorScheme="teal" variant="subtle">Sostenibilità</Tag>
-                    <Tag colorScheme="teal" variant="subtle">Logistica del freddo</Tag>
-                  </HStack>
-                  <Button as={Link} href="/media-kit.pdf" isExternal colorScheme="teal" variant="outline" size="sm">
-                    Scarica Media Kit
-                  </Button>
-                </Stack>
-              </CardBody>
-            </Card>
-
-            <Box rounded="2xl" overflow="hidden" borderWidth="1px">
-              <Box
-                as="iframe"
-                title="Mappa Marvincla"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12213.969112447854!2d16.8073638!3d41.1373499!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1347ef4ee9d66a15%3A0x14ac839c9d4e9814!2sVia%20Giuseppe%20Semerari%2C%207%2C%2070132%20Bari%20BA!5e0!3m2!1sit!2sit!4v1698062399000!5m2!1sit!2sit"
-                w="100%"
-                h="300px"
-                border={0}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+            {/* Messaggio */}
+            <label style={{ width: "100%" }}>
+              <span className="sr-only">Messaggio</span>
+              <textarea
+                name="messaggio"
+                placeholder="Descrivi il tuo progetto"
+                required
+                aria-required="true"
+                style={{
+                  width: "100%",
+                  padding: "12px",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  minHeight: "120px",
+                }}
               />
-            </Box>
-          </MotionBox>
-        </SimpleGrid>
+            </label>
 
-        <Divider my={14} />
+            <Box textAlign="center" mt={6}>
+              <Button
+                type="submit"
+                variant="solid"
+                size="lg"
+                onClick={() => track("cta_click", { where: "form_submit" })}
+              >
+                Invia richiesta →
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
 
-        {/* ===== FAQ (aiuta SEO + riduce frizione) ===== */}
-        <MotionBox initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-          <Heading size="lg" textAlign="center" mb={6}>Domande frequenti</Heading>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
-            <Box borderWidth="1px" rounded="xl" p={5}>
-              <Heading size="sm" mb={2}>In quanto tempo rispondete?</Heading>
-              <Text color="gray.700">Di solito entro 1–2 giorni lavorativi. Se è urgente, segnalalo nel messaggio.</Text>
-            </Box>
-            <Box borderWidth="1px" rounded="xl" p={5}>
-              <Heading size="sm" mb={2}>Possiamo fare una call di 30 minuti?</Heading>
-              <Text color="gray.700">Sì, organizziamo una call esplorativa gratuita per capire obiettivi e contesto.</Text>
-            </Box>
-            <Box borderWidth="1px" rounded="xl" p={5}>
-              <Heading size="sm" mb={2}>Lavorate solo nell’agroalimentare?</Heading>
-              <Text color="gray.700">È la nostra specializzazione, ma valutiamo progetti data-driven anche in settori contigui.</Text>
-            </Box>
-          </SimpleGrid>
-        </MotionBox>
 
-        <MotionBox
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          textAlign="center"
-          mt={14}
-        >
-          <Heading mb={3}>Pronti a parlarne?</Heading>
-          <Text color="gray.600" mb={6}>Più dettagli ci dai, più rapidamente potremo aiutarti.</Text>
-          <Button colorScheme="teal" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-            Torna al form
+      {/* FOOT CTA */}
+      <Box py={[8, 12]}>
+        <Container maxW="7xl" textAlign="center">
+          <Heading mb={3} color="nitra.primary">
+            Contattaci senza impegno
+          </Heading>
+          <Text fontSize="lg" color="gray.700" mb={4}>
+            Parliamo del tuo prossimo impianto frigorifero: insieme realizziamo soluzioni efficienti, sostenibili e su misura.
+          </Text>
+          <Button
+            as={RouterLink}
+            to="/azienda"
+            variant="outline"
+            size="lg"
+            onClick={() => track("cta_click", { where: "to_azienda" })}
+          >
+            Scopri chi siamo →
           </Button>
-        </MotionBox>
-      </Container>
+        </Container>
+      </Box>
     </>
   );
 }

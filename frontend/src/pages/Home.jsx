@@ -1,377 +1,383 @@
 // src/pages/Home.jsx
-import React, { useEffect, useMemo, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import {
   Box,
+  Container,
   Heading,
   Text,
   Button,
   Image,
-  IconButton,
-  HStack,
   SimpleGrid,
-  Container,
-  Icon,
-  List,
-  ListItem,
-  ListIcon,
   Stack,
-  Divider,
-  Link,
-  Tag,
-  VStack,
+  HStack,
+  LinkBox,
+  LinkOverlay,
 } from "@chakra-ui/react";
-import {
-  FaArrowLeft,
-  FaArrowRight,
-  FaGlobe,
-  FaHeadset,
-  FaLaptop,
-  FaCheckCircle,
-  FaNewspaper,
-  FaAward,
-} from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
-const getParam = (name) => new URLSearchParams(window.location.search).get(name) || "";
+const MotionImage = motion(Image);
 
-// === SLIDES ===
-const slides = [
+// NOTE: gli slug qui sotto sono allineati alle rotte che hai in App.jsx
+// - carni: .../lavorazionecarni  (senza trattino)
+// - gli altri come da Navbar che avevi condiviso
+const AGRO_CARDS = [
   {
-    image: "/Sfondo HOME.png",
-    headline:
-      "Marvincla. Il polo digitale che accompagna il settore agroalimentare nella trasformazione verso il futuro.",
-    subtitle:
-      "Un ecosistema di servizi e piattaforme che unisce innovazione tecnologica, analisi dei dati e conoscenza del settore per guidare la crescita delle imprese agroalimentari.",
-    cta: "Scopri di più",
-    ctaTarget: "vision",
+    img: "/lavorazionecarne.jpg",
+    title: "Lavorazione carni",
+    desc:
+      "Impianti frigoriferi per la lavorazione delle carni: celle TN e BT, tunnel di raffreddamento e abbattimento, sistemi per salatura e stagionatura con controllo di temperatura e umidità per garantire qualità e sicurezza alimentare.",
+    to: "/settori/agroalimentare/lavorazione-carni",
   },
   {
-    image: "/Sfondo HOME.png",
-    headline:
-      "Trasformiamo la filiera agroalimentare con dati, intelligenza artificiale, siti, e-commerce e piattaforme digitali.",
-    subtitle:
-      "Dalla terra ai mercati globali, integriamo tecnologia, strategia e competenza per rendere la filiera più efficiente, intelligente e connessa.",
-    cta: "Scopri le nostre soluzioni",
-    ctaTarget: "vision",
+    img: "/panificazione.webp",
+    title: "Panificazione",
+    desc:
+      "Impianti per fermalievita, abbattimento, conservazione impasti e camere di lievitazione controllata.",
+    to: "/settori/agroalimentare/panificazione",
   },
   {
-    image: "/Sfondo HOME.png",
-    headline:
-      "Dove l’innovazione incontra la filiera. Tecnologia, dati e visione strategica al servizio dell’agroalimentare.",
-    subtitle:
-      "Sviluppiamo soluzioni digitali, strumenti di analisi e piattaforme basate su intelligenza artificiale per aiutare le aziende a evolversi, connettersi e competere.",
-    cta: "Inizia la trasformazione",
-    ctaTarget: "vision",
+    img: "/lattiero.jpg",
+    title: "Prodotti lattiero-caseari",
+    desc:
+      "Raffreddamento latte, maturazione, stagionatura formaggi e celle a umidità controllata.",
+    to: "/settori/agroalimentare/lattiero-caseari",
+  },
+  {
+    img: "/ittico.jpg",
+    title: "Lavorazione ittico-pesce",
+    desc:
+      "Processo a bassa temperatura, surgelazione rapida, stoccaggio e sala lavorazione igienizzata.",
+    to: "/settori/agroalimentare/ittico",
+  },
+  {
+    img: "/frutta.jpg",
+    title: "Frutta e verdura",
+    desc:
+      "Pre-cooling, atmosfera controllata, celle frigoconservazione e linee di confezionamento.",
+    to: "/settori/agroalimentare/ortofrutta",
+  },
+  {
+    img: "/processoalimentare.jpg",
+    title: "Prodotti alimentari trasformati",
+    desc:
+      "Refrigerazione di processo, tunnel, chiller per fluidi secondari e stoccaggi a temperatura.",
+    to: "/settori/agroalimentare/trasformati",
   },
 ];
 
-export default function Home() {
-  const [index, setIndex] = useState(0);
+const MANIF_CARDS = [
+  {
+    img: "/logisticarefrigerata.jpg",
+    title: "Logistica refrigerata",
+    desc:
+      "Magazzini TN/BT, baie isotermiche, anticamere e gestione carichi con riduzione dispersioni.",
+    to: "/settori/manifatturiero/logistica-refrigerata",
+  },
+  {
+    img: "/logisticagdo.webp",
+    title: "Logistica GDO e distribuzione",
+    desc:
+      "Hub multi-temperatura, sistemi di supervisione energetica e continuità H24.",
+    to: "/settori/manifatturiero/logistica-gdo",
+  },
+  {
+    img: "/hydrocooler.jpg",
+    title: "Hydrocooler",
+    desc:
+      "Raffreddamento rapido post-raccolta per ortofrutta con alte portate d’acqua a temperatura controllata.",
+    to: "/settori/manifatturiero/hydrocooler",
+  },
+  {
+    img: "/vacuumcooler.jpg",
+    title: "Vacuumcooler",
+    desc:
+      "Raffreddamento sottovuoto di prodotto fresco: qualità elevata e shelf-life estesa.",
+    to: "/settori/manifatturiero/vacuumcooler",
+  },
+  {
+    img: "/sanificatore.webp",
+    title: "Sanificatore alimentare",
+    desc:
+      "Ionizzazione aria per abbattimento cariche microbiche, odori e VOC in ambienti alimentari.",
+    to: "/settori/manifatturiero/sanificatore",
+  },
+  {
+    img: "/produttoreghiaccio.webp",
+    title: "Produttori di ghiaccio",
+    desc:
+      "Ghiaccio granulare/supergranulare e a scaglie per conservazione e presentazione prodotto.",
+    to: "/settori/manifatturiero/produttoreghiaccio",
+  },
+];
 
-  // ===== SEO e ADV tracking =====
-  const utm = useMemo(
-    () => ({
-      source: getParam("utm_source"),
-      medium: getParam("utm_medium"),
-      campaign: getParam("utm_campaign"),
-      content: getParam("utm_content"),
-      term: getParam("utm_term"),
-      gclid: getParam("gclid"),
-    }),
-    []
-  );
-
-  useEffect(() => {
-    // --- SEO meta ---
-    const setMeta = (selector, attr, content) => {
-      let el = document.querySelector(selector);
-      if (!el) {
-        el = document.createElement("meta");
-        if (selector.includes("name=")) {
-          el.setAttribute("name", selector.match(/name='([^']+)'/)?.[1] || "");
-        } else if (selector.includes("property=")) {
-          el.setAttribute("property", selector.match(/property='([^']+)'/)?.[1] || "");
-        }
-        document.head.appendChild(el);
-      }
-      el.setAttribute(attr, content);
-    };
-
-    const setLink = (rel, href) => {
-      let el = document.querySelector(`link[rel='${rel}']`);
-      if (!el) {
-        el = document.createElement("link");
-        el.setAttribute("rel", rel);
-        document.head.appendChild(el);
-      }
-      el.setAttribute("href", href);
-    };
-
-    document.title =
-      "Marvincla | Polo digitale per la filiera agroalimentare – AI, dati e innovazione sostenibile";
-    setMeta(
-      "meta[name='description']",
-      "content",
-      "Marvincla è la startup innovativa che trasforma la filiera agroalimentare con AI, dati e piattaforme digitali. Scopri ColdSharing e i nostri servizi."
-    );
-    setMeta(
-      "meta[name='keywords']",
-      "content",
-      "Marvincla, ColdSharing, startup innovativa, digitalizzazione agroalimentare, AI, logistica freddo, e-commerce B2B, Puglia"
-    );
-    setMeta("meta[property='og:title']", "content", "Marvincla — Innovazione per la filiera agroalimentare");
-    setMeta(
-      "meta[property='og:description']",
-      "content",
-      "Scopri come Marvincla unisce tecnologia, dati e strategia per rendere sostenibile e competitiva la filiera agroalimentare italiana."
-    );
-    setMeta("meta[property='og:type']", "content", "website");
-    setMeta("meta[property='og:image']", "content", "/og-home.jpg");
-    setLink("canonical", "https://marvincla.it/");
-
-    // --- JSON-LD ---
-    const ldId = "ld-home";
-    let ld = document.getElementById(ldId);
-    if (!ld) {
-      ld = document.createElement("script");
-      ld.type = "application/ld+json";
-      ld.id = ldId;
-      document.head.appendChild(ld);
-    }
-    ld.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: "Marvincla",
-      url: "https://marvincla.it",
-      logo: "https://marvincla.it/logo-marvincla.png",
-      description:
-        "Polo digitale che supporta la filiera agroalimentare nella trasformazione digitale con AI, piattaforme e dati.",
-      sameAs: [
-        "https://www.regione.puglia.it/web/competitivita-e-innovazione/-/start-cup-puglia-2023-il-18-ottobre-la-finale-a-lecce",
-        "https://www.corrieredelmezzogiorno.it/",
-      ],
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Via Giuseppe Semerari, 7",
-        addressLocality: "Bari",
-        addressRegion: "Puglia",
-        postalCode: "70132",
-        addressCountry: "IT",
-      },
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          contactType: "customer support",
-          email: "info@marvincla.it",
-          telephone: "+39 000 000 0000",
-        },
-      ],
-    });
-  }, []);
-
-  useEffect(() => {
-    const t = setInterval(() => setIndex((p) => (p + 1) % slides.length), 9000);
-    return () => clearInterval(t);
-  }, []);
-
-  const next = () => setIndex((p) => (p + 1) % slides.length);
-  const prev = () => setIndex((p) => (p - 1 + slides.length) % slides.length);
-
+/* -------------------------------------------------------------------------- */
+/*                           COMPONENTE CARD MORBIDA                          */
+/* -------------------------------------------------------------------------- */
+function SoftCard({ img, title, desc, to }) {
   return (
-    <>
-      {/* ====================== HERO ====================== */}
-      <Box position="relative" overflow="hidden">
-        <Image src={slides[index].image} w="100%" h={["80vh", "90vh", "100vh"]} objectFit="cover" />
-        <Box position="absolute" inset="0" bg="rgba(0,0,0,0.45)" display="flex" alignItems="center">
-          <Box color="white" px={["6", "12", "24"]} maxW="6xl">
-            <AnimatePresence mode="wait">
-              <MotionBox
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -40 }}
-                transition={{ duration: 0.8 }}
-                textAlign="left"
-              >
-                <Heading size="2xl" mb={6} lineHeight="1.15">
-                  {slides[index].headline}
-                </Heading>
-                <Text fontSize="xl" mb={8} color="gray.100" maxW="4xl">
-                  {slides[index].subtitle}
-                </Text>
-                <Button
-                  colorScheme="teal"
-                  size="lg"
-                  px={8}
-                  py={6}
-                  borderRadius="full"
-                  boxShadow="lg"
-                  _hover={{ bg: "teal.400" }}
-                  onClick={() => document.getElementById(slides[index].ctaTarget)?.scrollIntoView({ behavior: "smooth" })}
-                >
-                  🔹 {slides[index].cta}
-                </Button>
-              </MotionBox>
-            </AnimatePresence>
-          </Box>
-        </Box>
-
-        {/* Navigazione slider */}
-        <IconButton
-          aria-label="Previous"
-          icon={<FaArrowLeft />}
-          position="absolute"
-          top="50%"
-          left="6"
-          transform="translateY(-50%)"
-          colorScheme="whiteAlpha"
-          onClick={prev}
-          variant="ghost"
-          fontSize="2xl"
+    <LinkBox
+      as={MotionBox}
+      role="group"
+      tabIndex={0}
+      bg="white"
+      border="1px solid"
+      borderColor="nitra.accent"
+      borderRadius="28px"
+      overflow="hidden"
+      transition="all .25s ease"
+      _hover={{ boxShadow: "xl", transform: "translateY(-4px)" }}
+      _focusWithin={{ boxShadow: "0 0 0 3px rgba(14,74,103,0.5)" }} // blu scuro con opacità
+      color="#0E4A67" // 👈 testo blu scuro per tutto il contenuto
+    >
+      {/* Immagine */}
+      <Box position="relative">
+        <MotionImage
+          src={img}
+          alt={title}
+          w="100%"
+          h={["140px", "160px", "180px"]}
+          objectFit="cover"
+          borderTopLeftRadius="28px"
+          borderTopRightRadius="28px"
+          initial={{ scale: 1.02 }}
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.35 }}
         />
-        <IconButton
-          aria-label="Next"
-          icon={<FaArrowRight />}
+        <Box
           position="absolute"
-          top="50%"
-          right="6"
-          transform="translateY(-50%)"
-          colorScheme="whiteAlpha"
-          onClick={next}
-          variant="ghost"
-          fontSize="2xl"
+          inset={0}
+          bgGradient="linear(to-b, blackAlpha.100, blackAlpha.0 60%)"
+          borderTopLeftRadius="28px"
+          borderTopRightRadius="28px"
         />
       </Box>
 
-      {/* ====================== PROGETTO DI PUNTA ====================== */}
-      <Container id="progetto-punta" maxW="7xl" py={[12, 16, 20]}>
-        <SimpleGrid columns={[1, 2]} spacing={10} alignItems="center">
-          <MotionBox initial={{ opacity: 0, x: -80 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-            <Heading size="lg" color="teal.600" mb={3}>
-              Il nostro progetto di punta
-            </Heading>
-            <Heading mb={4}>
-              ColdSharing — il marketplace B2B che digitalizza la condivisione del freddo.
-            </Heading>
-            <Text fontSize="lg" color="gray.700" mb={6}>
-              Nato in Marvincla, ColdSharing connette imprese agroalimentari, logistiche e operatori del freddo.
-              Un progetto riconosciuto tra i finalisti della <b>Start Cup Puglia 2023</b> e menzionato da
-              <b> La Repubblica</b>. Scopri come stiamo ridefinendo la logistica sostenibile.
-            </Text>
-            <Button as={RouterLink} to="/coldsharing" colorScheme="teal" size="lg">
-              🔹 Scopri ColdSharing
-            </Button>
-          </MotionBox>
-
-          <MotionBox initial={{ opacity: 0, x: 80 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-            <Image src="/cold-sharing-logo.png" alt="ColdSharing" rounded="lg" shadow="lg" />
-          </MotionBox>
-        </SimpleGrid>
-
-        {/* TRUST BLOCK */}
-        <VStack mt={10} spacing={3} align="start">
-          <HStack>
-            <Icon as={FaAward} color="teal.500" />
-            <Text>
-              Finalista <b>Start Cup Puglia 2023</b> —{" "}
-              <Link
-                href="https://www.regione.puglia.it/web/competitivita-e-innovazione/-/start-cup-puglia-2023-il-18-ottobre-la-finale-a-lecce"
-                color="teal.600"
-                isExternal
-              >
-                leggi l’articolo
-              </Link>
-            </Text>
-          </HStack>
-          <HStack>
-            <Icon as={FaNewspaper} color="teal.500" />
-            <Text>Uscito su <b>La Repubblica</b> — rassegna stampa 2023</Text>
-          </HStack>
-          <HStack spacing={2}>
-            <Tag colorScheme="teal" variant="subtle">Innovazione</Tag>
-            <Tag colorScheme="teal" variant="subtle">Sostenibilità</Tag>
-            <Tag colorScheme="teal" variant="subtle">Logistica</Tag>
-          </HStack>
-        </VStack>
-      </Container>
-
-      <Divider />
-
-      {/* ====================== VISION ====================== */}
-      <Container id="vision" maxW="7xl" py={[12, 16, 20]}>
-        <Stack spacing={6}>
-          <Heading>Da visione a innovazione</Heading>
-          <Text fontSize="lg" color="gray.700">
-            Marvincla è una <b>startup innovativa</b> che trasforma la filiera agroalimentare italiana
-            con strategie digitali, AI e piattaforme integrate. Costruiamo un ecosistema in cui produttori,
-            logistiche e distributori collaborano per una crescita sostenibile e tracciabile.
-          </Text>
-
-          <Box>
-            <Heading size="md" mb={3}>La nostra visione</Heading>
-            <Text fontSize="lg" color="gray.700">
-              Crediamo in un futuro dove la filiera è intelligente e connessa. La nostra missione è
-              aiutare le imprese a competere globalmente, valorizzando il territorio con la tecnologia.
-            </Text>
-          </Box>
-
-          <Box id="services">
-            <Heading size="md" mb={3}>Cosa facciamo</Heading>
-            <List spacing={2} fontSize="lg" color="gray.700">
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Servizi digitali → web, adv, social strategy.</ListItem>
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Business Intelligence → analisi dati e insight di mercato.</ListItem>
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />Sviluppo software → piattaforme e marketplace su misura.</ListItem>
-              <ListItem><ListIcon as={FaCheckCircle} color="teal.500" />AI integrata → automazione, predizione e personalizzazione.</ListItem>
-            </List>
-
-            <Button mt={6} colorScheme="teal" as={RouterLink} to="/servizi">
-              🔹 Esplora i nostri servizi
-            </Button>
-          </Box>
-        </Stack>
-      </Container>
-
-      <Divider />
-
-      {/* ====================== PERCHÉ MARVINCLA ====================== */}
-      <Container maxW="7xl" py={[12, 16, 20]}>
-        <Heading mb={6}>Perché scegliere Marvincla</Heading>
-        <Text fontSize="lg" color="gray.700" mb={6}>
-          Perché uniamo <b>competenza tecnologica</b> e <b>conoscenza del settore agroalimentare</b>.
-          Accompagniamo le imprese dal concept al go-live, integrando dati, design e strategia per
-          massimizzare ogni investimento digitale.
+      {/* Corpo testo */}
+      <Stack spacing={3} p={[4, 5]}>
+        <Heading as="h3" size="md" color="#0E4A67">
+          <LinkOverlay as={RouterLink} to={to}>
+            {title}
+          </LinkOverlay>
+        </Heading>
+        <Text fontSize="sm" color="#0E4A67">
+          {desc}
         </Text>
 
-        <SimpleGrid columns={[1, 3]} spacing={8}>
-          {[
-            { icon: FaLaptop, title: "Digitale end-to-end" },
-            { icon: FaGlobe, title: "Filiera connessa" },
-            { icon: FaHeadset, title: "Supporto strategico" },
-          ].map((it, i) => (
-            <MotionBox key={i} p={6} borderWidth="1px" rounded="2xl" whileHover={{ y: -4 }} transition="0.2s">
-              <Icon as={it.icon} color="teal.500" boxSize={8} mb={3} />
-              <Heading size="md" mb={2}>{it.title}</Heading>
-              <Text color="gray.600">Soluzioni su misura e accompagnamento continuo per risultati concreti.</Text>
-            </MotionBox>
+        <Button
+          as={RouterLink}
+          to={to}
+          mt={2}
+          size="sm"
+          bg="#B04125" // arancione brand
+          color="white"
+          borderRadius="999px"
+          alignSelf="start"
+          _hover={{ bg: "#C85B38", transform: "translateY(-1px)" }}
+          _active={{ bg: "#9F3A22", transform: "translateY(0)" }}
+          transition="all .2s ease"
+        >
+          Scopri di più →
+        </Button>
+      </Stack>
+    </LinkBox>
+  );
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  HOME PAGE                                 */
+/* -------------------------------------------------------------------------- */
+export default function Home() {
+  const { lang = "it" } = useParams(); // <-- PRENDO LA LINGUA
+  useEffect(() => {
+    document.title =
+      "Nitra System | Refrigerazione industriale per agroalimentare e di processo";
+  }, []);
+
+  // Helper per pre-pendere /:lang ai link
+  const withLang = (path) => `/${lang}${path}`;
+
+  return (
+    <>
+      {/* ====================== HERO (restyling) ====================== */}
+      <Box position="relative" mt={{ base: "72px", md: "80px" }}>
+        <Image
+          src="/sfondohome.png"
+          alt="Impianti frigoriferi Nitra System"
+          w="100%"
+          h={{ base: "70vh", md: "78vh" }}
+          objectFit="cover"
+        />
+
+        <Box
+          position="absolute"
+          inset={0}
+          bgGradient={`
+            radial(ellipse at 50% 35%, rgba(0,0,0,0.55), transparent 55%),
+            linear(to-b, rgba(0,0,0,0.55), rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.25))
+          `}
+        />
+
+        <Box
+          position="absolute"
+          inset={0}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          px={{ base: 4, md: 6 }}
+        >
+          <MotionBox
+            color="white"
+            initial={{ opacity: 0, y: 18, filter: "blur(2px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+            maxW="6xl"
+          >
+            <Heading
+              as="h1"
+              fontWeight="800"
+              lineHeight={1.05}
+              letterSpacing="tight"
+              fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }}
+              textShadow="0 6px 22px rgba(0,0,0,0.35)"
+            >
+              REFRIGERAZIONE INDUSTRIALE
+              <Box as="span" display="block">
+                E COMMERCIALE.
+              </Box>
+            </Heading>
+
+            <Text
+              mt={{ base: 3, md: 4 }}
+              fontSize={{ base: "md", md: "lg" }}
+              color="whiteAlpha.900"
+              opacity={0.95}
+              maxW="3xl"
+              mx="auto"
+            >
+              Progettazione e realizzazione di Celle frigorifere, Magazzini refrigerati,
+              Hydrocooler e Vacuumcooler per il settore industriale e commerciale.
+            </Text>
+
+            {/*<HStack justify="center" spacing={4} mt={{ base: 5, md: 6 }}>
+              <Button
+                as={RouterLink}
+                to={withLang("#agro")}
+                size="lg"
+                borderRadius="999px"
+                px={6}
+                bg="#B04125" p={6} rounded="xl"
+                color="white"
+                boxShadow="0 8px 24px rgba(56,178,172,0.35)"
+                _hover={{ bg: "teal.500", transform: "translateY(-2px)" }}
+                _active={{ transform: "translateY(0)" }}
+                transition="all .2s ease"
+              >
+                Settore Agroalimentare
+              </Button>
+
+              <Button
+                as={RouterLink}
+                to={withLang("#manif")}
+                size="lg"
+                borderRadius="999px"
+                px={6}
+                bg="#B04125" p={6} rounded="xl"
+                border="1px solid"
+                borderColor="whiteAlpha.300"
+                color="white"
+                backdropFilter="saturate(140%) blur(6px)"
+                _hover={{ bg: "rgba(255,255,255,0.12)", transform: "translateY(-2px)" }}
+                _active={{ transform: "translateY(0)" }}
+                transition="all .2s ease"
+              >
+                Settore Industriale
+              </Button>
+            </HStack>*/}
+          </MotionBox>
+        </Box>
+
+        <Box position="absolute" bottom="-1px" left={0} right={0}>
+          <Box
+            as="svg"
+            viewBox="0 0 1440 80"
+            w="100%"
+            h={{ base: 12, md: 16 }}
+            preserveAspectRatio="none"
+            display="block"
+          >
+            <path d="M0,32 C240,64 480,64 720,32 C960,0 1200,0 1440,32 L1440,80 L0,80 Z" fill="#fff" />
+          </Box>
+        </Box>
+      </Box>
+
+      {/* ====================== SETTORE AGROALIMENTARE ====================== */}
+      <Container id="agro" maxW="7xl" py={[12, 16]}>
+        <Heading
+          size="sm"
+          textAlign="center"
+          color="nitra.accent"
+          letterSpacing="widest"
+        >
+          IMPIANTI DI REFRIGERAZIONE INDUSTRIALE
+        </Heading>
+        <Heading textAlign="center" color="#0E4A67" mt={2} mb={8}>
+          SETTORE AGROALIMENTARE
+        </Heading>
+
+        <SimpleGrid columns={[1, 2, 3]} spacing={[4, 6, 8]}>
+          {AGRO_CARDS.map((c, i) => (
+            <SoftCard
+              key={i}
+              img={c.img}
+              title={c.title}
+              desc={c.desc}
+              to={withLang(c.to)} // <-- PREFISSO LINGUA
+            />
           ))}
         </SimpleGrid>
-
-        <Button as={RouterLink} to="/chisiamo" colorScheme="teal" size="lg" mt={8}>
-          🔹 Scopri chi siamo
-        </Button>
       </Container>
 
-      {/* ====================== CALL TO ACTION ====================== */}
-      <Box bg="gray.50" py={[14, 20]}>
+      {/* ====================== SETTORE MANIFATTURIERO ====================== */}
+      <Container id="manif" maxW="7xl" py={[6, 12]}>
+        <Heading
+          size="sm"
+          textAlign="center"
+          color="nitra.accent"
+          letterSpacing="widest"
+        >
+          IMPIANTI DI REFRIGERAZIONE INDUSTRIALE E COMMERCIALE
+        </Heading>
+        <Heading textAlign="center" color="#0E4A67" mt={2} mb={8}>
+          SETTORE INDUSTRIALE
+        </Heading>
+
+        <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={[4, 6, 8]} justifyItems="center">
+          {MANIF_CARDS.map((c, i) => (
+            <SoftCard
+              key={i}
+              img={c.img}
+              title={c.title}
+              desc={c.desc}
+              to={withLang(c.to)} // <-- PREFISSO LINGUA
+            />
+          ))}
+        </SimpleGrid>
+      </Container>
+
+      {/* ====================== FOOT CTA ====================== */}
+      <Box bg="gray.50" py={[10, 14]}>
         <Container maxW="7xl" textAlign="center">
-          <Heading mb={3}>Marvincla. Dove l’innovazione incontra la filiera.</Heading>
-          <Text fontSize="lg" color="gray.700" mb={6}>
-            Tradizione, tecnologia e visione. Un solo partner per digitalizzare la tua impresa agroalimentare.
+          <Heading mb={3}>Parla con i nostri tecnici</Heading>
+          <Text color="gray.700" mb={6}> 
+            Operiamo in tutta Italia e in Bulgaria. Partner ideale per espandere la tua attività
+            nell'Europa dell'Est.
           </Text>
-          <Button as={RouterLink} to="/contatti" colorScheme="teal" size="lg">
-            Parla con noi →
+          <Button as={RouterLink} to={withLang("/contatti")} colorScheme="teal" size="lg">
+            Richiedi una consulenza →
           </Button>
         </Container>
       </Box>

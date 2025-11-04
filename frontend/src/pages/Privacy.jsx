@@ -1,3 +1,4 @@
+// src/pages/Privacy.jsx
 import {
   Container,
   Heading,
@@ -11,30 +12,30 @@ import {
 
 export default function Privacy() {
   return (
-    <Container maxW="6xl" py={[10, 16]} lineHeight="tall">
+    <Container maxW="6xl" py={[10, 16]} lineHeight="tall" bg="transparent">
       <VStack align="start" spacing={6}>
-        <Heading size="lg" color="teal.700">
+        <Heading size="lg" color="nitra.primary">
           Informativa sulla Privacy
         </Heading>
 
         <Text fontSize="md" color="gray.700">
-          Questa informativa descrive come <b> Marvincla S.r.l.</b> tratta i dati
-          personali degli utenti nel rispetto del Regolamento (UE) 2016/679 (“<b>GDPR</b>”)
+          Questa informativa descrive come <b>Nitra System Ltd</b> tratta i dati
+          personali degli utenti nel rispetto del Regolamento (UE) 2016/679 (<b>GDPR</b>)
           e della normativa nazionale applicabile.
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Titolare del Trattamento</Heading>
+        <Heading size="md" color="nitra.primary">Titolare del Trattamento</Heading>
         <Text fontSize="md" color="gray.700">
-          <b>Marvincla S.r.l.</b><br />
-          Via Giuseppe Semerari, 7, 70132 Bari (BA) - Italia<br />
-          <b>Email:</b> marvinclasrl@gmail.com
+          <b>Nitra System Ltd</b><br />
+          8800 Sliven – Bulgaria, Road Baba Tonca n. 5A<br />
+          <b>Email:</b> <ChakraLink href="mailto:nitrasystem@gmail.com" color="nitra.accent">nitrasystem@gmail.com</ChakraLink>
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Tipologie di dati trattati</Heading>
+        <Heading size="md" color="nitra.primary">Tipologie di dati trattati</Heading>
         <Text fontSize="md" color="gray.700">
           Trattiamo, a seconda dei casi, le seguenti categorie di dati: dati anagrafici
           (nome, cognome, data di nascita), dati di contatto (email, telefono, indirizzo),
@@ -44,9 +45,9 @@ export default function Privacy() {
           fornirci attraverso form o contatti diretti.
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Finalità e basi giuridiche</Heading>
+        <Heading size="md" color="nitra.primary">Finalità e basi giuridiche</Heading>
         <List spacing={2} color="gray.700" fontSize="md">
           <ListItem>• <b>Erogazione dei servizi</b> e gestione di richieste/ordini (esecuzione di misure precontrattuali/contratto).</ListItem>
           <ListItem>• <b>Adempimenti di legge</b> (obblighi amministrativi, fiscali, contabili).</ListItem>
@@ -55,20 +56,20 @@ export default function Privacy() {
           <ListItem>• <b>Analisi e sicurezza</b> del sito/applicazione, prevenzione di abusi e frodi (legittimo interesse/obbligo di legge).</ListItem>
         </List>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Modalità del trattamento</Heading>
+        <Heading size="md" color="nitra.primary">Modalità del trattamento</Heading>
         <Text fontSize="md" color="gray.700">
           I dati sono trattati con strumenti informatici e/o telematici secondo principi di
           liceità, trasparenza, minimizzazione e sicurezza. L’accesso ai dati è consentito
           a personale autorizzato e a soggetti terzi che forniscono servizi al Titolare
-          (es. hosting, IT, consulenza, logistica, amministrazione), nominati se necessario
-          <i>Responsabili del Trattamento</i>. I dati non sono diffusi.
+          (es. hosting, IT, consulenza, logistica, amministrazione), nominati ove necessario
+          come <i>Responsabili del Trattamento</i>. I dati non sono diffusi.
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Conferimento dei dati</Heading>
+        <Heading size="md" color="nitra.primary">Conferimento dei dati</Heading>
         <Text fontSize="md" color="gray.700">
           Il conferimento dei dati contrassegnati come <b>obbligatori</b> è necessario per
           fornire i servizi richiesti o adempiere a obblighi di legge: il mancato conferimento
@@ -76,9 +77,9 @@ export default function Privacy() {
           facoltativo (puoi revocare il consenso in ogni momento).
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Ambito di comunicazione</Heading>
+        <Heading size="md" color="nitra.primary">Ambito di comunicazione</Heading>
         <Text fontSize="md" color="gray.700">
           I dati possono essere comunicati a fornitori e partner che supportano l’erogazione
           dei servizi (es. IT, posta elettronica, pagamenti, consulenti, logistica), nonché
@@ -86,18 +87,18 @@ export default function Privacy() {
           Responsabili è disponibile su richiesta.
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Trasferimenti extra-UE</Heading>
+        <Heading size="md" color="nitra.primary">Trasferimenti extra-UE</Heading>
         <Text fontSize="md" color="gray.700">
           Qualora alcuni fornitori abbiano sedi extra-UE, il trasferimento avverrà nel rispetto
           del Capo V del GDPR (decisioni di adeguatezza, Clausole Contrattuali Standard o altre
           garanzie adeguate).
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Periodo di conservazione</Heading>
+        <Heading size="md" color="nitra.primary">Periodo di conservazione</Heading>
         <Text fontSize="md" color="gray.700">
           Conserviamo i dati per il tempo strettamente necessario alle finalità indicate.
           I termini possono prolungarsi per obblighi di legge (es. contabili/fiscali) o
@@ -105,9 +106,9 @@ export default function Privacy() {
           sono cancellati o anonimizzati.
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Diritti degli interessati</Heading>
+        <Heading size="md" color="nitra.primary">Diritti degli interessati</Heading>
         <List spacing={2} color="gray.700" fontSize="md">
           <ListItem>• accesso, rettifica, aggiornamento;</ListItem>
           <ListItem>• cancellazione e limitazione del trattamento;</ListItem>
@@ -116,24 +117,26 @@ export default function Privacy() {
           <ListItem>• revoca del consenso, ove il trattamento si basi sul consenso.</ListItem>
         </List>
         <Text fontSize="md" color="gray.700">
-          Per esercitare i diritti: scrivi a <b>marvinclasrl@gmail.com</b>. Hai inoltre
-          il diritto di proporre reclamo al Garante per la protezione dei dati personali.
+          Per esercitare i diritti: scrivi a{" "}
+          <ChakraLink href="mailto:nitrasystem@gmail.com" color="nitra.accent">
+            nitrasystem@gmail.com
+          </ChakraLink>. Hai inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali.
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Cookie e strumenti di tracciamento</Heading>
+        <Heading size="md" color="nitra.primary">Cookie e strumenti di tracciamento</Heading>
         <Text fontSize="md" color="gray.700">
           Il sito utilizza cookie tecnici e, previo consenso, eventuali cookie analitici/di terze
           parti. Per maggiori dettagli e per gestire le preferenze consulta la{" "}
-          <ChakraLink href="/cookies" color="teal.600" textDecoration="underline">
+          <ChakraLink href="/cookies" color="nitra.accent" textDecoration="underline">
             Cookie Policy
           </ChakraLink>.
         </Text>
 
-        <Divider />
+        <Divider borderColor="rgba(14,74,103,0.18)" />
 
-        <Heading size="md" color="teal.600">Modifiche all’informativa</Heading>
+        <Heading size="md" color="nitra.primary">Modifiche all’informativa</Heading>
         <Text fontSize="md" color="gray.700">
           Potremmo aggiornare periodicamente questa informativa. Ti invitiamo a consultare
           questa pagina per eventuali aggiornamenti rilevanti.

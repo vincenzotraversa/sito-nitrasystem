@@ -1,324 +1,175 @@
-// src/pages/CosaFacciamo.jsx
-import React, { useEffect } from "react";
+// src/pages/Cosafacciamo.jsx
 import {
   Box,
   Container,
   Heading,
   Text,
-  Button,
   Image,
   SimpleGrid,
   Stack,
+  Divider,
   List,
   ListItem,
-  ListIcon,
-  Icon,
-  Divider,
-  usePrefersReducedMotion,
+  Badge,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import {
-  FaCheckCircle,
-  FaBullseye,
-  FaChartBar,
-  FaCogs,
-  FaRobot,
-  FaHandshake,
-} from "react-icons/fa";
-import { Link as RouterLink } from "react-router-dom";
 
 const MotionBox = motion(Box);
 
-const fade = (prm) => ({
-  initial: { opacity: 0, y: prm?.y ?? 24 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: prm?.d ?? 0.6, ease: "easeOut" },
-  viewport: { once: true, amount: 0.3 },
-});
-
-export default function CosaFacciamo() {
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  // === SEO + ADV setup ===
-  useEffect(() => {
-    document.title = "Cosa Facciamo | Marvincla — Soluzioni Digitali per l’Agroalimentare";
-    const setMeta = (name, content, property = false) => {
-      const sel = property ? `meta[property='${name}']` : `meta[name='${name}']`;
-      let tag = document.querySelector(sel);
-      if (!tag) {
-        tag = document.createElement("meta");
-        if (property) tag.setAttribute("property", name);
-        else tag.setAttribute("name", name);
-        document.head.appendChild(tag);
-      }
-      tag.setAttribute("content", content);
-    };
-
-    // ✅ Meta + OG
-    setMeta(
-      "description",
-      "Scopri come Marvincla trasforma il settore agroalimentare con soluzioni digitali: sviluppo software, AI, e-commerce, Business Intelligence e marketing integrato."
-    );
-    setMeta("og:title", "Cosa Facciamo | Marvincla");
-    setMeta(
-      "og:description",
-      "Dalla strategia alla tecnologia: piattaforme digitali, intelligenza artificiale e partnership per la crescita delle imprese agroalimentari."
-    );
-    setMeta("og:image", "/og-cosafacciamo.jpg");
-    setMeta("og:type", "website");
-
-    // ✅ JSON-LD Schema (Service + Organization)
-    const ldId = "ld-service";
-    let ld = document.getElementById(ldId);
-    if (!ld) {
-      ld = document.createElement("script");
-      ld.type = "application/ld+json";
-      ld.id = ldId;
-      document.head.appendChild(ld);
-    }
-    ld.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Servizi digitali per la filiera agroalimentare",
-      provider: {
-        "@type": "Organization",
-        name: "Marvincla",
-        url: "https://marvincla.it",
-        logo: "https://marvincla.it/logo-marvincla.png",
-      },
-      areaServed: "IT",
-      serviceType: [
-        "Sviluppo software",
-        "Business Intelligence",
-        "Intelligenza Artificiale",
-        "Strategie Digitali",
-      ],
-      description:
-        "Marvincla offre soluzioni integrate per digitalizzare la filiera agroalimentare: piattaforme web, data analytics e AI applicata ai processi produttivi e commerciali.",
-    });
-  }, []);
-
+export default function Cosafacciamo() {
   return (
     <>
-      {/* ===== HERO ===== */}
-      <Box position="relative" overflow="hidden" role="region" aria-label="Cosa facciamo - hero">
-        <Box as="picture">
-          <source srcSet="/Cosafacciamo.png" type="image/avif" />
-          <source srcSet="/Cosafacciamo.png" type="image/webp" />
-          <Image
-            src="/Cosafacciamo.png"
-            alt="Soluzioni digitali per la filiera agroalimentare"
-            w="100%"
-            h={{ base: "56vh", md: "64vh", lg: "72vh" }}
-            objectFit="cover"
-            loading="eager"
-          />
-        </Box>
-
+      {/* ================== HERO ================== */}
+      <Box position="relative" overflow="hidden">
+        <Image
+          src="/impianti-nitra-hero.jpg"
+          alt="Impianti frigoriferi industriali Nitra System"
+          w="100%"
+          h={["50vh", "60vh", "70vh"]}
+          objectFit="cover"
+        />
         <Box
           position="absolute"
           inset="0"
-          bgGradient="linear(to-b, blackAlpha.700 0%, blackAlpha.600 40%, blackAlpha.700 100%)"
+          bg="rgba(0,0,0,0.5)"
           display="flex"
           alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          px={4}
         >
-          <Container maxW="7xl" px={{ base: 6, md: 8, lg: 12 }}>
-            <MotionBox
-              {...(prefersReducedMotion ? { initial: false } : fade({ y: 20, d: 0.6 }))}
-              color="white"
-              maxW="5xl"
-            >
-              <Heading as="h1" size="2xl" lineHeight="1.1" mb={4}>
-                Trasformiamo il settore agroalimentare con la forza del digitale
-              </Heading>
-              <Text fontSize="xl" color="whiteAlpha.900" mb={6}>
-                Soluzioni su misura che uniscono analisi, strategia e tecnologia. Dalla tracciabilità
-                all’AI, rendiamo la filiera più efficiente e competitiva.  
-                📈 <b>Dal campo alla rete: il digitale che genera valore.</b>
-              </Text>
-            </MotionBox>
-          </Container>
+          <MotionBox
+            color="white"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Heading size={["xl", "2xl", "3xl"]} mb={3}>
+              Cosa facciamo
+            </Heading>
+            <Text fontSize={["lg", "xl"]} maxW="4xl" mx="auto">
+              Soluzioni complete per refrigerazione industriale: progettazione, realizzazione, automazione e manutenzione H24.
+            </Text>
+          </MotionBox>
         </Box>
       </Box>
 
-      {/* ===== SEZIONE: SERVIZI DIGITALI ===== */}
-      <Section
-        id="servizi-digitali"
-        icon={FaBullseye}
-        title="Servizi digitali"
-        text={
-          <>
-            <b>Comunicare, connettere, crescere.</b> Creiamo e gestiamo siti web, portali e piattaforme
-            e-commerce pensati per valorizzare le imprese agroalimentari. Strategie personalizzate —
-            dal SEO/SEM alle campagne ADV — per generare visibilità e risultati concreti.
-          </>
-        }
-        quote="Dal campo alla rete: il digitale che genera valore."
-        items={[
-          "Siti web, portali e e-commerce su misura",
-          "Strategie SEO, SEM e pubblicità mirata",
-          "Social Media Management e campagne ADV",
-          "Gestione contenuti multimediali e storytelling aziendale",
-        ]}
-        img="/servizidigitali.png"
-        alt="Soluzioni digitali per l’agroalimentare"
-      />
-
-      <Divider />
-
-      {/* ===== SEZIONE: BUSINESS INTELLIGENCE ===== */}
-      <Section
-        reverse
-        id="business-intelligence"
-        icon={FaChartBar}
-        title="Business Intelligence"
-        text={
-          <>
-            <b>Dati che diventano decisioni.</b> Analisi su import/export, domanda e trend di mercato per
-            decisioni strategiche basate su evidenze reali. Dashboard e previsioni per guidare la crescita.
-          </>
-        }
-        quote="Trasformiamo i dati in vantaggio competitivo."
-        items={[
-          "Dashboard interattive per la direzione commerciale",
-          "Analisi import/export e indicatori di mercato",
-          "Report di settore con KPI strategici",
-          "Previsioni e simulazioni basate su AI",
-        ]}
-        img="/businessintelligence.png"
-        alt="Business Intelligence agroalimentare"
-      />
-
-      <Divider />
-
-      {/* ===== SEZIONE: SVILUPPO SOFTWARE ===== */}
-      <Section
-        id="sviluppo-software"
-        icon={FaCogs}
-        title="Sviluppo software e piattaforme IT"
-        text={
-          <>
-            <b>Soluzioni su misura per la filiera agroalimentare.</b> Progettiamo software gestionali,
-            piattaforme B2B e integrazioni ERP/CRM/API per ottimizzare i processi e scalare in cloud.
-          </>
-        }
-        quote="Digitalizziamo i processi per migliorare l’efficienza."
-        items={[
-          "Piattaforme B2B e marketplace verticali",
-          "Integrazioni ERP/CRM/API e sistemi legacy",
-          "Gestionali su misura e app PWA responsive",
-          "Sicurezza e scalabilità cloud-native",
-        ]}
-        img="/svilupposoftware.png"
-        alt="Sviluppo software e piattaforme IT"
-      />
-
-      <Divider />
-
-      {/* ===== SEZIONE: INTELLIGENZA ARTIFICIALE ===== */}
-      <Section
-        reverse
-        id="intelligenza-artificiale"
-        icon={FaRobot}
-        title="Intelligenza Artificiale integrata"
-        text={
-          <>
-            <b>L’AI come motore dell’innovazione.</b> Automatizziamo analisi, forecasting e controllo qualità
-            con modelli predittivi che migliorano decisioni, efficienza e sostenibilità.
-          </>
-        }
-        quote="Dati, automazione e intelligenza per una filiera che pensa in digitale."
-        items={[
-          "Forecast della domanda e ottimizzazione scorte",
-          "Rilevamento anomalie e qualità prodotto",
-          "Raccomandazioni automatiche e scoring lead",
-          "Automazione documentale e analisi predittiva",
-        ]}
-        img="/intelligenzaartificiale.png"
-        alt="AI integrata nella filiera"
-      />
-
-      <Divider />
-
-      {/* ===== SEZIONE: PARTNER ===== */}
-      <Section
-        id="partner"
-        icon={FaHandshake}
-        title="Partner e sinergie per la crescita"
-        text={
-          <>
-            <b>Creiamo connessioni che generano valore.</b> Aiutiamo le imprese a individuare partner strategici
-            per innovare insieme, condividendo risorse e obiettivi.
-          </>
-        }
-        quote="Collaborare per competere meglio."
-        items={[
-          "Networking B2B con aziende del settore",
-          "Partnership tecnologiche e commerciali",
-          "Progetti con enti di ricerca e università",
-          "Supporto nella co-innovazione di filiera",
-        ]}
-        img="/partner.png"
-        alt="Partnership e sinergie tra imprese"
-        cta={{ text: "Scopri come diventare partner", to: "/partnercollaborazioni" }}
-      />
-
-      {/* ===== CTA finale ===== */}
-      <Box bg="gray.50" py={{ base: 14, md: 20 }}>
-        <Container maxW="7xl" textAlign="center">
-          <Heading mb={3}>Marvincla. Dove l’innovazione incontra la filiera.</Heading>
-          <Text fontSize="lg" color="gray.700" mb={6}>
-            Un unico interlocutore per la trasformazione digitale del settore agroalimentare.
-            Tecnologia, analisi e visione strategica al servizio delle imprese.
+      {/* ================== SEZIONE DESCRITTIVA ================== */}
+      <Container maxW="7xl" py={[12, 16]}>
+        <Stack spacing={8}>
+          <Heading color="nitra.primary">Specialisti nella refrigerazione industriale</Heading>
+          <Text fontSize="lg" color="gray.700">
+            Nitra System progetta e realizza impianti frigoriferi per il settore
+            agroalimentare, logistico e manifatturiero. Dalla prima analisi energetica
+            alla manutenzione predittiva, seguiamo l’intero ciclo di vita dell’impianto
+            garantendo prestazioni, efficienza e continuità operativa.
           </Text>
-          <Button as={RouterLink} to="/contatti" colorScheme="teal" size="lg">
-            📞 Richiedi una consulenza
-          </Button>
+
+          <Divider borderColor="rgba(14,74,103,0.18)" />
+
+          <Heading size="md" color="nitra.primary">
+            I nostri ambiti di intervento
+          </Heading>
+          <SimpleGrid columns={[1, 2, 4]} spacing={6}>
+            <Box>
+              <Badge bg="nitra.primary" color="white" mb={2}>01</Badge>
+              <Heading size="sm">Progettazione</Heading>
+              <Text color="gray.700" mt={2}>
+                Analisi termodinamiche, scelta del refrigerante (NH₃, CO₂, HFO), simulazioni
+                energetiche e definizione del layout impiantistico.
+              </Text>
+            </Box>
+            <Box>
+              <Badge bg="nitra.accent" color="white" mb={2}>02</Badge>
+              <Heading size="sm">Realizzazione</Heading>
+              <Text color="gray.700" mt={2}>
+                Costruzione e montaggio di impianti completi con componentistica certificata,
+                test di pressione e collaudo funzionale.
+              </Text>
+            </Box>
+            <Box>
+              <Badge bg="nitra.primary" color="white" mb={2}>03</Badge>
+              <Heading size="sm">Automazione</Heading>
+              <Text color="gray.700" mt={2}>
+                PLC, inverter, sistemi SCADA e telemonitoraggio per controllo da remoto,
+                sicurezza e ottimizzazione dei consumi.
+              </Text>
+            </Box>
+            <Box>
+              <Badge bg="nitra.accent" color="white" mb={2}>04</Badge>
+              <Heading size="sm">Assistenza e Service</Heading>
+              <Text color="gray.700" mt={2}>
+                Interventi di manutenzione preventiva, predittiva e correttiva H24 in tutta
+                Europa con squadre specializzate.
+              </Text>
+            </Box>
+          </SimpleGrid>
+        </Stack>
+      </Container>
+
+      {/* ================== SEZIONE IMMAGINE + TESTO ================== */}
+      <Box bg="nitra.bg" py={[12, 16]}>
+        <Container maxW="7xl">
+          <SimpleGrid columns={[1, 2]} spacing={10} alignItems="center">
+            <MotionBox
+              initial={{ opacity: 0, x: -60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+            >
+              <Image
+                src="/impianti-refrigerazione.jpg"
+                alt="Centrale frigorifera Nitra System"
+                rounded="lg"
+                shadow="lg"
+              />
+            </MotionBox>
+            <MotionBox
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+            >
+              <Heading color="nitra.primary">Tecnologia e sostenibilità</Heading>
+              <Text fontSize="lg" color="gray.700" mt={4}>
+                Ogni impianto Nitra è pensato per ridurre l’impatto ambientale e i costi
+                energetici. Utilizziamo refrigeranti naturali, sistemi di recupero calore e
+                soluzioni integrate per il monitoraggio in tempo reale delle prestazioni.
+              </Text>
+              <List mt={4} spacing={2} color="gray.700">
+                <ListItem>• Refrigeranti naturali NH₃ e CO₂</ListItem>
+                <ListItem>• Sistemi HFO a basso GWP</ListItem>
+                <ListItem>• Recupero calore e fluidi secondari</ListItem>
+                <ListItem>• Telecontrollo e manutenzione predittiva</ListItem>
+              </List>
+            </MotionBox>
+          </SimpleGrid>
+        </Container>
+      </Box>
+
+      {/* ================== CTA ================== */}
+      <Box py={[14, 20]}>
+        <Container maxW="7xl" textAlign="center">
+          <Heading mb={3} color="nitra.primary">
+            Scopri le nostre soluzioni personalizzate
+          </Heading>
+          <Text fontSize="lg" color="gray.700" mb={6}>
+            Ogni impianto nasce da una progettazione su misura: performance, sicurezza e affidabilità.
+          </Text>
+          <Box
+            as="a"
+            href="/contatti"
+            bg="nitra.primary"
+            color="white"
+            fontWeight="semibold"
+            px={8}
+            py={4}
+            rounded="lg"
+            _hover={{ bg: "nitra.accent" }}
+            transition="all 0.3s"
+          >
+            Contattaci →
+          </Box>
         </Container>
       </Box>
     </>
-  );
-}
-
-// ===== COMPONENTE RIUTILIZZABILE =====
-function Section({ id, icon, title, text, quote, items, img, alt, reverse, cta }) {
-  const prefersReducedMotion = usePrefersReducedMotion();
-  return (
-    <Container id={id} maxW="7xl" py={{ base: 12, md: 16, lg: 20 }} px={{ base: 6, md: 8, lg: 12 }}>
-      <SimpleGrid
-        columns={{ base: 1, md: 2 }}
-        spacing={{ base: 8, md: 12 }}
-        alignItems="center"
-        direction={reverse ? "row-reverse" : "row"}
-      >
-        {!reverse && (
-          <Image src={img} alt={alt} objectFit="cover" rounded="xl" shadow="md" loading="lazy" />
-        )}
-
-        <MotionBox {...(prefersReducedMotion ? { initial: false } : fade({ y: 28 }))}>
-          <Stack spacing={4}>
-            <Icon as={icon} boxSize={10} color="teal.500" />
-            <Heading as="h2">{title}</Heading>
-            <Text fontSize="lg" color="gray.700">{text}</Text>
-            <Text fontSize="sm" color="gray.600">💬 “{quote}”</Text>
-            <List spacing={2} mt={2}>
-              {items.map((t, i) => (
-                <ListItem key={i}>
-                  <ListIcon as={FaCheckCircle} color="teal.500" />
-                  {t}
-                </ListItem>
-              ))}
-            </List>
-            <Button as={RouterLink} to={cta?.to || "/contatti"} colorScheme="teal" mt={6}>
-              {cta?.text || "Richiedi una consulenza"}
-            </Button>
-          </Stack>
-        </MotionBox>
-
-        {reverse && (
-          <Image src={img} alt={alt} objectFit="cover" rounded="xl" shadow="md" loading="lazy" />
-        )}
-      </SimpleGrid>
-    </Container>
   );
 }
