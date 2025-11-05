@@ -14,14 +14,14 @@ import {
   Flex,
   VisuallyHidden,
 } from "@chakra-ui/react";
-import { Link as RouterLink, useParams, useLocation, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
-  const { lang = "it" } = useParams();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { t, i18n } = useTranslation("common");
+  const lang = i18n.resolvedLanguage;
 
   // ---- routing helpers
   const routes = {
@@ -34,14 +34,11 @@ export default function Footer() {
     cookies: "cookies",
     contatti: "contatti",
   };
-  const make = (key) => `/${lang}/${routes[key]}`.replace(/\/$/, "");
+  const make = (key) => `/${routes[key]}`.replace(/\/$/, "");
 
-  // ---- switch lingua mantenendo la pagina corrente
+  // ---- switch lingua
   const switchLang = () => {
-    const target = lang === "it" ? "en" : "it";
-    const pathNoLang = location.pathname.replace(/^\/(it|en)/, "") || "/";
-    navigate(`/${target}${pathNoLang}`);
-    localStorage.setItem("i18nextLng", target);
+    i18n.changeLanguage(lang === "it" ? "en" : "it");
   };
 
   // ---- JSON-LD Organization (aiuta SEO locale)
@@ -85,8 +82,8 @@ export default function Footer() {
               Nitra System
             </Heading>
             <Text fontSize="sm" opacity={0.9}>
-              Impianti frigoriferi industriali per agroalimentare, farmaceutico e
-              manifatturiero.
+              Impianti frigoriferi industriali per agroalimentare, farmaceutico
+              e manifatturiero.
             </Text>
           </Stack>
 
@@ -98,10 +95,19 @@ export default function Footer() {
             {[
               { key: "home", label: lang === "it" ? "Home" : "Home" },
               { key: "azienda", label: lang === "it" ? "Azienda" : "Company" },
-              { key: "cosa", label: lang === "it" ? "Cosa facciamo" : "Solutions" },
+              {
+                key: "cosa",
+                label: lang === "it" ? "Cosa facciamo" : "Solutions",
+              },
               { key: "cold", label: "Coldsharing" },
-              { key: "partner", label: lang === "it" ? "Partner e Collaborazioni" : "Partners" },
-              { key: "contatti", label: lang === "it" ? "Contatti" : "Contacts" },
+              {
+                key: "partner",
+                label: lang === "it" ? "Partner e Collaborazioni" : "Partners",
+              },
+              {
+                key: "contatti",
+                label: lang === "it" ? "Contatti" : "Contacts",
+              },
             ].map((it) => (
               <Link
                 key={it.key}
@@ -145,7 +151,12 @@ export default function Footer() {
             </Heading>
 
             <HStack align="start" spacing={3}>
-              <Icon as={FaMapMarkerAlt} boxSize={4} mt={1} color="nitra.accent" />
+              <Icon
+                as={FaMapMarkerAlt}
+                boxSize={4}
+                mt={1}
+                color="nitra.accent"
+              />
               <Link
                 href="https://maps.google.com/?q=Road+Baba+Tonca+5A,+Sliven,+Bulgaria"
                 isExternal
@@ -160,7 +171,12 @@ export default function Footer() {
             </HStack>
 
             <HStack align="start" spacing={3}>
-              <Icon as={FaMapMarkerAlt} boxSize={4} mt={1} color="nitra.accent" />
+              <Icon
+                as={FaMapMarkerAlt}
+                boxSize={4}
+                mt={1}
+                color="nitra.accent"
+              />
               <Link
                 href="https://www.google.com/maps?q=Via+Emanuele+Melisurgo+5+Bari+Italy&output=embed"
                 isExternal
@@ -177,10 +193,13 @@ export default function Footer() {
             <HStack spacing={3} align="start">
               <Icon as={FaPhone} boxSize={4} mt={1} color="nitra.accent" />
               <Stack spacing={1} fontSize="sm">
-                <Link href="tel:+359894482526" _hover={{ color: "nitra.accent" }}>
-                 +359 894 482 526
-                 <br/>
-                 +39 335 617 9483
+                <Link
+                  href="tel:+359894482526"
+                  _hover={{ color: "nitra.accent" }}
+                >
+                  +359 894 482 526
+                  <br />
+                  +39 335 617 9483
                 </Link>
               </Stack>
             </HStack>
@@ -211,7 +230,8 @@ export default function Footer() {
             © {new Date().getFullYear()} Nitra System Ltd · P.IVA BG 2046612801
           </Text>
           <Text fontSize="xs" opacity={0.8}>
-           Sito realizzato da Marvincla S.R.L. - Polo digitale del settore agroalimentare.
+            Sito realizzato da Marvincla S.R.L. - Polo digitale del settore
+            agroalimentare.
           </Text>
 
           {/* Lingue visibili, stile “pill” */}
