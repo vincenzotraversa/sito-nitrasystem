@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
 import React, { useEffect } from "react";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Container,
@@ -15,6 +15,7 @@ import {
   LinkOverlay,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const MotionBox = motion(Box);
 const MotionImage = motion(Image);
@@ -26,43 +27,37 @@ const AGRO_CARDS = [
   {
     img: "/lavorazionecarne.jpg",
     title: "Lavorazione carni",
-    desc:
-      "Impianti frigoriferi per la lavorazione delle carni: celle TN e BT, tunnel di raffreddamento e abbattimento, sistemi per salatura e stagionatura con controllo di temperatura e umidità per garantire qualità e sicurezza alimentare.",
+    desc: "Impianti frigoriferi per la lavorazione delle carni: celle TN e BT, tunnel di raffreddamento e abbattimento, sistemi per salatura e stagionatura con controllo di temperatura e umidità per garantire qualità e sicurezza alimentare.",
     to: "/settori/agroalimentare/lavorazione-carni",
   },
   {
     img: "/panificazione.webp",
     title: "Panificazione",
-    desc:
-      "Impianti per fermalievita, abbattimento, conservazione impasti e camere di lievitazione controllata.",
+    desc: "Impianti per fermalievita, abbattimento, conservazione impasti e camere di lievitazione controllata.",
     to: "/settori/agroalimentare/panificazione",
   },
   {
     img: "/lattiero.jpg",
     title: "Prodotti lattiero-caseari",
-    desc:
-      "Raffreddamento latte, maturazione, stagionatura formaggi e celle a umidità controllata.",
+    desc: "Raffreddamento latte, maturazione, stagionatura formaggi e celle a umidità controllata.",
     to: "/settori/agroalimentare/lattiero-caseari",
   },
   {
     img: "/ittico.jpg",
     title: "Lavorazione ittico-pesce",
-    desc:
-      "Processo a bassa temperatura, surgelazione rapida, stoccaggio e sala lavorazione igienizzata.",
+    desc: "Processo a bassa temperatura, surgelazione rapida, stoccaggio e sala lavorazione igienizzata.",
     to: "/settori/agroalimentare/ittico",
   },
   {
     img: "/frutta.jpg",
     title: "Frutta e verdura",
-    desc:
-      "Pre-cooling, atmosfera controllata, celle frigoconservazione e linee di confezionamento.",
+    desc: "Pre-cooling, atmosfera controllata, celle frigoconservazione e linee di confezionamento.",
     to: "/settori/agroalimentare/ortofrutta",
   },
   {
     img: "/processoalimentare.jpg",
     title: "Prodotti alimentari trasformati",
-    desc:
-      "Refrigerazione di processo, tunnel, chiller per fluidi secondari e stoccaggi a temperatura.",
+    desc: "Refrigerazione di processo, tunnel, chiller per fluidi secondari e stoccaggi a temperatura.",
     to: "/settori/agroalimentare/trasformati",
   },
 ];
@@ -71,43 +66,37 @@ const MANIF_CARDS = [
   {
     img: "/logisticarefrigerata.jpg",
     title: "Logistica refrigerata",
-    desc:
-      "Magazzini TN/BT, baie isotermiche, anticamere e gestione carichi con riduzione dispersioni.",
+    desc: "Magazzini TN/BT, baie isotermiche, anticamere e gestione carichi con riduzione dispersioni.",
     to: "/settori/manifatturiero/logistica-refrigerata",
   },
   {
     img: "/logisticagdo.webp",
     title: "Logistica GDO e distribuzione",
-    desc:
-      "Hub multi-temperatura, sistemi di supervisione energetica e continuità H24.",
+    desc: "Hub multi-temperatura, sistemi di supervisione energetica e continuità H24.",
     to: "/settori/manifatturiero/logistica-gdo",
   },
   {
     img: "/hydrocooler.jpg",
     title: "Hydrocooler",
-    desc:
-      "Raffreddamento rapido post-raccolta per ortofrutta con alte portate d’acqua a temperatura controllata.",
+    desc: "Raffreddamento rapido post-raccolta per ortofrutta con alte portate d’acqua a temperatura controllata.",
     to: "/settori/manifatturiero/hydrocooler",
   },
   {
     img: "/vacuumcooler.jpg",
     title: "Vacuumcooler",
-    desc:
-      "Raffreddamento sottovuoto di prodotto fresco: qualità elevata e shelf-life estesa.",
+    desc: "Raffreddamento sottovuoto di prodotto fresco: qualità elevata e shelf-life estesa.",
     to: "/settori/manifatturiero/vacuumcooler",
   },
   {
     img: "/sanificatore.webp",
     title: "Sanificatore alimentare",
-    desc:
-      "Ionizzazione aria per abbattimento cariche microbiche, odori e VOC in ambienti alimentari.",
+    desc: "Ionizzazione aria per abbattimento cariche microbiche, odori e VOC in ambienti alimentari.",
     to: "/settori/manifatturiero/sanificatore",
   },
   {
     img: "/produttoreghiaccio.webp",
     title: "Produttori di ghiaccio",
-    desc:
-      "Ghiaccio granulare/supergranulare e a scaglie per conservazione e presentazione prodotto.",
+    desc: "Ghiaccio granulare/supergranulare e a scaglie per conservazione e presentazione prodotto.",
     to: "/settori/manifatturiero/produttoreghiaccio",
   },
 ];
@@ -185,19 +174,19 @@ function SoftCard({ img, title, desc, to }) {
   );
 }
 
-
 /* -------------------------------------------------------------------------- */
 /*                                  HOME PAGE                                 */
 /* -------------------------------------------------------------------------- */
 export default function Home() {
-  const { lang = "it" } = useParams(); // <-- PRENDO LA LINGUA
+  const { t } = useTranslation("common");
+
   useEffect(() => {
     document.title =
       "Nitra System | Refrigerazione industriale per agroalimentare e di processo";
   }, []);
 
   // Helper per pre-pendere /:lang ai link
-  const withLang = (path) => `/${lang}${path}`;
+  const withLang = (path) => `/${path}`;
 
   return (
     <>
@@ -244,6 +233,7 @@ export default function Home() {
               fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }}
               textShadow="0 6px 22px rgba(0,0,0,0.35)"
             >
+              {t("titlehome")}
               REFRIGERAZIONE INDUSTRIALE
               <Box as="span" display="block">
                 E COMMERCIALE.
@@ -258,8 +248,9 @@ export default function Home() {
               maxW="3xl"
               mx="auto"
             >
-              Progettazione e realizzazione di Celle frigorifere, Magazzini refrigerati,
-              Hydrocooler e Vacuumcooler per il settore industriale e commerciale.
+              Progettazione e realizzazione di Celle frigorifere, Magazzini
+              refrigerati, Hydrocooler e Vacuumcooler per il settore industriale
+              e commerciale.
             </Text>
 
             {/*<HStack justify="center" spacing={4} mt={{ base: 5, md: 6 }}>
@@ -309,7 +300,10 @@ export default function Home() {
             preserveAspectRatio="none"
             display="block"
           >
-            <path d="M0,32 C240,64 480,64 720,32 C960,0 1200,0 1440,32 L1440,80 L0,80 Z" fill="#fff" />
+            <path
+              d="M0,32 C240,64 480,64 720,32 C960,0 1200,0 1440,32 L1440,80 L0,80 Z"
+              fill="#fff"
+            />
           </Box>
         </Box>
       </Box>
@@ -355,7 +349,11 @@ export default function Home() {
           SETTORE INDUSTRIALE
         </Heading>
 
-        <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={[4, 6, 8]} justifyItems="center">
+        <SimpleGrid
+          columns={{ base: 1, sm: 2, lg: 3 }}
+          spacing={[4, 6, 8]}
+          justifyItems="center"
+        >
           {MANIF_CARDS.map((c, i) => (
             <SoftCard
               key={i}
@@ -372,11 +370,16 @@ export default function Home() {
       <Box bg="gray.50" py={[10, 14]}>
         <Container maxW="7xl" textAlign="center">
           <Heading mb={3}>Parla con i nostri tecnici</Heading>
-          <Text color="gray.700" mb={6}> 
-            Operiamo in tutta Italia e in Bulgaria. Partner ideale per espandere la tua attività
-            nell'Europa dell'Est.
+          <Text color="gray.700" mb={6}>
+            Operiamo in tutta Italia e in Bulgaria. Partner ideale per espandere
+            la tua attività nell'Europa dell'Est.
           </Text>
-          <Button as={RouterLink} to={withLang("/contatti")} colorScheme="teal" size="lg">
+          <Button
+            as={RouterLink}
+            to={withLang("/contatti")}
+            colorScheme="teal"
+            size="lg"
+          >
             Richiedi una consulenza →
           </Button>
         </Container>
