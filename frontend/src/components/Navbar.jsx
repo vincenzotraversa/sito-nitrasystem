@@ -20,9 +20,16 @@ import {
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from "@chakra-ui/react";
+
 export default function Navbar() {
   const { t, i18n } = useTranslation("common");
-
   const { isOpen, onToggle, onClose } = useDisclosure();
 
   const bg = useColorModeValue("white", "gray.800");
@@ -44,7 +51,7 @@ export default function Navbar() {
     i18n.changeLanguage(lang === "it" ? "en" : "it");
   };
 
-  // NavLink coerente
+  // Link coerente
   const NavLink = ({ to, children }) => (
     <ChakraLink
       as={RouterLink}
@@ -74,22 +81,13 @@ export default function Navbar() {
       {/* Barra principale */}
       <Flex align="center" gap={6} px={{ base: 4, md: 8 }} py={3}>
         {/* Logo */}
-        <ChakraLink
-          as={RouterLink}
-          to={"/"}
-          display="inline-flex"
-          alignItems="center"
-        >
-          <img
-            src="/logonitragrande.png"
-            alt="Nitra System"
-            style={{ height: 70 }}
-          />
+        <ChakraLink as={RouterLink} to="/" display="inline-flex" alignItems="center">
+          <img src="/logonitragrande.png" alt="Nitra System" style={{ height: 70 }} />
         </ChakraLink>
 
         {/* Nav desktop */}
         <HStack spacing={1} ml="auto" display={{ base: "none", md: "flex" }}>
-          <NavLink to={"/"}>{t("home")}</NavLink>
+          <NavLink to="/">{t("home")}</NavLink>
 
           {/* --- Cosa facciamo (Dropdown) --- */}
           <Menu isLazy closeOnSelect closeOnBlur placement="bottom-start">
@@ -103,108 +101,72 @@ export default function Navbar() {
             >
               {t("whatWeDo")}
             </MenuButton>
-            <MenuList minW="340px" p={2} zIndex={100}>
+
+            <MenuList minW="360px" p={2} zIndex={100}>
               <MenuGroup title={t("agriFood")}>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/agroalimentare/lavorazione-carni`}
-                  onClick={onClose}
-                >
+                <MenuItem as={RouterLink} to="/settori/agroalimentare/lavorazione-carni" onClick={onClose}>
                   {t("meatProcessing")}
                 </MenuItem>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/agroalimentare/panificazione`}
-                  onClick={onClose}
-                >
-                  {t("bakery")}
-                </MenuItem>
-                <MenuItem
-                  as={RouterLink}
-                  to={`settori/agroalimentare/lattiero-caseari`}
-                  onClick={onClose}
-                >
+                {/* Panificazione rimossa */}
+                <MenuItem as={RouterLink} to="/settori/agroalimentare/lattiero-caseari" onClick={onClose}>
                   {t("dairy")}
                 </MenuItem>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/agroalimentare/ittico`}
-                  onClick={onClose}
-                >
+                <MenuItem as={RouterLink} to="/settori/agroalimentare/ittico" onClick={onClose}>
                   {t("fish")}
                 </MenuItem>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/agroalimentare/ortofrutta`}
-                  onClick={onClose}
-                >
+                <MenuItem as={RouterLink} to="/settori/agroalimentare/ortofrutta" onClick={onClose}>
                   {t("fruitVeg")}
                 </MenuItem>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/agroalimentare/trasformati`}
-                  onClick={onClose}
-                >
-                  {t("processed")}
+                <MenuItem as={RouterLink} to="/settori/agroalimentare/trasformati" onClick={onClose}>
+                  {t("navbarprocessed")}
                 </MenuItem>
               </MenuGroup>
 
               <MenuGroup title={t("industrial")}>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/manifatturiero/hydrocooler`}
-                  onClick={onClose}
-                >
-                  {t("hydrocooler")}
+                <MenuItem as={RouterLink} to="/settori/manifatturiero/hydrocooler" onClick={onClose}>
+                  {t("navbarhydrocooler")}
                 </MenuItem>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/manifatturiero/vacuumcooler`}
-                  onClick={onClose}
-                >
-                  {t("vacuumCooler")}
+                <MenuItem as={RouterLink} to="/settori/manifatturiero/vacuumcooler" onClick={onClose}>
+                  {t("navbarvacuumCooler")}
                 </MenuItem>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/manifatturiero/sanificatore`}
-                  onClick={onClose}
-                >
+                <MenuItem as={RouterLink} to="/settori/manifatturiero/sanificatore" onClick={onClose}>
                   {t("sanitizer")}
                 </MenuItem>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/manifatturiero/produttoreghiaccio`}
-                  onClick={onClose}
-                >
+                <MenuItem as={RouterLink} to="/settori/manifatturiero/produttoreghiaccio" onClick={onClose}>
                   {t("iceMaker")}
                 </MenuItem>
-                <MenuItem
-                  as={RouterLink}
-                  to={`/settori/manifatturiero/logistica-refrigerata`}
-                  onClick={onClose}
-                >
+                <MenuItem as={RouterLink} to="/settori/manifatturiero/logistica-refrigerata" onClick={onClose}>
                   {t("refrigeratedLogistics")}
                 </MenuItem>
+                <MenuItem as={RouterLink} to="/settori/manifatturiero/logistica-gdo" onClick={onClose}>
+                  {t("GDOLogistics")}
+                </MenuItem>
+              </MenuGroup>
+
+              {/* NUOVO: Life Sciences */}
+              <MenuGroup title={t("lifeGroup", { defaultValue: "Pharma & Life Sciences" })}>
                 <MenuItem
                   as={RouterLink}
-                  to={`/settori/manifatturiero/logistica-gdo`}
+                  to="/camere-bianche"
                   onClick={onClose}
                 >
-                  {t("GDOLogistics")}
+                  {t("cleanrooms", {
+                    defaultValue: i18n.resolvedLanguage === "it" ? "Camere bianche" : "Cleanrooms",
+                  })}
                 </MenuItem>
               </MenuGroup>
             </MenuList>
           </Menu>
 
           {/* Altri link */}
-          <NavLink to={`/azienda`}>{t("company")}</NavLink>
-          <NavLink to={`/partnercollaborazioni`}>{t("partners")}</NavLink>
-          <NavLink to={`/coldsharing`}> {t("coldsharing")}</NavLink>
-          <NavLink to={`/contatti`}>{t("contacts")}</NavLink>
+          <NavLink to="/azienda">{t("company")}</NavLink>
+          <NavLink to="/partnercollaborazioni">{t("navbarpartners")}</NavLink>
+          <NavLink to="/coldsharing">{t("coldsharing")}</NavLink>
+          <NavLink to="/contatti">{t("contacts")}</NavLink>
 
           {/* CTA + lingua */}
           <HStack spacing={2} pl={2}>
-            <Button as={RouterLink} to={`/contatti`} size="sm" variant="accent">
+            <Button as={RouterLink} to="/contatti" size="sm" variant="accent">
               {t("getAQuote")}
             </Button>
             <Button variant="outline" size="sm" onClick={switchLang}>
@@ -213,7 +175,7 @@ export default function Navbar() {
           </HStack>
         </HStack>
 
-        {/* Mobile menu button */}
+        {/* Bottone mobile */}
         <Button
           aria-label="Apri menu"
           leftIcon={isOpen ? <FiX /> : <FiMenu />}
@@ -236,80 +198,88 @@ export default function Navbar() {
           display={{ md: "none" }}
           px={4}
           pb={4}
+          maxH="70vh"
+          overflowY="auto"
         >
           <VStack align="stretch" spacing={1} mt={2}>
-            <NavLink to={`/`}>{t("home")}</NavLink>
+            <NavLink to="/">{t("home")}</NavLink>
 
-            {/* Sezione mobile cosa facciamo */}
-            <Box
-              bg={useColorModeValue("gray.50", "gray.700")}
-              rounded="md"
-              p={2}
-            >
-              <Text fontSize="sm" fontWeight="semibold" mb={1}>
-                {t("whatWeDo")}
-              </Text>
+            {/* Cosa facciamo (mobile) */}
+            <Accordion allowToggle reduceMotion>
+              <AccordionItem border="none">
+                <h3>
+                  <AccordionButton px={2} py={2} _hover={{ bg: hover }} borderRadius="md">
+                    <Box flex="1" textAlign="left" fontWeight="semibold" fontSize="sm">
+                      {t("whatWeDo")}
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h3>
 
-              <VStack align="stretch" spacing={1}>
-                <Text fontSize="xs" color="gray.500" mt={2}>
-                  {t("agriFood")}
-                </Text>
-                <NavLink to={`/settori/agroalimentare/lavorazione-carni`}>
-                  {t("meatProcessing")}
-                </NavLink>
-                <NavLink to={`/settori/agroalimentare/panificazione`}>
-                  {t("bakery")}
-                </NavLink>
-                <NavLink to={`/settori/agroalimentare/lattiero-caseari`}>
-                  {t("dairy")}
-                </NavLink>
-                <NavLink to={`/settori/agroalimentare/ittico`}>
-                  {t("fish")}
-                </NavLink>
-                <NavLink to={`/settori/agroalimentare/ortofrutta`}>
-                  {t("fruitVeg")}
-                </NavLink>
-                <NavLink to={`/settori/agroalimentare/trasformati`}>
-                  {t("processed")}
-                </NavLink>
+                <AccordionPanel px={2} pt={2} pb={3}>
+                  <VStack align="stretch" spacing={1}>
+                    <Text fontSize="xs" color="gray.500" mt={1}>
+                      {t("agriFood")}
+                    </Text>
+                    <NavLink to="/settori/agroalimentare/lavorazione-carni">
+                      {t("meatProcessing")}
+                    </NavLink>
+                    {/* Panificazione rimossa */}
+                    <NavLink to="/settori/agroalimentare/lattiero-caseari">
+                      {t("dairy")}
+                    </NavLink>
+                    <NavLink to="/settori/agroalimentare/ittico">
+                      {t("fish")}
+                    </NavLink>
+                    <NavLink to="/settori/agroalimentare/ortofrutta">
+                      {t("fruitVeg")}
+                    </NavLink>
+                    <NavLink to="/settori/agroalimentare/trasformati">
+                      {t("navbarprocessed")}
+                    </NavLink>
 
-                <Text fontSize="xs" color="gray.500" mt={3}>
-                  {t("industrial")}
-                </Text>
-                <NavLink to={`/settori/manifatturiero/hydrocooler`}>
-                  {t("hydrocooler")}
-                </NavLink>
-                <NavLink to={`/settori/manifatturiero/vacuumcooler`}>
-                  {t("vacuumCooler")}
-                </NavLink>
-                <NavLink to={`/settori/manifatturiero/sanificatore`}>
-                  {t("sanitizer")}
-                </NavLink>
-                <NavLink to={`/settori/manifatturiero/produttoreghiaccio`}>
-                  {t("iceMaker")}
-                </NavLink>
-                <NavLink to={`/settori/manifatturiero/logistica-refrigerata`}>
-                  {t("refrigeratedLogistics")}
-                </NavLink>
-                <NavLink to={`/settori/manifatturiero/logistica-gdo`}>
-                  {t("GDOLogistics")}
-                </NavLink>
-              </VStack>
-            </Box>
+                    <Text fontSize="xs" color="gray.500" mt={3}>
+                      {t("industrial")}
+                    </Text>
+                    <NavLink to="/settori/manifatturiero/hydrocooler">
+                      {t("navbarhydrocooler")}
+                    </NavLink>
+                    <NavLink to="/settori/manifatturiero/vacuumcooler">
+                      {t("navbarvacuumCooler")}
+                    </NavLink>
+                    <NavLink to="/settori/manifatturiero/sanificatore">
+                      {t("sanitizer")}
+                    </NavLink>
+                    <NavLink to="/settori/manifatturiero/produttoreghiaccio">
+                      {t("iceMaker")}
+                    </NavLink>
+                    <NavLink to="/settori/manifatturiero/logistica-refrigerata">
+                      {t("refrigeratedLogistics")}
+                    </NavLink>
+                    <NavLink to="/settori/manifatturiero/logistica-gdo">
+                      {t("GDOLogistics")}
+                    </NavLink>
 
-            <NavLink to={`/azienda`}>{t("company")}</NavLink>
-            <NavLink to={`/partnercollaborazioni`}>{t("partners")}</NavLink>
-            <NavLink to={`/coldsharing`}> {t("coldsharing")}</NavLink>
-            <NavLink to={`/contatti`}>{t("contacts")}</NavLink>
+                    <Text fontSize="xs" color="gray.500" mt={3}>
+                      {t("lifeGroup", { defaultValue: "Pharma & Life Sciences" })}
+                    </Text>
+                    <NavLink to="/camere-bianche">
+                      {t("cleanrooms", {
+                        defaultValue: i18n.resolvedLanguage === "it" ? "Camere bianche" : "Cleanrooms",
+                      })}
+                    </NavLink>
+                  </VStack>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
+
+            <NavLink to="/azienda">{t("company")}</NavLink>
+            <NavLink to="/partnercollaborazioni">{t("navbarpartners")}</NavLink>
+            <NavLink to="/coldsharing">{t("coldsharing")}</NavLink>
+            <NavLink to="/contatti">{t("contacts")}</NavLink>
 
             <HStack pt={2}>
-              <Button
-                as={RouterLink}
-                to={`/contatti`}
-                size="sm"
-                variant="accent"
-                onClick={onClose}
-              >
+              <Button as={RouterLink} to="/contatti" size="sm" variant="accent" onClick={onClose}>
                 {t("getAQuote")}
               </Button>
               <Button

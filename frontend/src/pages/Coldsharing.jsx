@@ -17,7 +17,8 @@ import {
 } from "@chakra-ui/react";
 import { motion, useAnimation } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
-import { FiThermometer, FiServer, FiSearch, FiShield } from "react-icons/fi";
+import { FiServer } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 /* Motion wrappers */
 const MBox = motion(Box);
@@ -30,9 +31,12 @@ const ORANGE_FALLBACK = "#E76F51";
 
 /* ============================ PAGE ============================ */
 export default function Coldsharing() {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || "it";
+
   useEffect(() => {
-    document.title = "ColdSharing | Il marketplace del freddo";
-  }, []);
+    document.title = t("pages.coldsharing.seoTitle");
+  }, [lang, t]);
 
   return (
     <>
@@ -48,6 +52,8 @@ export default function Coldsharing() {
 
 /* ============================ HERO (CSS keyframes) ============================ */
 function HeroSequence() {
+  const { t } = useTranslation();
+
   // keyframes
   const fadeSlide = keyframes`
     0%   { opacity: 0; transform: translateY(16px) scale(.98); }
@@ -96,9 +102,9 @@ function HeroSequence() {
             textShadow="0 12px 36px rgba(0,0,0,.55)"
             sx={{ animation: `${fadeSlide} ${T1}s ease-out 0s both` }}
           >
-            Dalla collaborazione
+            {t("pages.coldsharing.hero.step1.line1")}
             <br />
-            con Marvincla
+            {t("pages.coldsharing.hero.step1.line2")}
           </Heading>
 
           {/* 2) Nasce */}
@@ -113,7 +119,7 @@ function HeroSequence() {
             textShadow="0 12px 36px rgba(0,0,0,.55)"
             sx={{ animation: `${fadeSlide} ${T2}s ease-out ${DELAY2}s both` }}
           >
-            nasce
+            {t("pages.coldsharing.hero.step2")}
           </Heading>
 
           {/* 3) COLDSHARING */}
@@ -129,7 +135,7 @@ function HeroSequence() {
             textShadow="0 14px 40px rgba(0,0,0,.6)"
             sx={{ animation: `${fadeHold} .65s ease-out ${DELAY3}s both` }}
           >
-            COLDSHARING
+            {t("pages.coldsharing.hero.logo")}
           </Heading>
 
           {/* Sottotitolo + CTA */}
@@ -140,7 +146,7 @@ function HeroSequence() {
             pointerEvents="auto"
             sx={{ animation: `${appear} .45s ease-out ${CTA_DELAY}s both` }}
           >
-            Il marketplace B2B per cercare o condividere celle frigorifere
+            {t("pages.coldsharing.hero.subtitle")}
           </Text>
 
           <Box
@@ -159,7 +165,7 @@ function HeroSequence() {
               _hover={{ bg: ORANGE, boxShadow: "0 12px 28px rgba(176,65,37,.35)" }}
               sx={{ "--chakra-colors-nitra-accent": ORANGE_FALLBACK }}
             >
-              Registrati gratis
+              {t("pages.coldsharing.hero.cta")}
             </Button>
           </Box>
 
@@ -168,7 +174,7 @@ function HeroSequence() {
             color="whiteAlpha.700"
             sx={{ animation: `${appear} .45s ease-out ${CTA_DELAY + 0.2}s both` }}
           >
-            ↓ Scorri
+            {t("pages.coldsharing.hero.scroll")}
           </Text>
         </Box>
       </Container>
@@ -185,35 +191,9 @@ function HeroSequence() {
 
 /* ====================== STORY + PROBLEMI (uniti) ====================== */
 function ColdsharingStory() {
-  const top3 = [
-    {
-      emoji: "🧪",
-      t: "Esigenze specifiche",
-      d: "Ogni prodotto richiede parametri diversi (T°, umidità, ricambi d’aria). Trovare lo spazio giusto è complesso.",
-    },
-    {
-      emoji: "📦",
-      t: "Soluzioni frammentate",
-      d: "Impianti simili con performance e scopi diversi: confronto difficile, decisioni lente.",
-    },
-    {
-      emoji: "🔍",
-      t: "Poche info affidabili",
-      d: "Disponibilità, certificazioni e prezzi spesso non sono chiari o aggiornati.",
-    },
-  ];
-  const bottom2 = [
-    {
-      emoji: "🤝",
-      t: "Mancanza di fiducia",
-      d: "Timori su pagamenti e trasparenza frenano la condivisione tra aziende.",
-    },
-    {
-      emoji: "🌦️",
-      t: "Impatto climatico",
-      d: "Eventi meteo estremi creano squilibri di domanda/offerta e urgenze improvvise.",
-    },
-  ];
+  const { t } = useTranslation();
+  const top3 = t("pages.coldsharing.story.top3", { returnObjects: true });
+  const bottom2 = t("pages.coldsharing.story.bottom2", { returnObjects: true });
 
   return (
     <Box bg="white" py={{ base: 14, md: 22 }} position="relative" overflow="hidden">
@@ -230,7 +210,7 @@ function ColdsharingStory() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Trovare uno spazio refrigerato è molto difficile.
+          {t("pages.coldsharing.story.title")}
         </MHeading>
 
         <MText
@@ -244,19 +224,18 @@ function ColdsharingStory() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Oggi, trovare una <b>cella frigo, container o mezzo refrigerato</b> è ancora complicato:
-          specifiche non comparabili, poche informazioni affidabili e decisioni lente.
+          {t("pages.coldsharing.story.lead")}
         </MText>
 
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, md: 6 }} mt={{ base: 8, md: 12 }}>
           {top3.map((x, i) => (
-            <PrettyProblemCard key={i} emoji={x.emoji} title={x.t} desc={x.d} />
+            <PrettyProblemCard key={i} emoji={x.emoji} title={x.title} desc={x.desc} />
           ))}
         </SimpleGrid>
 
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, md: 6 }} maxW="5xl" mx="auto" mt={{ base: 6, md: 8 }}>
           {bottom2.map((x, i) => (
-            <PrettyProblemCard key={i} emoji={x.emoji} title={x.t} desc={x.d} />
+            <PrettyProblemCard key={i} emoji={x.emoji} title={x.title} desc={x.desc} />
           ))}
         </SimpleGrid>
       </Container>
@@ -290,6 +269,8 @@ function PrettyProblemCard({ emoji, title, desc }) {
 
 /* ============================= IDEA ============================= */
 function IdeaSection() {
+  const { t } = useTranslation();
+
   return (
     <Box position="relative" bg="black" color="white" py={{ base: 16, md: 24 }} overflow="hidden">
       <Box position="absolute" top="-20%" left="-10%" w="60vw" h="60vw" rounded="full" bg="rgba(14,74,103,0.25)" filter="blur(90px)" />
@@ -310,7 +291,7 @@ function IdeaSection() {
                 color="white"
                 textShadow="0 10px 30px rgba(0,0,0,.35)"
               >
-                COLDSHARING
+                {t("pages.ccold", { defaultValue: t("pages.coldsharing.idea.brand") })}
               </chakra.span>
 
               <chakra.span
@@ -320,19 +301,17 @@ function IdeaSection() {
                 bgClip="text"
                 fontSize={{ base: "5.6vw", md: "2.6vw", lg: "2.2vw" }}
               >
-                Marketplace B2B
+                {t("pages.coldsharing.idea.marketplace")}
               </chakra.span>{" "}
               <chakra.span display="inline" fontWeight="800" color="white" fontSize={{ base: "5.6vw", md: "2.6vw", lg: "2.2vw" }}>
-                per la condivisione
-                <br /> del tuo locale refrigerato
+                {t("pages.coldsharing.idea.pitch")}
               </chakra.span>
             </Heading>
 
             <Box w={{ base: "140px", md: "180px" }} h="3px" bg="nitra.accent" rounded="full" mb={{ base: 4, md: 5 }} opacity={0.9} />
 
             <Text color="whiteAlpha.900" fontSize={{ base: "md", md: "lg" }} maxW="42rem" opacity={0.92}>
-              Mettiamo in contatto chi ha capacità frigorifera con chi ne ha bisogno in <b>pochi minuti</b>:
-              ricerca geolocalizzata, prenotazioni sicure e tracciabilità completa.
+              {t("pages.coldsharing.idea.text")}
             </Text>
           </Box>
         </SimpleGrid>
@@ -374,6 +353,11 @@ function LampSVG() {
 
 /* ===================== VANTAGGI / SHOWCASE ===================== */
 function ReasonsShowcase() {
+  const { t } = useTranslation();
+
+  const cards = t("pages.coldsharing.reasons.items", { returnObjects: true });
+  const previews = t("pages.coldsharing.reasons.previews", { returnObjects: true });
+
   return (
     <Box bgGradient="linear(to-b, gray.50, white)" py={{ base: 14, md: 20 }}>
       <Container maxW="7xl">
@@ -381,34 +365,12 @@ function ReasonsShowcase() {
           {/* Colonna sinistra: elenco motivi */}
           <Box>
             <Heading fontSize={{ base: "2xl", md: "3xl" }} mb={6} lineHeight="1.2">
-              5 motivi per cui <br /> dovresti usarlo.
+              {t("pages.coldsharing.reasons.title")}
             </Heading>
             <Stack spacing={4}>
-              <ReasonItem
-                emoji="🔍"
-                title="Trovi il locale adatto a te"
-                desc="Scegli celle frigorifere certificate vicino a te, filtrando per prodotto, temperatura e capienza."
-              />
-              <ReasonItem
-                emoji="💸"
-                title="Nessun investimento iniziale"
-                desc="Usi solo lo spazio che ti serve e quando ti serve: paghi a consumo, senza costi fissi o investimenti."
-              />
-              <ReasonItem
-                emoji="⚙️"
-                title="Meno costi di gestione"
-                desc="Ottimizza la tua capacità frigorifera e riduci sprechi e costi energetici condividendo lo spazio."
-              />
-              <ReasonItem
-                emoji="♻️"
-                title="Economia circolare"
-                desc="Massimizzi l’uso delle infrastrutture esistenti riducendo l’impatto ambientale e migliorando l’efficienza."
-              />
-              <ReasonItem
-                emoji="🤝"
-                title="Networking"
-                desc="Connetti la tua azienda con produttori, trasportatori e operatori della filiera del freddo."
-              />
+              {cards.map((c, idx) => (
+                <ReasonItem key={idx} emoji={c.emoji} title={c.title} desc={c.desc} />
+              ))}
             </Stack>
             <HStack mt={8} spacing={3}>
               <Button
@@ -421,41 +383,26 @@ function ReasonsShowcase() {
                 _hover={{ bg: ORANGE, boxShadow: "0 12px 28px rgba(176,65,37,.35)" }}
                 sx={{ "--chakra-colors-nitra-accent": ORANGE_FALLBACK }}
               >
-                Richiedilo gratis
+                {t("pages.coldsharing.reasons.cta")}
               </Button>
-              <Text color="gray.600">Nessun vincolo. Provalo ora.</Text>
+              <Text color="gray.600">{t("pages.coldsharing.reasons.note")}</Text>
             </HStack>
           </Box>
 
           {/* Colonna destra: mockup carte sovrapposte con immagine */}
           <Box position="relative" minH={{ base: "360px", md: "480px" }}>
-            <PreviewCard
-              z={3}
-              top="8%"
-              left="5%"
-              w={{ base: "78%", md: "60%" }}
-              title="Celle frigorifere"
-              subtitle="Prodotto: Uva"
-              img="/coldsharinglogo.png"
-            />
-            <PreviewCard
-              z={2}
-              top="28%"
-              left="28%"
-              w={{ base: "75%", md: "60%" }}
-              title="Container refrigerato"
-              subtitle="Prodotto: Carne"
-              img="/frutta.jpg"
-            />
-            <PreviewCard
-              z={1}
-              top="50%"
-              left="8%"
-              w={{ base: "82%", md: "62%" }}
-              title="Trasporto refrigerato"
-              subtitle="Prodotto: Pesce"
-              img="/ittico.jpg"
-            />
+            {previews.map((p, idx) => (
+              <PreviewCard
+                key={idx}
+                z={3 - idx}
+                top={p.top}
+                left={p.left}
+                w={p.w}
+                title={p.title}
+                subtitle={p.subtitle}
+                img={p.img}
+              />
+            ))}
           </Box>
         </SimpleGrid>
       </Container>
@@ -487,6 +434,7 @@ function ReasonItem({ emoji, title, desc }) {
 
 /* ======= CARDS CON IMMAGINE (mockup ColdSharing) ======= */
 function PreviewCard({ z = 1, top, left, w, title, subtitle, img }) {
+  const { t } = useTranslation();
   return (
     <MBox
       position="absolute"
@@ -508,7 +456,7 @@ function PreviewCard({ z = 1, top, left, w, title, subtitle, img }) {
       transition={{ duration: 0.6 }}
     >
       <Badge colorScheme="blue" variant="subtle" fontSize="0.7rem" px={2} py={0.5} width="fit-content">
-        🔍 COLDSHARING
+        🔍 {t("pages.coldsharing.reasons.badge")}
       </Badge>
 
       <Box>
@@ -528,6 +476,7 @@ function PreviewCard({ z = 1, top, left, w, title, subtitle, img }) {
 
 /* ================== ANIMAZIONE BARRE SEQUENZIALI ================== */
 function ColdRoomsFillAnimation() {
+  const { t } = useTranslation();
   const c1 = useAnimation();
   const c2 = useAnimation();
   const c3 = useAnimation();
@@ -550,16 +499,16 @@ function ColdRoomsFillAnimation() {
       }
     })();
     return () => { alive = false; };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Box bg="white" py={{ base: 12, md: 16 }}>
       <Container maxW="6xl">
-        <Heading textAlign="center" size="lg" mb={8}>Come funziona</Heading>
+        <Heading textAlign="center" size="lg" mb={8}>{t("pages.coldsharing.how.title")}</Heading>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
-          <BarCard title="1. Cerca" desc="Filtra per prodotto, temperatura e posizione. Vedi disponibilità reale." variant="blue" ctrl={c1}/>
-          <BarCard title="2. Prenota" desc="Gestione digitale di prezzi, contratti e pagamenti (escrow) in sicurezza." variant="blend" ctrl={c2}/>
-          <BarCard title="3. Refrigera" desc="Deposito e monitoraggio: accessi, temperature, report e audit trail." variant="orange" ctrl={c3}/>
+          <BarCard title={t("pages.coldsharing.how.steps.0.title")} desc={t("pages.coldsharing.how.steps.0.desc")} variant="blue" ctrl={c1}/>
+          <BarCard title={t("pages.coldsharing.how.steps.1.title")} desc={t("pages.coldsharing.how.steps.1.desc")} variant="blend" ctrl={c2}/>
+          <BarCard title={t("pages.coldsharing.how.steps.2.title")} desc={t("pages.coldsharing.how.steps.2.desc")} variant="orange" ctrl={c3}/>
         </SimpleGrid>
       </Container>
     </Box>
@@ -620,11 +569,12 @@ function BarCard({ title, desc, variant, ctrl }) {
 
 /* =============================== CTA =============================== */
 function CTA() {
+  const { t } = useTranslation();
   return (
     <Box bg="nitra.primary" color="white" textAlign="center" py={{ base: 14, md: 20 }}>
       <Container maxW="6xl">
-        <Heading mb={3}>Cosa aspetti? Realizziamo il tuo locale refrigerato e condividilo subito.</Heading>
-        <Text mb={6} color="whiteAlpha.900">Monetizza subito. Inizia ora.</Text>
+        <Heading mb={3}>{t("pages.coldsharing.cta.title")}</Heading>
+        <Text mb={6} color="whiteAlpha.900">{t("pages.coldsharing.cta.subtitle")}</Text>
         <HStack spacing={4} justify="center" wrap="wrap">
           <Button
             as="a"
@@ -636,7 +586,7 @@ function CTA() {
             _hover={{ bg: ORANGE, boxShadow: "0 12px 28px rgba(176,65,37,.35)" }}
             sx={{ "--chakra-colors-nitra-accent": ORANGE_FALLBACK }}
           >
-            Accedi in ColdSharing
+            {t("pages.coldsharing.cta.primary")}
           </Button>
           <Button
             as="a"
@@ -647,7 +597,7 @@ function CTA() {
             borderColor="whiteAlpha.700"
             _hover={{ bg: "whiteAlpha.200" }}
           >
-            Parla con Nitra System
+            {t("pages.coldsharing.cta.secondary")}
           </Button>
         </HStack>
       </Container>

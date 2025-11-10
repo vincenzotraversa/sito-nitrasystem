@@ -14,35 +14,32 @@ import {
 } from "@chakra-ui/react";
 import { FaCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const MotionBox = motion(Box);
 
+// helpers SEO semplici
+function setMeta(name, content) {
+  if (!content) return;
+  let el = document.querySelector(`meta[name='${name}']`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute("name", name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
 export default function Azienda() {
-  const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || "it";
 
   useEffect(() => {
-    // SEO META
-    document.title =
-      "Nitra System | Impianti frigoriferi industriali tra Italia ed Europa dell’Est";
-    const desc =
-      "Nitra System, con sede a Sliven (Bulgaria) e competenze italiane, progetta e realizza impianti frigoriferi industriali e commerciali. Partner strategico per aziende italiane che vogliono operare nell’Est Europa.";
-    const keywords =
-      "impianti frigoriferi industriali, refrigerazione Bulgaria, impianti industriali Europa Est, progettazione, consulenza, Nitra System, celle frigo, CO2, NH3, HFO, logistica freddo, Italia Bulgaria";
-
-    const setMeta = (name, content) => {
-      let el = document.querySelector(`meta[name='${name}']`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute("name", name);
-        document.head.appendChild(el);
-      }
-      el.setAttribute("content", content);
-    };
-
-    setMeta("description", desc);
-    setMeta("keywords", keywords);
-  }, []);
+    document.title = t("pages.azienda.seoTitle");
+    setMeta("description", t("pages.azienda.seoDescription"));
+    setMeta("keywords", t("pages.azienda.seoKeywords"));
+  }, [lang, t]);
 
   return (
     <>
@@ -55,7 +52,7 @@ export default function Azienda() {
         backgroundPosition="center"
         mt={{ base: "72px", md: "80px" }}
         role="img"
-        aria-label="Ponte simbolico tra Italia ed Europa dell’Est"
+        aria-label={t("pages.azienda.hero.aria")}
       >
         <Box
           position="absolute"
@@ -75,11 +72,10 @@ export default function Azienda() {
             transition={{ duration: 0.8 }}
           >
             <Heading fontSize={["2xl", "3xl", "4xl"]}>
-              Refrigerazione industriale e commerciale
+              {t("pages.azienda.hero.title")}
             </Heading>
             <Text mt={4} fontSize={["md", "lg"]} maxW="3xl" mx="auto" color="whiteAlpha.900">
-              Nitra System è il punto di connessione tra l’esperienza italiana e il potenziale
-              produttivo dell’Europa dell’Est.
+              {t("pages.azienda.hero.subtitle")}
             </Text>
           </MotionBox>
         </Box>
@@ -91,7 +87,7 @@ export default function Azienda() {
           <Box>
             <Image
               src="/logonitra.png"
-              alt="Progettazione impianti frigoriferi industriali in Bulgaria"
+              alt={t("pages.azienda.about.imageAlt")}
               rounded="lg"
               shadow="md"
               w="100%"
@@ -100,18 +96,13 @@ export default function Azienda() {
           </Box>
           <Box>
             <Heading color="nitra.primary" mb={4}>
-              Storia
+              {t("pages.azienda.about.title")}
             </Heading>
             <Text fontSize="lg" color="gray.700" mb={6}>
-              Nitra System nasce a <b>Sliven (Bulgaria)</b>, cuore produttivo dell’Europa orientale,
-              e opera con competenze e metodologia <b>interamente italiane</b>. Questa doppia anima
-              permette all’azienda di offrire <b>impianti frigoriferi industriali</b> innovativi e
-              certificati, combinando precisione tecnica, competitività e know-how italiano.
+              {t("pages.azienda.about.p1")}
             </Text>
             <Text fontSize="lg" color="gray.700">
-              Grazie alla posizione strategica in Bulgaria, Nitra System è il partner ideale per le
-              aziende italiane che vogliono <b>espandere le proprie attività nell’Est Europa</b> o
-              ottimizzare la produzione con impianti efficienti, conformi e sostenibili.
+              {t("pages.azienda.about.p2")}
             </Text>
           </Box>
         </SimpleGrid>
@@ -125,7 +116,6 @@ export default function Azienda() {
         py={{ base: 12, md: 16 }}
         overflow="hidden"
       >
-        {/* Effetto sfondo geometrico che richiama “connessione” */}
         <Box
           position="absolute"
           inset="0"
@@ -136,48 +126,26 @@ export default function Azienda() {
 
         <Container maxW="7xl" position="relative">
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} alignItems="center">
-            {/* Colonna sinistra: testo */}
             <Box>
-              <Heading
-                as="h2"
-                size="lg"
-                mb={4}
-                textTransform="uppercase"
-                letterSpacing="wide"
-              >
-                Soluzioni custom per l’Italia e l’Est Europa
+              <Heading as="h2" size="lg" mb={4} textTransform="uppercase" letterSpacing="wide">
+                {t("pages.azienda.custom.title")}
               </Heading>
 
               <Text mb={6} color="whiteAlpha.900" fontSize={{ base: "md", md: "lg" }} lineHeight="tall">
-                Nitra System è il <b>ponte tecnologico tra Italia ed Est Europa</b>: ogni impianto
-                viene progettato internamente dal nostro team tecnico secondo gli standard europei e
-                con attenzione all’efficienza energetica.  
-                <br /><br />
-                Realizziamo impianti frigoriferi per i settori agroalimentare, farmaceutico e
-                manifatturiero, con tempi rapidi e gestione completa dal design al collaudo.
+                {t("pages.azienda.custom.body")}
               </Text>
 
               <List spacing={3} fontSize="md">
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Centrali frigo, celle e chiller industriali
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Supervisione e telecontrollo da remoto 24/7
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Hydrocooler e Vacuumcooler
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Produttore di ghiaccio e sanificatori alimentari
-                </ListItem>
+                {t("pages.azienda.custom.bullets", { returnObjects: true }).map((item, idx) => (
+                  <ListItem key={idx}>
+                    <ListIcon as={FaCheckCircle} color="nitra.accent" />
+                    {item}
+                  </ListItem>
+                ))}
               </List>
             </Box>
 
-            {/* Colonna destra: effetto visivo “ponte” */}
+            {/* elemento “ponte” visivo */}
             <Box
               display={{ base: "none", md: "flex" }}
               alignItems="center"
@@ -205,7 +173,7 @@ export default function Azienda() {
                 textAlign="center"
                 userSelect="none"
               >
-                ITALIA • EST EUROPA
+                {t("pages.azienda.custom.ribbon")}
               </Text>
             </Box>
           </SimpleGrid>
@@ -215,21 +183,13 @@ export default function Azienda() {
       {/* ================= CTA ================= */}
       <Box bg="gray.50" py={{ base: 10, md: 16 }} textAlign="center">
         <Heading size="md" color="nitra.primary" mb={3}>
-          Partner strategico per la tua espansione in Europa
+          {t("pages.azienda.cta.title")}
         </Heading>
         <Text color="gray.700" mb={6}>
-          Nitra System connette l’esperienza italiana con la solidità produttiva dell’Est Europa.  
-          Contattaci per sviluppare insieme il tuo prossimo impianto frigorifero industriale.
+          {t("pages.azienda.cta.desc")}
         </Text>
-
-        {/* Opzione A: Link nativo sul Button */}
-        <Button
-          as={RouterLink}
-          to="../contatti"
-          colorScheme="teal"
-          size="lg"
-        >
-          Contattaci →
+        <Button as={RouterLink} to="../contatti" colorScheme="teal" size="lg">
+          {t("pages.azienda.cta.button")}
         </Button>
       </Box>
     </>

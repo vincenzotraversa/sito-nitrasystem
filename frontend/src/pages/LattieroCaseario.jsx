@@ -1,5 +1,4 @@
-// src/pages/LattieroCaseario.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -10,17 +9,34 @@ import {
   ListItem,
   ListIcon,
   Image,
+  Button,
 } from "@chakra-ui/react";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function LattieroCaseario() {
+  const { t } = useTranslation();
+
+  // helpers i18n sicuri
+  const arr = (k) => {
+    const v = t(k, { returnObjects: true, defaultValue: [] });
+    return Array.isArray(v) ? v : [];
+  };
+  const txt = (k, f = "") => (typeof t(k) === "string" ? t(k) : f);
+
+  useEffect(() => {
+    document.title = txt("pages.dairy.seoTitle", "Prodotti Lattiero-Caseari | Nitra System");
+  }, [t]);
+
+  const withLang = (p) => p;
+
   return (
     <Box bg="white" color="gray.800">
-      {/* ================= HERO ================= */}
+      {/* HERO */}
       <Box
         position="relative"
-        bgImage="url('/lattiero-bg.jpg')" // <-- immagine da inserire in /public
+        bgImage="url('/lattiero.jpg')"
         bgSize="cover"
         bgPos="center"
         bgRepeat="no-repeat"
@@ -35,67 +51,50 @@ export default function LattieroCaseario() {
         color="white"
       >
         <Container maxW="6xl" position="relative">
-          <Heading
-            as="h1"
-            fontSize={{ base: "3xl", md: "5xl" }}
-            mb={4}
-            fontWeight="800"
-          >
-            Impianti frigoriferi per il settore lattiero-caseario
+          <Heading as="h1" fontSize={{ base: "3xl", md: "5xl" }} mb={4} fontWeight="800">
+            {txt("pages.dairy.hero.title", "Impianti frigoriferi per il settore lattiero-caseario")}
           </Heading>
           <Text fontSize={{ base: "md", md: "lg" }} opacity={0.9} maxW="3xl" mx="auto">
-            Sistemi di refrigerazione avanzati per garantire la qualità del latte e dei
-            suoi derivati lungo tutto il processo produttivo: dalla mungitura allo stoccaggio,
-            fino alla distribuzione.
+            {txt(
+              "pages.dairy.hero.subtitle",
+              "Sistemi di refrigerazione avanzati per garantire qualità e sicurezza lungo tutto il processo produttivo."
+            )}
           </Text>
         </Container>
       </Box>
 
-      {/* ================= DESCRIZIONE ================= */}
+      {/* DESCRIZIONE */}
       <Box py={{ base: 12, md: 20 }}>
         <Container maxW="6xl">
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} alignItems="center">
             <Box>
-              <Heading
-                as="h2"
-                size="lg"
-                color="nitra.primary"
-                mb={4}
-                fontWeight="700"
-              >
-                Soluzioni su misura per la catena del freddo nel settore latte e formaggi
+              <Heading as="h2" size="lg" color="nitra.primary" mb={4} fontWeight="700">
+                {txt(
+                  "pages.dairy.intro.title",
+                  "Soluzioni su misura per la catena del freddo nel settore latte e formaggi"
+                )}
               </Heading>
               <Text mb={6} fontSize="md" color="gray.700">
-                Nitra System progetta e realizza impianti frigoriferi dedicati alla
-                produzione e conservazione dei prodotti lattiero-caseari, con l’obiettivo
-                di preservare le proprietà organolettiche del latte e di ottimizzare
-                il consumo energetico dell’impianto.
+                {txt(
+                  "pages.dairy.intro.body",
+                  "Progettiamo impianti per produzione e conservazione dei lattiero-caseari, preservando le proprietà del latte e ottimizzando i consumi."
+                )}
               </Text>
 
-              <List spacing={3} fontSize="md">
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Celle frigorifere per stoccaggio latte e derivati a temperatura controllata.
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Impianti per la maturazione e stagionatura di formaggi e latticini freschi.
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Sistemi di raffreddamento rapido post-pastorizzazione o post-mungitura.
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Gestione automatizzata di temperatura e umidità per processi di fermentazione e conservazione.
-                </ListItem>
+              <List spacing={3} fontSize="md" color="gray.700">
+                {arr("pages.dairy.intro.points").map((p, i) => (
+                  <ListItem key={i}>
+                    <ListIcon as={FaCheckCircle} color="nitra.accent" />
+                    {p}
+                  </ListItem>
+                ))}
               </List>
             </Box>
 
             <Box textAlign="center">
               <Image
-                src="/lattiero.jpg" // immagine impianto o lavorazione
-                alt="Impianto frigorifero settore lattiero-caseario"
+                src="/lattiero.jpg"
+                alt={txt("pages.dairy.images.mainAlt", "Impianto frigorifero settore lattiero-caseario")}
                 rounded="xl"
                 shadow="xl"
                 mx="auto"
@@ -106,78 +105,50 @@ export default function LattieroCaseario() {
         </Container>
       </Box>
 
-      {/* ================= VANTAGGI ================= */}
+      {/* VANTAGGI */}
       <Box bg="gray.50" py={{ base: 12, md: 20 }}>
         <Container maxW="6xl">
-          <Heading
-            as="h3"
-            size="lg"
-            textAlign="center"
-            mb={{ base: 8, md: 12 }}
-            color="nitra.primary"
-          >
-            Vantaggi per l’industria lattiero-casearia
+          <Heading as="h3" size="lg" textAlign="center" mb={{ base: 8, md: 12 }} color="nitra.primary">
+            {txt("pages.dairy.benefits.title", "Vantaggi per l’industria lattiero-casearia")}
           </Heading>
 
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
-            <Box p={6} bg="white" rounded="xl" shadow="md">
-              <Heading as="h4" size="md" mb={3}>
-                Controllo preciso delle temperature
-              </Heading>
-              <Text color="gray.600">
-                Ogni fase, dalla raccolta alla stagionatura, è gestita con sistemi di
-                regolazione automatica per garantire qualità e sicurezza alimentare.
-              </Text>
-            </Box>
-
-            <Box p={6} bg="white" rounded="xl" shadow="md">
-              <Heading as="h4" size="md" mb={3}>
-                Efficienza energetica
-              </Heading>
-              <Text color="gray.600">
-                Utilizzo di compressori inverter e gas ecologici per ridurre i consumi e
-                ottimizzare i costi operativi dell’impianto.
-              </Text>
-            </Box>
-
-            <Box p={6} bg="white" rounded="xl" shadow="md">
-              <Heading as="h4" size="md" mb={3}>
-                Igiene e affidabilità
-              </Heading>
-              <Text color="gray.600">
-                Tutti i sistemi rispettano gli standard HACCP e assicurano un
-                ambiente controllato, facile da sanificare e costantemente monitorato.
-              </Text>
-            </Box>
+            {arr("pages.dairy.benefits.cards").map((c, i) => (
+              <Box key={i} p={6} bg="white" rounded="xl" shadow="md">
+                <Heading as="h4" size="md" mb={3}>
+                  {c.title}
+                </Heading>
+                <Text color="gray.600">{c.body}</Text>
+              </Box>
+            ))}
           </SimpleGrid>
         </Container>
       </Box>
 
-      {/* ================= CTA ================= */}
+      {/* CTA */}
       <Box bg="nitra.primary" color="white" py={{ base: 12, md: 16 }} textAlign="center">
         <Container maxW="5xl">
-          <Heading mb={4}>
-            Progettiamo il freddo su misura per il tuo caseificio
-          </Heading>
+          <Heading mb={4}>{txt("pages.dairy.cta.title", "Progettiamo il freddo su misura per il tuo caseificio")}</Heading>
           <Text mb={8} opacity={0.9}>
-            Affidati a Nitra System per impianti efficienti, sostenibili e
-            conformi agli standard di qualità del settore lattiero-caseario.
+            {txt(
+              "pages.dairy.cta.desc",
+              "Affidati a Nitra System per impianti efficienti, sostenibili e conformi agli standard di qualità."
+            )}
           </Text>
-            <Box
-              as={RouterLink}
-              to="../contatti"
-              bg="nitra.accent"
-              color="white"
-              px={8}
-              py={3}
-              rounded="full"
-              fontWeight="600"
-              display="inline-block"
-              _hover={{ bg: "#C85B38" }}
-              _active={{ bg: "#9F3A22" }}
-            >
-              Contattaci ora
-            </Box>
+          <Button
+            as={RouterLink}
+            to={withLang("/contatti")}
+            bg="nitra.accent"
+            color="white"
+            px={8}
+            py={3}
+            rounded="full"
+            fontWeight="600"
+            _hover={{ bg: "#C85B38" }}
+            _active={{ bg: "#9F3A22" }}
+          >
+            {txt("pages.dairy.cta.button", "Contattaci ora")} <Box as="span" ml={2}>›</Box>
+          </Button>
         </Container>
       </Box>
     </Box>

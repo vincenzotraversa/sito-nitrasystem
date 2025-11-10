@@ -1,4 +1,3 @@
-// src/pages/Panificazione.jsx
 import React, { useEffect } from "react";
 import {
   Box,
@@ -6,7 +5,6 @@ import {
   Heading,
   Text,
   SimpleGrid,
-  Stack,
   HStack,
   Image,
   Button,
@@ -19,37 +17,40 @@ import {
   List,
   ListItem,
   ListIcon,
-  Flex, // ✅ aggiunto
+  Flex,
 } from "@chakra-ui/react";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link as RouterLink, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Panificazione() {
+  // ns 'common' + keyPrefix coerente con i JSON
+  const { t, i18n } = useTranslation("common", { keyPrefix: "pages.bakery" });
   const { lang } = useParams();
+
+  const withLang = (p) => (lang ? `/${lang}${p}` : p);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    document.title = t("seoTitle", { defaultValue: "Panificazione | Nitra System" });
+  }, [i18n.language, t]);
+
+  // array sicuri (se la chiave manca restituisce [])
+  const introPoints = t("intro.points", { returnObjects: true, defaultValue: [] }) || [];
+  const solItems = t("sol.items", { returnObjects: true, defaultValue: [] }) || [];
 
   return (
     <>
-            {/* HERO COMPATTO */}
-      <Box
-        position="relative"
-        h={["42vh", "46vh", "50vh"]}
-        mt={{ base: "72px", md: "80px" }}
-      >
-        {/* altezza equilibrata / spazio sotto la navbar */}
-
+      {/* HERO */}
+      <Box position="relative" h={{ base: "42vh", md: "50vh" }} mt={{ base: "72px", md: "80px" }}>
         <Image
           src="/panificazione.webp"
-          alt="Impianti frigoriferi per panificazione"
+          alt={t("images.mainAlt", { defaultValue: "Impianti panificazione" })}
           w="100%"
           h="100%"
           objectFit="cover"
           opacity={0.85}
         />
-
-        {/* Overlay con testo centrato leggermente più in basso */}
         <Flex
           position="absolute"
           inset={0}
@@ -62,141 +63,104 @@ export default function Panificazione() {
           justify="flex-end"
           pb={{ base: "8vh", md: "10vh" }}
         >
-          <Heading size={["xl", "2xl"]} mb={2} textShadow="0 2px 8px rgba(0,0,0,0.5)">
-            Panificazione
+          <Heading fontSize={{ base: "2xl", md: "4xl" }} mb={2} textShadow="0 2px 8px rgba(0,0,0,0.5)">
+            {t("hero.title")}
           </Heading>
           <Text
             maxW="3xl"
-            fontSize={["md", "lg"]}
+            fontSize={{ base: "md", md: "lg" }}
             color="whiteAlpha.900"
             textShadow="0 1px 6px rgba(0,0,0,0.4)"
           >
-            Progettiamo e realizziamo impianti per fermalievita, abbattimento, conservazione impasti
-            e camere di lievitazione controllata per panifici artigianali e industria bakery.
+            {t("hero.subtitle")}
           </Text>
         </Flex>
       </Box>
 
-
-      {/* Vantaggi */}
-      <Container maxW="7xl" py={[10, 16]}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} alignItems="center" mb={[10, 14]}>
+      {/* INTRO + VANTAGGI */}
+      <Container maxW="7xl" py={{ base: 10, md: 16 }}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} alignItems="center" mb={{ base: 10, md: 14 }}>
           <Image
-            src="/panificazione-camere.jpg"
-            alt="Camere di lievitazione controllata"
+            src="/pane2.png"
+            alt={t("images.secondaryAlt", { defaultValue: "Camere di lievitazione e conservazione impasti" })}
             rounded="xl"
             objectFit="cover"
             h={{ base: "220px", md: "320px" }}
           />
           <Box>
             <Heading size="lg" color="nitra.primary" mb={3}>
-              Lievitazione costante, qualità ripetibile
+              {t("intro.title")}
             </Heading>
             <Text color="gray.700" mb={4}>
-              Regolazione precisa di temperatura, umidità e ventilazione con ricette personalizzate per
-              ogni prodotto (pane, focaccia, brioche). Riduzione degli scarti, standardizzazione del processo
-              e tracciabilità dei lotti.
+              {t("intro.body")}
             </Text>
             <List spacing={2}>
-              <ListItem>
-                <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                Controllo U.R. 55–95% e setpoint -30°C / +40°C
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaCheckCircle} ccolor="nitra.accent" />
-                Cicli programmati: fermalievita, prelievitazione, maturazione
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                Recupero calore e riduzione consumi
-              </ListItem>
+              {introPoints.map((p, i) => (
+                <ListItem key={i}>
+                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
+                  {p}
+                </ListItem>
+              ))}
             </List>
           </Box>
         </SimpleGrid>
 
         <Divider my={8} />
 
-        {/* Soluzioni */}
+        {/* SOLUZIONI – ACCORDION */}
         <Heading size="lg" color="nitra.primary" mb={4}>
-          Soluzioni per panifici e industria bakery
+          {t("sol.title")}
         </Heading>
         <Accordion allowMultiple>
-          <AccordionItem>
-            <h2>
-              <AccordionButton _expanded={{ bg: "teal.50" }}>
-                <Box as="span" flex="1" textAlign="left">
-                  Camere di lievitazione controllata
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              Strutture modulari con pannelli isotermici, umidificazione integrata e gestione ricette.
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <h2>
-              <AccordionButton _expanded={{ bg: "teal.50" }}>
-                Abbattitori e celle di conservazione impasti
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              Abbattimento rapido e stoccaggio controllato per ottimizzare i turni di produzione.
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <h2>
-              <AccordionButton _expanded={{ bg: "teal.50" }}>
-                Quadro elettrico, supervisione e telecontrollo
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              PLC/SCADA, ricette, registrazione dati e assistenza remota per continuità operativa.
-            </AccordionPanel>
-          </AccordionItem>
+          {solItems.map((item, i) => (
+            <AccordionItem key={i}>
+              <h2>
+                <AccordionButton _expanded={{ bg: "teal.50" }}>
+                  <Box as="span" flex="1" textAlign="left">
+                    {item.title}
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>{item.body}</AccordionPanel>
+            </AccordionItem>
+          ))}
         </Accordion>
 
-        <HStack mt={10}>
-          <Button as={RouterLink} to={`/${lang}/contatti`} colorScheme="teal" size="lg">
-            Richiedi consulenza
+        <HStack mt={10} spacing={4}>
+          <Button as={RouterLink} to={withLang("/contatti")} colorScheme="teal" size="lg">
+            {t("cta.primary")}
           </Button>
-          <Button as={RouterLink} to={`/${lang}`} variant="outline">
-            Torna alla Home
+          <Button as={RouterLink} to={withLang("/")} variant="outline">
+            {t("cta.secondary")}
           </Button>
         </HStack>
       </Container>
 
+      {/* CTA FINALE */}
+      <Box bg="nitra.primary" color="white" py={{ base: 12, md: 16 }} textAlign="center">
+        <Container maxW="5xl">
+          <Heading mb={4}>{t("cta.title")}</Heading>
+          <Text mb={8} opacity={0.9}>
+            {t("cta.desc")}
+          </Text>
 
-      {/* ================= CTA ================= */}
-<Box bg="nitra.primary" color="white" py={{ base: 12, md: 16 }} textAlign="center">
-  <Container maxW="5xl">
-    <Heading mb={4}>
-      Soluzioni di refrigerazione su misura per panifici e industria bakery
-    </Heading>
-    <Text mb={8} opacity={0.9}>
-      Affidati a Nitra System.
-    </Text>
-
-    <Box
-      as={RouterLink}
-      to="../contatti"
-      bg="nitra.accent"
-      color="white"
-      px={8}
-      py={3}
-      rounded="full"
-      fontWeight="600"
-      display="inline-block"
-      _hover={{ bg: "#C85B38" }}
-      _active={{ bg: "#9F3A22" }}
-    >
-      Contattaci ora
-    </Box>
-  </Container>
-</Box>
-
+          <Button
+            as={RouterLink}
+            to={withLang("/contatti")}
+            bg="nitra.accent"
+            color="white"
+            px={8}
+            py={3}
+            rounded="full"
+            fontWeight="600"
+            _hover={{ bg: "#C85B38" }}
+            _active={{ bg: "#9F3A22" }}
+          >
+            {t("cta.button")}
+          </Button>
+        </Container>
+      </Box>
     </>
   );
 }

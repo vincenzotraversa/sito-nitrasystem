@@ -1,4 +1,4 @@
-// src/pages/Cosafacciamo.jsx
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -11,19 +11,31 @@ import {
   List,
   ListItem,
   Badge,
+  Button,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const MotionBox = motion(Box);
 
 export default function Cosafacciamo() {
+  const { t, i18n } = useTranslation(undefined, { keyPrefix: "pages.what" });
+
+  useEffect(() => {
+    document.title = t("seoTitle");
+  }, [i18n.language, t]);
+
+  const areas = t("areas.items", { returnObjects: true });
+  const techBullets = t("technology.points", { returnObjects: true });
+
   return (
     <>
       {/* ================== HERO ================== */}
       <Box position="relative" overflow="hidden">
         <Image
           src="/impianti-nitra-hero.jpg"
-          alt="Impianti frigoriferi industriali Nitra System"
+          alt={t("images.heroAlt")}
           w="100%"
           h={["50vh", "60vh", "70vh"]}
           objectFit="cover"
@@ -37,18 +49,18 @@ export default function Cosafacciamo() {
           justifyContent="center"
           textAlign="center"
           px={4}
+          color="white"
         >
           <MotionBox
-            color="white"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             <Heading size={["xl", "2xl", "3xl"]} mb={3}>
-              Cosa facciamo
+              {t("hero.title")}
             </Heading>
             <Text fontSize={["lg", "xl"]} maxW="4xl" mx="auto">
-              Soluzioni complete per refrigerazione industriale: progettazione, realizzazione, automazione e manutenzione H24.
+              {t("hero.subtitle")}
             </Text>
           </MotionBox>
         </Box>
@@ -57,52 +69,27 @@ export default function Cosafacciamo() {
       {/* ================== SEZIONE DESCRITTIVA ================== */}
       <Container maxW="7xl" py={[12, 16]}>
         <Stack spacing={8}>
-          <Heading color="nitra.primary">Specialisti nella refrigerazione industriale</Heading>
+          <Heading color="nitra.primary">{t("section1.title")}</Heading>
           <Text fontSize="lg" color="gray.700">
-            Nitra System progetta e realizza impianti frigoriferi per il settore
-            agroalimentare, logistico e manifatturiero. Dalla prima analisi energetica
-            alla manutenzione predittiva, seguiamo l’intero ciclo di vita dell’impianto
-            garantendo prestazioni, efficienza e continuità operativa.
+            {t("section1.body")}
           </Text>
 
           <Divider borderColor="rgba(14,74,103,0.18)" />
 
           <Heading size="md" color="nitra.primary">
-            I nostri ambiti di intervento
+            {t("areas.title")}
           </Heading>
+
           <SimpleGrid columns={[1, 2, 4]} spacing={6}>
-            <Box>
-              <Badge bg="nitra.primary" color="white" mb={2}>01</Badge>
-              <Heading size="sm">Progettazione</Heading>
-              <Text color="gray.700" mt={2}>
-                Analisi termodinamiche, scelta del refrigerante (NH₃, CO₂, HFO), simulazioni
-                energetiche e definizione del layout impiantistico.
-              </Text>
-            </Box>
-            <Box>
-              <Badge bg="nitra.accent" color="white" mb={2}>02</Badge>
-              <Heading size="sm">Realizzazione</Heading>
-              <Text color="gray.700" mt={2}>
-                Costruzione e montaggio di impianti completi con componentistica certificata,
-                test di pressione e collaudo funzionale.
-              </Text>
-            </Box>
-            <Box>
-              <Badge bg="nitra.primary" color="white" mb={2}>03</Badge>
-              <Heading size="sm">Automazione</Heading>
-              <Text color="gray.700" mt={2}>
-                PLC, inverter, sistemi SCADA e telemonitoraggio per controllo da remoto,
-                sicurezza e ottimizzazione dei consumi.
-              </Text>
-            </Box>
-            <Box>
-              <Badge bg="nitra.accent" color="white" mb={2}>04</Badge>
-              <Heading size="sm">Assistenza e Service</Heading>
-              <Text color="gray.700" mt={2}>
-                Interventi di manutenzione preventiva, predittiva e correttiva H24 in tutta
-                Europa con squadre specializzate.
-              </Text>
-            </Box>
+            {areas.map((a, i) => (
+              <Box key={i}>
+                <Badge bg={i % 2 === 0 ? "nitra.primary" : "nitra.accent"} color="white" mb={2}>
+                  {String(i + 1).padStart(2, "0")}
+                </Badge>
+                <Heading size="sm">{a.title}</Heading>
+                <Text color="gray.700" mt={2}>{a.body}</Text>
+              </Box>
+            ))}
           </SimpleGrid>
         </Stack>
       </Container>
@@ -118,7 +105,7 @@ export default function Cosafacciamo() {
             >
               <Image
                 src="/impianti-refrigerazione.jpg"
-                alt="Centrale frigorifera Nitra System"
+                alt={t("images.secondaryAlt")}
                 rounded="lg"
                 shadow="lg"
               />
@@ -128,17 +115,14 @@ export default function Cosafacciamo() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
             >
-              <Heading color="nitra.primary">Tecnologia e sostenibilità</Heading>
+              <Heading color="nitra.primary">{t("technology.title")}</Heading>
               <Text fontSize="lg" color="gray.700" mt={4}>
-                Ogni impianto Nitra è pensato per ridurre l’impatto ambientale e i costi
-                energetici. Utilizziamo refrigeranti naturali, sistemi di recupero calore e
-                soluzioni integrate per il monitoraggio in tempo reale delle prestazioni.
+                {t("technology.body")}
               </Text>
               <List mt={4} spacing={2} color="gray.700">
-                <ListItem>• Refrigeranti naturali NH₃ e CO₂</ListItem>
-                <ListItem>• Sistemi HFO a basso GWP</ListItem>
-                <ListItem>• Recupero calore e fluidi secondari</ListItem>
-                <ListItem>• Telecontrollo e manutenzione predittiva</ListItem>
+                {techBullets.map((p, i) => (
+                  <ListItem key={i}>• {p}</ListItem>
+                ))}
               </List>
             </MotionBox>
           </SimpleGrid>
@@ -149,25 +133,25 @@ export default function Cosafacciamo() {
       <Box py={[14, 20]}>
         <Container maxW="7xl" textAlign="center">
           <Heading mb={3} color="nitra.primary">
-            Scopri le nostre soluzioni personalizzate
+            {t("cta.title")}
           </Heading>
           <Text fontSize="lg" color="gray.700" mb={6}>
-            Ogni impianto nasce da una progettazione su misura: performance, sicurezza e affidabilità.
+            {t("cta.desc")}
           </Text>
-          <Box
-            as="a"
-            href="/contatti"
+          <Button
+            as={RouterLink}
+            to="/contatti"
             bg="nitra.primary"
             color="white"
             fontWeight="semibold"
             px={8}
-            py={4}
+            py={6}
             rounded="lg"
             _hover={{ bg: "nitra.accent" }}
             transition="all 0.3s"
           >
-            Contattaci →
-          </Box>
+            {t("cta.button")}
+          </Button>
         </Container>
       </Box>
     </>

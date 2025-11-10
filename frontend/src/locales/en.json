@@ -1,24 +1,934 @@
 {
+  "home": "Home",
+  "whatWeDo": "What we do",
+  "agriFood": "Agri-food",
+  "meatProcessing": "Meat Processing",
+  "dairy": "Dairy Products",
+  "fish": "Fish & Seafood Processing",
+  "fruitVeg": "Fruit & Vegetables",
+  "navbarprocessed": "Processed Foods",
+  "industrial": "Industrial",
+  "navbarhydrocooler": "Hydrocooler",
+  "navbarvacuumCooler": "Vacuum Cooler",
+  "navbarsanitizer": "Sanitizer",
+  "iceMaker": "Ice Maker",
+  "company": "Company",
+  "navbarpartners": "Partners & Collaborations",
+  "contacts": "Contacts",
+  "coldsharing": "Coldsharing",
+  "getAQuote": "Get a quote",
+  "titlehome": "Industrial refrigeration",
+  "refrigeratedLogistics": "Refrigerated Logistics",
+  "GDOLogistics": "Retail (GDO) Logistics",
+  "sanitizer": "Sanitizer",
+
+  "brand": "Nitra System",
+  "nav": {
     "home": "Home",
-    "whatWeDo": "What we do",
-    "agriFood": "Agri-food",
-    "meatProcessing": "Meat Processing",
-    "bakery": "Bakery",
-    "dairy": "Dairy",
-    "fish": "Fish",
-    "fruitVeg": "Fruit & Veg",
-    "processed": "Processed",
-    "industrial": "Industrial",
-    "hydrocooler": "Hydrocooler",
-    "vacuumCooler": "Vacuum Cooler",
-    "sanitizer": "Sanitizer",
-    "iceMaker": "Ice Maker",
-    "refrigeratedLogistics": "Refrigerated Logistics",
-    "GDOLogistics": "GDO Logistics",
     "company": "Company",
-    "partners": "Partner",
-    "contacts": "Contacts",
+    "whatWeDo": "What we do",
     "coldsharing": "Coldsharing",
-    "getAQuote": "Get a quote",
-    "titlehome": "industrial refrigeration sistem"
+    "partners": "Partners & Collaborations",
+    "contacts": "Contacts"
+  },
+  "footer": {
+    "aboutText": "Industrial refrigeration systems for agri-food, pharmaceutical and manufacturing sectors.",
+    "usefulLinks": "Useful links",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "contacts": "Contacts",
+    "openMaps": "Open Nitra System location on Google Maps",
+    "addressBG": {
+      "line1": "8800 Sliven – Bulgaria",
+      "line2": "Road Baba Tonca No. 5A"
+    },
+    "addressIT": {
+      "line1": "70132 Bari – Italy",
+      "line2": "Via Emanuele Melisurgo No. 5"
+    },
+    "rights": "All rights reserved.",
+    "madeBy": "Website by Marvincla S.R.L. – Digital hub for the agri-food sector.",
+    "languageSwitch": "Language switch",
+    "langButton": { "en": "English version", "it": "Italian version" }
+  },
+
+  "homePage": {
+    "seo": { "title": "Nitra System | Industrial Refrigeration and Cooling Solutions" },
+    "hero": {
+      "title": "Tailor-made refrigeration systems for industry and agri-food",
+      "tagline": "Design, build and maintenance of industrial refrigeration plants for food, pharma and manufacturing."
+    },
+    "agro": {
+      "overtitle": "Industrial refrigeration plants",
+      "title": "Agri-food sector",
+      "cards": {
+        "carni":       { "title": "Meat processing",     "desc": "Plants and cold rooms for slaughter and curing." },
+        "lattiero":    { "title": "Dairy products",      "desc": "Temperature-controlled processes for milk and dairy." },
+        "ittico":      { "title": "Fish & seafood",      "desc": "Fast freezing, storage and low-temp processing." },
+        "ortofrutta":  { "title": "Fruit & vegetables",  "desc": "Pre-cooling, storage and controlled atmosphere." },
+        "trasformati": { "title": "Processed foods",     "desc": "Process lines and storage for ready-made foods." }
+      }
+    },
+    "life": {
+      "overtitle": "Pharma & Life Sciences",
+      "title": "Controlled contamination environments",
+      "cards": {
+        "cleanrooms": { "title": "Cleanrooms", "desc": "Design and build of ISO 14644 cleanrooms with HVAC and validation." }
+      }
+    },
+    "manuf": {
+      "overtitle": "Manufacturing sector",
+      "title": "Industrial refrigeration solutions",
+      "cards": {
+    "hydro": {
+      "title": "Hydrocooler",
+      "desc": "Fast post-harvest cooling for fruits and greens."},
+    "vacuum": {
+      "title": "Vacuum cooler",
+      "desc": "Vacuum cooling for delicate food and produce."},
+    "sanit": {
+      "title": "Food sanitizer",
+      "desc": "Low-impact air and surface sanitation system."},
+    "ghiaccio": {
+      "title": "Ice maker",
+      "desc": "Ice production and storage for industrial use."}
+      }
+    },
+    "logistics": {
+      "overtitle": "Refrigerated logistics",
+      "title": "Cold chain and distribution",
+      "cards": {
+        "log-refrig": { "title": "Refrigerated logistics", "desc": "Cold rooms, tunnels and counters across the supply chain." },
+        "log-gdo":    { "title": "Retail logistics",       "desc": "Refrigeration solutions for modern retail." }
+      }
+    },
+    "cta": {
+      "title": "Do you have a project or a technical question?",
+      "desc": "Our team helps you define the most efficient and sustainable solution.",
+      "button": "Request a quote"
+    }
+  },
+
+  "pages": {
+    "coldsharing": {
+      "seoTitle": "ColdSharing | The cold marketplace",
+      "hero": {
+        "step1": { "line1": "From the collaboration", "line2": "with Marvincla" },
+        "step2": "comes",
+        "logo": "COLDSHARING",
+        "subtitle": "The B2B marketplace to find or share refrigerated rooms",
+        "cta": "Sign up free",
+        "scroll": "↓ Scroll"
+      },
+      "story": {
+        "title": "Finding refrigerated space is very hard.",
+        "lead": "Finding a cold room, reefer container or refrigerated vehicle is still complicated: specs aren’t comparable, reliable information is scarce and decisions are slow.",
+        "top3": [
+          { "emoji": "🧪", "title": "Specific requirements", "desc": "Each product needs different parameters (°C, humidity, air changes). Finding the right space is complex." },
+          { "emoji": "📦", "title": "Fragmented solutions",  "desc": "Similar plants with different performance and purposes: hard to compare, slow decisions." },
+          { "emoji": "🔍", "title": "Little reliable info",  "desc": "Availability, certifications and pricing are often unclear or outdated." }
+        ],
+        "bottom2": [
+          { "emoji": "🤝", "title": "Trust gap",       "desc": "Concerns about payments and transparency slow down sharing between companies." },
+          { "emoji": "🌦️", "title": "Climate impact", "desc": "Extreme weather creates demand/supply imbalances and urgent needs." }
+        ]
+      },
+      "idea": {
+        "brand": "COLDSHARING",
+        "marketplace": "B2B marketplace",
+        "pitch": "to share your refrigerated space",
+        "text": "We connect spare refrigeration capacity with demand in minutes: geo search, secure bookings and full traceability."
+      },
+      "reasons": {
+        "title": "5 reasons to use it.",
+        "badge": "COLDSHARING",
+        "cta": "Try it free",
+        "note": "No strings attached.",
+        "items": [
+          { "emoji": "🔍", "title": "Find the right space",     "desc": "Select certified rooms nearby; filter by product, temperature and capacity." },
+          { "emoji": "💸", "title": "No upfront CAPEX",         "desc": "Use only the space you need, when you need it: pay-as-you-go." },
+          { "emoji": "⚙️", "title": "Lower operating costs",    "desc": "Optimize capacity and reduce waste and energy by sharing." },
+          { "emoji": "♻️", "title": "Circular economy",         "desc": "Maximize existing infrastructure, cut environmental impact." },
+          { "emoji": "🤝", "title": "Networking",               "desc": "Connect with producers, carriers and cold-chain operators." }
+        ],
+        "previews": [
+          { "top": "8%",  "left": "5%",  "w": { "base": "78%", "md": "60%" }, "title": "Cold rooms",           "subtitle": "Product: Grapes", "img": "/coldsharinglogo.png" },
+          { "top": "28%", "left": "28%", "w": { "base": "75%", "md": "60%" }, "title": "Reefer container",     "subtitle": "Product: Meat",   "img": "/frutta.jpg" },
+          { "top": "50%", "left": "8%",  "w": { "base": "82%", "md": "62%" }, "title": "Refrigerated transport","subtitle": "Product: Fish",   "img": "/ittico.jpg" }
+        ]
+      },
+      "how": {
+        "title": "How it works",
+        "steps": [
+          { "title": "1. Search",     "desc": "Filter by product, temperature and location. See real availability." },
+          { "title": "2. Book",       "desc": "Handle prices, contracts and payments (escrow) securely." },
+          { "title": "3. Refrigerate","desc": "Storage & monitoring: access, temperatures, reports and audit trail." }
+        ]
+      },
+      "cta": {
+        "title": "What are you waiting for? Build your refrigerated space and share it today.",
+        "subtitle": "Start monetizing now.",
+        "primary": "Enter ColdSharing",
+        "secondary": "Talk to Nitra System"
+      }
+    },
+
+    "meat": {
+      "seoTitle": "Meat Processing | Nitra System – Cold rooms, dry aging, tunnels and processing rooms",
+      "hero": {
+        "title": "Meat Processing",
+        "subtitle": "TN/BT rooms, dry aging & curing, rapid cooling/freezing tunnels and HACCP-compliant processing rooms."
+      },
+      "intro": {
+        "title": "Tailor-made refrigeration for butcheries and the meat industry",
+        "body": "We design systems for every stage: receiving, pre-cooling, aging, processing, packaging and storage. Focus on product quality, hygiene and uptime.",
+        "badges": ["Energy efficiency", "Thermo-hygrometric control", "Food safety", "24/7 service"],
+        "features": [
+          "TN/BT rooms for carcasses, deboning and storage",
+          "Aging/curing with humidity control",
+          "Air-conditioned processing rooms with optimized airflow",
+          "Rapid cooling/freezing tunnels",
+          "Sanitization, food-grade materials and drainage",
+          "Supervision, remote control and energy reports"
+        ]
+      },
+      "sections": [
+        {
+          "title": "TN/BT rooms for storage and handling",
+          "body": "Design of positive/negative rooms for hanging carcasses and deboning benches: high-performance insulation, anti-frost evaporators, rapid doors and barriers to reduce losses during openings.",
+          "bullets": ["Stainless hooks and rails", "Isothermal sliding/hinged doors", "Food-grade LED lighting"],
+          "img": "/lavorazionecarni.png",
+          "alt": "Meat cold rooms",
+          "imageSide": "right"
+        },
+        {
+          "title": "Dry aging and curing with humidity control",
+          "body": "Precise control of temperature, RH and ventilation to standardize maturation. Recipes, data logging and alarms available.",
+          "bullets": ["Redundant probes and continuous logging", "Dehumidification with heat recovery", "Antibacterial filters"],
+          "img": "/frollatura2.png",
+          "alt": "Dry aging and maturation",
+          "imageSide": "left"
+        }
+      ],
+      "cta": {
+        "title": "Custom refrigeration solutions for the meat sector",
+        "desc": "Rely on Nitra System for efficient, safe systems compliant with hygiene standards.",
+        "button": "Contact us now"
+      }
+    },
+
+    "cleanrooms": {
+      "seoTitle": "Cleanrooms | Nitra System",
+      "cleanrooms": "Cleanrooms",
+      "cleanroomsSubtitle": "Certified solutions for controlled contamination environments",
+      "cleanroomsTitle": "Design and construction of cleanrooms",
+      "cleanroomsIntro": "We design and build ISO 14644-compliant cleanrooms for pharmaceutical, biomedical, electronics and research. Each environment is engineered for particle control, energy efficiency and HVAC reliability.",
+      "cleanroomsList1": "Design in compliance with ISO 14644 and GMP",
+      "cleanroomsList2": "HVAC with temperature, humidity and particle control",
+      "cleanroomsList3": "Certified materials for walls, doors and furniture",
+      "cleanroomsList4": "Validation, monitoring and maintenance",
+      "cleanroomsCtaTitle": "Need a custom cleanroom?",
+      "cleanroomsCtaText": "Contact us for a free technical consultation and discover our certified solutions."
+    },
+
+    "dairy": {
+      "seoTitle": "Dairy Products | Nitra System",
+      "hero": {
+        "title": "Refrigeration systems for the dairy sector",
+        "subtitle": "Advanced cooling solutions to ensure milk and dairy quality across the process."
+      },
+      "intro": {
+        "title": "Tailor-made cold-chain solutions for milk and cheese",
+        "body": "We design and build refrigeration systems for dairy production and storage, preserving organoleptic properties while optimizing energy.",
+        "points": [
+          "Cold rooms for milk and dairy storage",
+          "Ripening and aging with humidity control",
+          "Rapid cooling after pasteurization or milking",
+          "Automated temperature & humidity control for fermentation and storage"
+        ]
+      },
+      "images": { "mainAlt": "Dairy refrigeration plant" },
+      "benefits": {
+        "title": "Benefits for the dairy industry",
+        "cards": [
+          { "title": "Precise temperature control", "body": "Automated regulation at each stage for quality and safety." },
+          { "title": "Energy efficiency", "body": "Inverter compressors and eco-friendly refrigerants to cut use." },
+          { "title": "Hygiene and reliability", "body": "HACCP-compliant systems with easy sanitation." }
+        ]
+      },
+      "cta": {
+        "title": "We design custom refrigeration for your dairy",
+        "desc": "Choose Nitra System for efficient, sustainable, standard-compliant systems.",
+        "button": "Contact us now"
+      }
+    },
+
+    "fish": {
+      "seoTitle": "Fish & Seafood | Nitra System",
+      "hero": {
+        "title": "Refrigeration for fish & seafood processing",
+        "subtitle": "Tailor-made cooling to maintain the cold chain and ensure freshness, quality and safety."
+      },
+      "intro": {
+        "title": "Systems for fish preservation and processing",
+        "body": "Plants dedicated to the seafood sector, preserving product characteristics from catch to distribution.",
+        "points": [
+          "Cold rooms for fresh or frozen fish",
+          "Rapid cooling tunnels and blast chillers",
+          "Processing, filleting and MAP packaging lines",
+          "Automated management of temperature, humidity and airflow"
+        ]
+      },
+      "images": { "mainAlt": "Seafood refrigeration plant" },
+      "benefits": {
+        "title": "Benefits for the seafood industry",
+        "cards": [
+          { "title": "Consistent freshness", "body": "Stable temperatures at every stage." },
+          { "title": "Hygiene & food safety", "body": "HACCP-compliant systems, anti-corrosion materials." },
+          { "title": "Efficiency & sustainability", "body": "Low-impact tech and natural refrigerants." }
+        ]
+      },
+      "cta": {
+        "title": "Cooling technology for the quality of your catch",
+        "desc": "We design efficient, compliant and tailor-made systems.",
+        "button": "Contact us now"
+      }
+    },
+
+    "produce": {
+      "seoTitle": "Fruit & Vegetables | Nitra System",
+      "title": "Fruit & Vegetables",
+      "intro": "Pre-cooling and storage to preserve crispness and freshness.",
+      "introTitle": "Solutions for fresh produce",
+      "introLong": "From harvest to storage, systems that quickly drop core temperature, stabilize humidity and minimize weight loss.",
+      "bullets": [
+        "Immediate post-harvest pre-cooling",
+        "U.L.O./CA rooms for extended shelf-life",
+        "Dedicated humidity and airflow management"
+      ],
+      "images": {
+        "mainAlt": "Refrigeration systems for fruit and vegetables",
+        "secondaryAlt": "Cold rooms for fruit and vegetables"
+      },
+      "sol": {
+        "title": "Solutions",
+        "points": ["Pre-cooling", "U.L.O./CA rooms", "Humidity control"]
+      },
+      "solText": [
+        "Fast core-temperature reduction with controlled curves.",
+        "Controlled/ultra-low atmosphere to slow respiration and extend shelf-life.",
+        "RH% control to protect crunchiness, appearance and weight."
+      ],
+      "focus": {
+        "hydro": "Rapid cooling with chilled water: ideal for cherries, grapes and leafy greens.",
+        "vacuum": "Under-vacuum cooling for delicate products: uniform drop and short cycles.",
+        "ulo": "U.L.O./CA rooms with telemetry, O₂/CO₂ control and continuous logging."
+      },
+      "benefits": {
+        "title": "Benefits",
+        "points": ["Extended shelf-life", "Lower weight loss", "Delivery quality"],
+        "body": [
+          "Higher saleable yield thanks to better texture and less dehydration.",
+          "Fewer rejects and more predictable yields along the chain.",
+          "Consistent quality up to the point of sale."
+        ]
+      },
+      "kpi": {
+        "coldChain": "Cold-chain continuity",
+        "precision": "Precise temperature control",
+        "humidity": "Humidity & weight-loss management"
+      },
+      "process": {
+        "title": "Our process",
+        "steps": [
+          { "title": "Assessment",     "text": "Site survey, product/volume analysis and layout." },
+          { "title": "Design",         "text": "Right-sizing and technology selection." },
+          { "title": "Implementation", "text": "Installation, commissioning, telemetry and recipes." },
+          { "title": "Operations",     "text": "Scheduled maintenance and continuous improvement." }
+        ]
+      },
+      "cta": {
+        "title": "Keep freshness from field to shelf",
+        "desc": "We help you design pre-cooling and storage to safeguard texture, aroma and value.",
+        "button": "Request a consultation",
+        "primary": "Contact us",
+        "secondary": "Back to Home"
+      }
+    },
+
+    "processed": {
+      "seoTitle": "Processed Foods | Nitra System",
+      "title": "Processed foods",
+      "intro": "Solutions for processing lines and temperature-controlled storage.",
+      "sol": { "title": "Solutions", "points": ["Process rooms", "FIFO storage", "Data traceability"] },
+      "benefits": { "title": "Benefits", "points": ["Stable processes", "Regulatory compliance", "Controlled costs"] }
+    },
+
+    "ice": {
+      "seoTitle": "Ice makers | Nitra System",
+      "title": "Ice makers",
+      "hero": {
+        "title": "Ice makers",
+        "subtitle": "Granular/super-granular and flake ice for display, preservation and processing."
+      },
+      "intro": {
+        "title": "Why an ice maker matters",
+        "body": "Keeps temperature and humidity stable for food and beverages. Useful in Ho.Re.Ca., agri-food and industry.",
+        "points": [
+          "Perfect for fish counters, produce and beverages",
+          "Supports cooling and mixing processes",
+          "Hygiene ensured and continuous production"
+        ]
+      },
+      "images": { "mainAlt": "Industrial ice maker for food and beverages" },
+      "types": {
+        "title": "Available ice types",
+        "cards": [
+          { "title": "Granular and super-granular ice", "body": "Granular cools quickly; super-granular maintains temperature and humidity longer." },
+          { "title": "Flake ice", "body": "Colder and drier (≈ -6/-12°C): ideal for processing and long preservation." }
+        ]
+      },
+      "benefits": {
+        "title": "Why choose our ice makers",
+        "cards": [
+          { "title": "Efficiency & uptime", "body": "Consistent output with optimized energy." },
+          { "title": "Hygiene by design",   "body": "Stainless/anti-corrosion parts in water-contact areas." },
+          { "title": "Versatile",           "body": "Tailored configurations for format and capacity." }
+        ]
+      },
+      "cta": {
+        "title": "Ice production tailored to your needs",
+        "desc": "We design and install granular, super-granular and flake ice systems.",
+        "button": "Contact us now"
+      }
+    },
+
+    "logiref": {
+      "seoTitle": "Refrigerated Logistics | Nitra System",
+      "hero": {
+        "title": "Refrigerated logistics",
+        "subtitle": "Solutions for cold storage and transport with full temperature control and traceability."
+      },
+      "intro": {
+        "title": "Efficiency and control along the cold chain",
+        "body": "We design refrigeration systems for agri-food and industrial logistics: from cold rooms to automated warehouses.",
+        "points": [
+          "Systems for refrigerated rooms and warehouses",
+          "Integration with temperature-controlled transport",
+          "Real-time monitoring and alerts",
+          "Modular multi-temperature solutions"
+        ]
+      },
+      "images": { "mainAlt": "Refrigeration systems for logistics" },
+      "benefits": {
+        "title": "Benefits",
+        "cards": [
+          { "title": "Guaranteed cold chain", "body": "Continuous temperature control for quality and safety." },
+          { "title": "Energy efficiency",     "body": "Inverters, heat recovery and smart management." },
+          { "title": "Regulatory compliance", "body": "EU standards and HACCP protocols." }
+        ]
+      },
+      "cta": {
+        "title": "Request a custom project for your cold logistics",
+        "desc": "Choose Nitra System for efficient, safe and sustainable solutions.",
+        "button": "Contact us now"
+      }
+    },
+
+    "logisticaGdo": {
+      "seoTitle": "Refrigerated logistics for retail (GDO) | Nitra System",
+      "hero": {
+        "title": "Refrigerated logistics for retail chains",
+        "subtitle": "From distribution center to store: verified cold chain, full traceability and on-time delivery.",
+        "ctaPrimary": "Get a quote",
+        "ctaSecondary": "Talk to an expert"
+      },
+      "intro": {
+        "title": "End-to-end solutions for modern retail",
+        "p1": "We design, install and operate refrigeration systems for retail DCs, hubs and stores.",
+        "p2": "We cut thermal losses and energy costs while protecting freshness and 24/7 continuity.",
+        "points": [
+          "Multi-temperature handling (chilled, frozen, ambient)",
+          "24/7 monitoring with proactive alerts and data logging",
+          "Integration with WMS/TMS and traceability"
+        ]
+      },
+      "images": { "introAlt": "Retail logistics hub with cold rooms" },
+      "services": {
+        "title": "What we deliver",
+        "cards": [
+          { "title": "Verified cold chain",       "text": "Sensors, data logging and HACCP-ready reports." },
+          { "title": "Route & dwell optimization","text": "Routing playbooks to cut door-to-door time and thermal shocks." },
+          { "title": "SLA & on-time performance", "text": "KPIs: on-time, dwell times and temperatures." }
+        ]
+      },
+      "process": {
+        "title": "Our process",
+        "subtitle": "A clear path to launch and scale",
+        "steps": [
+          { "title": "Assessment & design", "text": "Survey, flow mapping, sizing and CAPEX/OPEX." },
+          { "title": "Implementation",      "text": "Install systems, sensors, integrations and tests." },
+          { "title": "Operations",          "text": "24/7 telemetry, maintenance and alarm management." },
+          { "title": "Continuous improvement","text": "KPI analysis, energy tuning and optimization." }
+        ]
+      },
+      "kpi": {
+        "title": "Measurable outcomes",
+        "items": [
+          { "value": "-15%",  "label": "Average energy consumption" },
+          { "value": "99.5%", "label": "On-time deliveries" },
+          { "value": "24/7",  "label": "Monitoring & support" },
+          { "value": "100%",  "label": "HACCP compliance" }
+        ]
+      },
+      "cta": {
+        "title": "Bring your retail logistics up to GDO standards",
+        "text": "Let’s review sizing, timeline and expected ROI for your case.",
+        "primary": "Book a call",
+        "secondary": "Download brochure"
+      },
+      "disclaimer": "Services and features may vary by site, region and local regulations."
+    },
+
+    "azienda": {
+      "seoTitle": "Company | Nitra System",
+      "seoDescription": "Nitra System, headquartered in Sliven (Bulgaria) with Italian expertise, designs and builds industrial and commercial refrigeration plants. Strategic partner for expansion in Eastern Europe.",
+      "seoKeywords": "industrial refrigeration plants, Bulgaria, Eastern Europe, design, consulting, Nitra System, cold rooms, CO2, NH3, HFO, cold logistics, Italy, Bulgaria",
+      "hero": {
+        "title": "Industrial and commercial refrigeration",
+        "subtitle": "The connection between Italian expertise and Eastern Europe’s potential.",
+        "aria": "Symbolic bridge between Italy and Eastern Europe"
+      },
+      "about": {
+        "title": "Our story",
+        "p1": "Founded in Sliven (Bulgaria), Nitra System operates with fully Italian know-how and methods to deliver innovative, certified industrial refrigeration plants.",
+        "p2": "Thanks to our strategic location, we’re the ideal partner for companies expanding in Eastern Europe or optimizing production with efficient, compliant and sustainable systems.",
+        "imageAlt": "Designing industrial refrigeration plants in Bulgaria"
+      },
+      "custom": {
+        "title": "Custom solutions for Italy and Eastern Europe",
+        "body": "We bridge Italy and Eastern Europe: every plant is engineered in-house to EU standards with strong energy efficiency focus. We deliver agri-food, pharma and manufacturing systems—from design to commissioning.",
+        "bullets": [
+          "Refrigeration packs, cold rooms and industrial chillers",
+          "24/7 remote supervision and control",
+          "Hydrocoolers and Vacuum Coolers",
+          "Ice makers and food air sanitizers"
+        ],
+        "ribbon": "ITALY • EASTERN EUROPE"
+      },
+      "cta": {
+        "title": "A strategic partner for your European growth",
+        "desc": "Let’s discuss your next industrial refrigeration plant.",
+        "button": "Contact us →"
+      }
+    },
+
+    "sanitizer": {
+      "seoTitle": "Food sanitizer | Nitra System",
+      "hero": {
+        "title": "Ionization Air Sanitizer",
+        "subtitle": "Advanced sanitation for food and industrial environments. Reduces bacteria, molds, odors and VOCs."
+      },
+      "images": { "mainAlt": "Air sanitizer for food and industrial environments" },
+      "intro": {
+        "title": "Air sanitation via ionization",
+        "body1": "High-efficiency purification technology developed with research institutes.",
+        "body2": "Air ionization generates positive/negative ions neutralizing microbes and pollutants.",
+        "body3": "Reactive oxygen species (R.O.S.) oxidize VOCs, odors and fine particulate (PM).",
+        "points": [
+          "Reduced bacterial and fungal loads",
+          "Odor and VOC neutralization",
+          "Better fine-particulate filtration (PM)",
+          "Low energy use and maintenance"
+        ]
+      },
+      "principle": {
+        "title": "How it works",
+        "body": "Dielectric barrier discharge generates ions and R.O.S. continuously and safely.",
+        "cards": [
+          { "title": "High efficiency", "body": "Continuous action in large spaces with minimal power draw." },
+          { "title": "Safety & reliability", "body": "Complies with EU norms; no excessive ozone." },
+          { "title": "Low maintenance", "body": "Long-life components; minimal cleaning/replacement." }
+        ]
+      },
+      "sectors": {
+        "title": "Applications",
+        "groups": [
+          {
+            "title": "Agri-food",
+            "items": [
+              "Fruit & veg cold rooms",
+              "Ethylene reduction and slower senescence",
+              "Processing & packaging rooms",
+              "Cheese/cured-meat aging (removes molds/mites)"
+            ]
+          },
+          {
+            "title": "Industrial / tertiary",
+            "items": [
+              "Waste-treatment and air handling",
+              "Shopping malls and high-traffic areas",
+              "Healthcare, labs, cleanrooms and gyms",
+              "VOC, odor and microbial treatment"
+            ]
+          }
+        ]
+      },
+      "cta": {
+        "title": "Continuous, sustainable sanitation",
+        "desc": "Discover Nitra System sanitizers for food and industrial spaces.",
+        "button": "Contact us now"
+      }
+    },
+
+    "what": {
+      "seoTitle": "What we do | Nitra System",
+      "images": {
+        "heroAlt": "Nitra System industrial refrigeration plants",
+        "secondaryAlt": "Nitra System refrigeration center"
+      },
+      "hero": {
+        "title": "What we do",
+        "subtitle": "End-to-end industrial refrigeration: design, build, automation and 24/7 service."
+      },
+      "section1": {
+        "title": "Industrial refrigeration specialists",
+        "body": "We design and build for agri-food, logistics and manufacturing—covering the full lifecycle from energy assessment to predictive maintenance."
+      },
+      "areas": {
+        "title": "Our areas of work",
+        "items": [
+          { "title": "Design",     "body": "Thermodynamic analysis, refrigerant choice (NH₃, CO₂, HFO), simulations and layout." },
+          { "title": "Build",      "body": "Assembly with certified components, pressure tests and commissioning." },
+          { "title": "Automation", "body": "PLC, inverters, SCADA and remote monitoring." },
+          { "title": "Service",    "body": "Preventive, predictive and corrective maintenance 24/7 across Europe." }
+        ]
+      },
+      "technology": {
+        "title": "Technology & sustainability",
+        "body": "Natural refrigerants, heat recovery and real-time monitoring to cut impact and costs.",
+        "points": [
+          "Natural refrigerants NH₃ & CO₂",
+          "Low-GWP HFO systems",
+          "Heat recovery and secondary fluids",
+          "Remote monitoring and predictive maintenance"
+        ]
+      },
+      "cta": {
+        "title": "Discover our custom solutions",
+        "desc": "Every plant is tailored for performance, safety and reliability.",
+        "button": "Contact us →"
+      }
+    },
+
+    "hydrocooler": {
+      "seoTitle": "Hydrocooler | Nitra System",
+      "hero": {
+        "title": "Hydrocooler",
+        "subtitle": "Fast post-harvest cooling using chilled water (immersion, shower or tunnel)."
+      },
+      "images": { "mainAlt": "Hydrocooler for rapid cooling of fruit and vegetables" },
+      "intro": {
+        "title": "High-efficiency cooling technology",
+        "body": "Quickly lowers core temperature after harvest, preserving freshness, texture and shelf-life. Ideal for cherries, grapes, peaches, melons, sweet corn, cucumbers and leafy greens.",
+        "points": [
+          "Setups: immersion, shower or continuous tunnel",
+          "Automatic water-temperature control",
+          "Integration with washing, drying and cold rooms"
+        ]
+      },
+      "features": {
+        "title": "Key features",
+        "points": [
+          { "title": "Uniform cooling",        "body": "Efficient heat exchange with controlled cooling curves." },
+          { "title": "Hygienic construction",  "body": "Stainless steel and anti-corrosion components." },
+          { "title": "Energy efficiency",      "body": "Water recirculation and automated cycles." }
+        ]
+      },
+      "benefits": {
+        "title": "Benefits",
+        "cards": [
+          { "title": "Extended shelf-life",         "body": "Rapid drop slows enzymatic/respiratory activity." },
+          { "title": "Visual & nutritional quality","body": "Improves color, texture and firmness; limits dehydration." },
+          { "title": "Controlled costs",            "body": "Fewer rejects and predictable yields with stable, traceable parameters." }
+        ]
+      },
+      "cta": {
+        "title": "Cool faster, safer and more efficiently",
+        "desc": "Discover our tailored post-harvest pre-cooling solutions.",
+        "button": "Contact us now"
+      }
+    },
+
+    "vacuum": {
+      "seoTitle": "Vacuum Cooler | Nitra System",
+      "hero": {
+        "title": "Vacuum Cooler",
+        "subtitle": "High-efficiency vacuum cooling for produce, cut flowers and bakery."
+      },
+      "images": { "mainAlt": "Vacuum cooler system for fresh vegetables" },
+      "intro": {
+        "title": "Fast, uniform cooling with vacuum technology",
+        "body1": "Low-pressure evaporation removes heat and drops core temperature within minutes.",
+        "body2": "Ideal for leafy greens, flowers and baked goods: uniform cold, less condensation and preserved quality.",
+        "points": [
+          "Cool to 1–3 °C in under 30 minutes",
+          "Less dehydration than forced-air systems",
+          "Digital control of pressure, humidity and cycles",
+          "Stainless build and airtight insulated door"
+        ]
+      },
+      "benefits": {
+        "title": "Benefits of Vacuum Cooling",
+        "cards": [
+          { "title": "Speed",       "body": "Up to 10× faster than traditional systems." },
+          { "title": "Quality",     "body": "Maintains color, texture and vitamins; limits shocks/stress." },
+          { "title": "Efficiency",  "body": "Lower energy and refrigerant; closed loop minimizes water use." }
+        ]
+      },
+      "cta": {
+        "title": "Vacuum technology for fast, safe cooling",
+        "desc": "Tailor-made Vacuum Coolers for produce, flowers and bakery.",
+        "button": "Contact us now"
+      }
+    },
+
+    "contatti": {
+      "seoTitle": "Contacts | Nitra System",
+      "seoDescription": "Contact Nitra System: consulting and design of industrial and commercial refrigeration plants. Offices in Sliven (BG) and Bari (IT).",
+      "seoKeywords": "contacts, industrial refrigeration, cold rooms, chillers, Bulgaria, Italy, Bari, Sliven, consulting, maintenance",
+      "hero": {
+        "title": "Tell us about your project!",
+        "subtitle": "Speak with a technician: we’ll find the right solution",
+        "aria": "Contact Nitra System for industrial refrigeration"
+      },
+      "info": {
+        "title": "We’re here for you",
+        "p1": "Every project has a story and an objective: performance, efficiency and uptime.",
+        "p2": "We reply within 24 hours and guide you from first contact to commissioning and maintenance."
+      },
+      "company": {
+        "title": "Company details",
+        "hq": "Headquarters:",
+        "tel": "Phone:",
+        "email": "Email:",
+        "vat": "VAT:",
+        "vatValue": "BG 2046612801"
+      },
+      "blocks": {
+        "hq": { "title": "Bulgaria HQ", "address": "8800 Sliven – Road Baba Tonca 5A" },
+        "it": { "title": "Italy Office", "address": "70132 Bari – Via Emanuele Melisurgo 5" },
+        "info": { "title": "Info", "phone": "+359 894 482 526 / (+39) 335 617 9483", "email": "nitrasystem@gmail.com" }
+      },
+      "offices": {
+        "title": "Operational offices",
+        "subtitle": "Two locations with interactive maps.",
+        "openMaps": "Open in Google Maps",
+        "bg": { "title": "Bulgaria", "mapTitle": "Map — Bulgaria Office" },
+        "it": { "title": "Italy", "mapTitle": "Map — Italy Office" },
+        "disclaimer": "Maps are for information only; for appointments contact us by email or phone."
+      },
+      "form": {
+        "title": "Request a free consultation",
+        "submit": "Send request →",
+        "fields": {
+          "name": { "label": "Name", "placeholder": "Name*" },
+          "company": { "label": "Company", "placeholder": "Company" },
+          "email": { "label": "Email", "placeholder": "Email*" },
+          "phone": { "label": "Phone", "placeholder": "Phone" },
+          "sector": {
+            "label": "Business sector",
+            "placeholder": "Select your sector",
+            "options": [
+              { "value": "agri-food", "label": "Agri-food" },
+              { "value": "pharma", "label": "Pharmaceutical" },
+              { "value": "manufacturing", "label": "Manufacturing" },
+              { "value": "logistics", "label": "Logistics / Distribution" },
+              { "value": "other", "label": "Other" }
+            ]
+          },
+          "source": {
+            "label": "How did you find us?",
+            "placeholder": "How did you find us?*",
+            "options": [
+              { "value": "google", "label": "Google search" },
+              { "value": "social", "label": "Social networks (LinkedIn, Facebook, Instagram)" },
+              { "value": "referral", "label": "Referral / word of mouth" },
+              { "value": "fair", "label": "Trade fair or industry event" },
+              { "value": "other", "label": "Other" }
+            ]
+          },
+          "callback": {
+            "label": "Preferred call-back time",
+            "placeholder": "When should we call you back?",
+            "options": [
+              { "value": "morning", "label": "Morning" },
+              { "value": "afternoon", "label": "Afternoon" },
+              { "value": "evening", "label": "Evening" },
+              { "value": "any", "label": "Any time" }
+            ]
+          },
+          "message": { "label": "Message", "placeholder": "Describe your project" }
+        }
+      },
+      "footCta": {
+        "title": "Contact us with no obligation",
+        "desc": "Let’s discuss your next refrigeration plant: efficient, sustainable, tailor-made.",
+        "button": "Discover who we are →"
+      },
+      "faq": {
+        "q1": "How quickly do you reply?",
+        "a1": "Usually within 24 business hours.",
+        "q2": "Which countries do you operate in?",
+        "a2": "Italy, Bulgaria and across the EU.",
+        "q3": "Which industries do you serve?",
+        "a3": "Agri-food, pharmaceutical and manufacturing—tailor-made systems."
+      }
+    },
+
+    "partners": {
+      "seoTitle": "Partners & Collaborations | Nitra System",
+      "images": { "heroAlt": "Nitra System partnerships" },
+      "hero": {
+        "title": "Partners & Collaborations",
+        "subtitle": "Trusted technologies and a selected network to accelerate innovation and results.",
+        "cta": "Contact us"
+      },
+      "values": {
+        "title": "Partners as a strategic asset",
+        "body1": "Innovation is born from collaboration based on trust, expertise and shared vision.",
+        "body2": "Each partner strengthens the value chain—from plant design to process digitalization."
+      },
+      "cards": {
+        "longTerm": { "title": "Long-term collaboration", "body": "Relationships that grow over time with shared goals." },
+        "innovation": { "title": "Shared innovation", "body": "Complementary skills for smarter, more efficient solutions." },
+        "values": { "title": "Shared values", "body": "Respect, transparency and responsibility in every project." }
+      },
+      "case": {
+        "alt": "Nitra System and Marvincla collaboration",
+        "title": "Success Story: ColdSharing",
+        "body1": "Together with Marvincla we created ColdSharing, the first B2B marketplace dedicated to cold-chain sharing.",
+        "body2": "Nitra System contributed refrigeration expertise; Marvincla built the secure, transparent digital platform.",
+        "cta": "Discover ColdSharing"
+      },
+      "cta": {
+        "title": "Grow with us",
+        "desc": "If you share our vision and want to bring value to industrial refrigeration, join our network.",
+        "button": "Contact us"
+      },
+      "footer": {
+        "title": "Great ideas are born from great people joining forces",
+        "desc": "Every partnership is built on trust, innovation and mutual respect.",
+        "note": "Nitra System — building value through collaboration."
+      }
+    },
+
+    "cookies": {
+      "hero": { "title": "Cookie Policy" },
+      "intro": "This site uses **technical cookies** and, with your consent, **analytics** and **third-party cookies** to improve browsing, analyze traffic and offer additional features.",
+      "notice": "You can change your preferences at any time from the cookie banner (if present) or via your browser settings.",
+      "types": {
+        "title": "Types of cookies used",
+        "badges": { "essential": "Essential", "functional": "Functional", "third": "Third-party" },
+        "blocks": {
+          "technical": {
+            "title": "Technical cookies",
+            "text": "Essential to navigate the site and use its features (e.g., access to secure areas). Without them, some services (like forms) may not work."
+          },
+          "functional": {
+            "title": "Functional cookies",
+            "text": "Enable advanced features such as embedded videos, social sharing or browser add-ons."
+          },
+          "third": {
+            "title": "Third-party cookies",
+            "text": "You may receive third-party cookies (e.g., Google Analytics) to analyze site usage. Data (including anonymized IP) may be processed on servers in the U.S., used for reports and services, and shared where required by law or with processors. You can refuse cookies in your browser; some features may be limited. Social plugins may contact their servers and learn which pages you visited when you choose to share content."
+          }
+        }
+      },
+      "deep": {
+        "title": "Further details",
+        "ga": {
+          "title": "Google Analytics (third-party)",
+          "p1": "Analytics cookies help us understand how users interact with the site.",
+          "p2": "Information (including *anonymized* IP) may be processed by Google. See Google’s notices for details.",
+          "p3": "You can refuse cookies via browser settings; some features may be limited.",
+          "more": "More info:"
+        },
+        "social": {
+          "title": "Social plugins (sharing & communication)",
+          "p1": "Using share buttons may connect your browser to third-party servers and share data about pages you visit.",
+          "p2": "To avoid this, refrain from sharing content. Check each provider’s privacy notice."
+        }
+      },
+      "manage": {
+        "title": "Managing cookies",
+        "lead": "Accept or refuse non-essential cookies from the banner (if present) or your browser settings. Useful links:"
+      },
+      "contact": "For more information, contact:",
+      "updatedAt": "Last updated: {{date}}."
+    },
+
+    "privacy": {
+      "seoTitle": "Privacy Policy | Nitra System",
+      "heroTitle": "Privacy Policy",
+      "labels": { "email": "Email" },
+      "intro": {
+        "p1": "This notice describes how",
+        "p2": " processes users’ personal data in compliance with Regulation (EU) 2016/679 (",
+        "p3": ") and applicable national law."
+      },
+      "owner": { "title": "Data Controller" },
+      "types": {
+        "title": "Types of data processed",
+        "body1": "We may process: identity data (first/last name, date of birth), contact data (email, phone, address), professional/company data (company name, VAT/Tax ID, role), browsing data and",
+        "tracking": "Tracking Tools",
+        "body2": " (cookies, usage data), account credentials (username/ID) and any additional information you provide via forms or direct contact."
+      },
+      "purposes": {
+        "title": "Purposes and legal bases",
+        "items": [
+          "Provision of services and handling of requests/orders (pre-contract/contract).",
+          "Compliance with legal obligations (administrative, tax, accounting).",
+          "Support on products/services, ticket handling and operational communications (legitimate interest/contract).",
+          "Commercial communications about our services and initiatives (consent or legitimate interest within legal limits).",
+          "Site/app analysis and security; prevention of abuse and fraud (legitimate interest/legal obligation)."
+        ]
+      },
+      "methods": {
+        "title": "Processing methods",
+        "body": "Data are processed by IT/telematic means according to lawfulness, transparency, minimization and security. Access is limited to authorized staff and service providers (hosting, IT, consulting, logistics, administration) appointed as processors where required. Data are not disseminated."
+      },
+      "provision": {
+        "title": "Data provision",
+        "body": "Providing mandatory data is necessary to deliver the requested services or comply with legal duties; refusal may prevent service delivery. Consent for promotional purposes is optional and can be withdrawn at any time."
+      },
+      "communication": {
+        "title": "Scope of communication",
+        "body": "Data may be shared with suppliers/partners supporting service delivery and with authorities where required by law. The updated list of processors is available on request."
+      },
+      "transfers": {
+        "title": "Transfers outside the EU",
+        "body": "Where providers are located outside the EU, transfers occur pursuant to GDPR Chapter V (adequacy decisions, SCCs or other safeguards)."
+      },
+      "retention": {
+        "title": "Retention period",
+        "body": "We keep data only as long as necessary for the stated purposes, extended for legal obligations or until consent is withdrawn. Afterwards, data are deleted or anonymized."
+      },
+      "rights": {
+        "title": "Data subjects’ rights",
+        "items": [
+          "access, rectification, update;",
+          "erasure and restriction of processing;",
+          "data portability;",
+          "objection to processing (including marketing);",
+          "withdrawal of consent where applicable."
+        ],
+        "contact": {
+          "pre": "To exercise your rights, write to ",
+          "post": ". You also have the right to lodge a complaint with the Data Protection Authority."
+        }
+      }
+    }
+  }
 }

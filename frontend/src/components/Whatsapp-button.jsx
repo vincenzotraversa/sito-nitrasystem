@@ -12,7 +12,7 @@ export default function WhatsAppButton() {
   return (
     <Box
       as="a"
-      href="https://wa.me/393331234567" // 🔗 Sostituisci con il tuo numero in formato internazionale
+      href="https://wa.me/393356179483"
       target="_blank"
       rel="noopener noreferrer"
       position="fixed"

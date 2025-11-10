@@ -1,5 +1,4 @@
-// src/pages/ProduttoreGhiaccio.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -10,17 +9,57 @@ import {
   List,
   ListItem,
   ListIcon,
+  Button,
 } from "@chakra-ui/react";
 import { FaCheckCircle } from "react-icons/fa";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function ProduttoreGhiaccio() {
+  // ✅ tutte le chiavi vivono sotto pages.ice
+  const { t, i18n } = useTranslation(undefined, { keyPrefix: "pages.ice" });
+  const { lang } = useParams();
+  const withLang = (p) => (lang ? `/${lang}${p}` : p);
+
+  // Letture con fallback robusti
+  const seoTitle = t("seoTitle", { defaultValue: t("title", { defaultValue: "Produttori di ghiaccio" }) });
+  const heroTitle = t("hero.title", { defaultValue: t("title", { defaultValue: "Produttori di ghiaccio" }) });
+  const heroSubtitle = t("hero.subtitle", {
+    defaultValue:
+      "Ghiaccio granulare/supergranulare e a scaglie per conservazione, esposizione e processi produttivi.",
+  });
+
+  const introTitle = t("intro.title", { defaultValue: "Perché serve un produttore di ghiaccio?" });
+  const introBody = t("intro.body", {
+    defaultValue:
+      "Garantisce temperatura e umidità costanti per alimenti e bevande. Utile in Ho.Re.Ca., agroalimentare e industria.",
+  });
+  const introPoints = t("intro.points", { returnObjects: true, defaultValue: [] }) || [];
+
+  const typesTitle = t("types.title", { defaultValue: "Tipologie di ghiaccio disponibili" });
+  const typeCards = t("types.cards", { returnObjects: true, defaultValue: [] }) || [];
+
+  const benTitle = t("benefits.title", { defaultValue: "Vantaggi dei nostri produttori di ghiaccio" });
+  const benCards = t("benefits.cards", { returnObjects: true, defaultValue: [] }) || [];
+
+  const ctaTitle = t("cta.title", { defaultValue: "Produzione di ghiaccio su misura per ogni esigenza" });
+  const ctaDesc = t("cta.desc", {
+    defaultValue:
+      "Progettiamo e installiamo impianti per ghiaccio granulare, supergranulare e a scaglie: efficienti, igienici e affidabili.",
+  });
+  const ctaButton = t("cta.button", { defaultValue: t("cta.primary", { defaultValue: "Contattaci ora" }) });
+
+  useEffect(() => {
+    document.title = seoTitle;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i18n.language]);
+
   return (
     <Box bg="white" color="gray.800">
       {/* ================= HERO ================= */}
       <Box
         position="relative"
-        bgImage="url('/ghiaccio-bg.jpg')" // <-- aggiungi immagine in /public
+        bgImage="url('/produttoreghiaccio2.png')" 
         bgSize="cover"
         bgPos="center"
         bgRepeat="no-repeat"
@@ -33,69 +72,48 @@ export default function ProduttoreGhiaccio() {
         py={{ base: 24, md: 32 }}
         textAlign="center"
         color="white"
+        mt={{ base: "72px", md: "80px" }}
       >
         <Container maxW="6xl" position="relative">
-          <Heading
-            as="h1"
-            fontSize={{ base: "3xl", md: "5xl" }}
-            mb={4}
-            fontWeight="800"
-          >
-            Produttore di Ghiaccio
+          <Heading as="h1" fontSize={{ base: "3xl", md: "5xl" }} mb={4} fontWeight="800">
+            {heroTitle}
           </Heading>
           <Text fontSize={{ base: "md", md: "lg" }} opacity={0.9} maxW="3xl" mx="auto">
-            Soluzioni professionali per la produzione di ghiaccio granulare e a scaglie,
-            ideali per il settore alimentare, della ristorazione e industriale.
+            {heroSubtitle}
           </Text>
         </Container>
       </Box>
 
-      {/* ================= DESCRIZIONE ================= */}
+      {/* ================= INTRO ================= */}
       <Box py={{ base: 12, md: 20 }}>
         <Container maxW="6xl">
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} alignItems="center">
             <Box>
-              <Heading
-                as="h2"
-                size="lg"
-                color="nitra.primary"
-                mb={4}
-                fontWeight="700"
-              >
-                A cosa serve un produttore di ghiaccio?
+              <Heading as="h2" size="lg" color="nitra.primary" mb={4} fontWeight="700">
+                {introTitle}
               </Heading>
               <Text mb={6} fontSize="md" color="gray.700">
-                Il <b>produttore di ghiaccio</b> è una macchina indispensabile per garantire
-                la corretta conservazione e presentazione di alimenti e bevande. 
-                Oltre al settore <b>Ho.Re.Ca.</b>, trova impiego in ambito <b>industriale</b> e
-                <b> agroalimentare</b> per il raffreddamento controllato di prodotti sensibili.
-              </Text>
-              <Text mb={6} fontSize="md" color="gray.700">
-                Dalle esposizioni di pesce e frutta alla lavorazione di impasti o miscele alimentari,
-                il ghiaccio prodotto mantiene costante la temperatura e l’umidità del prodotto,
-                evitando shock termici e migliorando la qualità di conservazione.
+                {introBody}
               </Text>
 
-              <List spacing={3} fontSize="md">
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Ideale per banchi pesce, frutta, verdura e bevande.
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Supporta processi industriali di raffreddamento e miscelazione.
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="nitra.accent" />
-                  Igiene garantita e produzione continua di ghiaccio cristallino.
-                </ListItem>
-              </List>
+              {Array.isArray(introPoints) && introPoints.length > 0 && (
+                <List spacing={3} fontSize="md">
+                  {introPoints.map((p, i) => (
+                    <ListItem key={i}>
+                      <ListIcon as={FaCheckCircle} color="nitra.accent" />
+                      {p}
+                    </ListItem>
+                  ))}
+                </List>
+              )}
             </Box>
 
             <Box textAlign="center">
               <Image
-                src="/ghiaccio-lavorazione.jpg" // <-- aggiungi immagine in /public
-                alt="Produttore di ghiaccio industriale per alimenti e bevande"
+                src="/produttoreghiaccio2.png"
+                alt={t("images.mainAlt", {
+                  defaultValue: "Produttore di ghiaccio industriale per alimenti e bevande",
+                })}
                 rounded="xl"
                 shadow="xl"
                 mx="auto"
@@ -106,46 +124,37 @@ export default function ProduttoreGhiaccio() {
         </Container>
       </Box>
 
-      {/* ================= TIPOLOGIE DI GHIACCIO ================= */}
+      {/* ================= TIPOLOGIE ================= */}
       <Box bg="gray.50" py={{ base: 12, md: 20 }}>
         <Container maxW="6xl">
-          <Heading
-            as="h3"
-            size="lg"
-            textAlign="center"
-            mb={{ base: 8, md: 12 }}
-            color="nitra.primary"
-          >
-            Tipologie di ghiaccio disponibili
+          <Heading as="h3" size="lg" textAlign="center" mb={{ base: 8, md: 12 }} color="nitra.primary">
+            {typesTitle}
           </Heading>
 
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
-            <Box p={6} bg="white" rounded="xl" shadow="md">
-              <Heading as="h4" size="md" mb={3}>
-                Ghiaccio granulare e supergranulare
-              </Heading>
-              <Text color="gray.600">
-                Il ghiaccio <b>granulare</b> e <b>supergranulare</b> è la scelta ideale per
-                esposizioni di pesce, bevande e prodotti ortofrutticoli.
-                <br />
-                Il granulare, più friabile e umido, garantisce un effetto refrigerante immediato;
-                il supergranulare, più compatto, mantiene a lungo la temperatura e l’umidità
-                ottimali del prodotto esposto.
-              </Text>
-            </Box>
-
-            <Box p={6} bg="white" rounded="xl" shadow="md">
-              <Heading as="h4" size="md" mb={3}>
-                Ghiaccio a scaglie
-              </Heading>
-              <Text color="gray.600">
-                Il ghiaccio <b>a scaglie</b> è il più freddo e asciutto, prodotto a temperature
-                comprese tra <b>-6 °C e -12 °C</b> con spessore di 1,5–3 mm.
-                <br />
-                Con solo il 2% di acqua residua, è ideale per la conservazione prolungata di
-                alimenti sensibili e la lavorazione in ambienti a temperatura controllata.
-              </Text>
-            </Box>
+            {(typeCards.length > 0 ? typeCards : [
+              {
+                title: t("types.fallback1.title", { defaultValue: "Ghiaccio granulare e supergranulare" }),
+                body: t("types.fallback1.body", {
+                  defaultValue:
+                    "Ideale per esposizione e conservazione: il granulare è più umido e rapido nel raffreddare; il supergranulare è più compatto e mantiene più a lungo la temperatura.",
+                }),
+              },
+              {
+                title: t("types.fallback2.title", { defaultValue: "Ghiaccio a scaglie" }),
+                body: t("types.fallback2.body", {
+                  defaultValue:
+                    "Più freddo e asciutto (≈ -6/-12°C), con spessore ridotto: perfetto per lavorazioni e conservazione prolungata di alimenti sensibili.",
+                }),
+              },
+            ]).map((card, i) => (
+              <Box key={i} p={6} bg="white" rounded="xl" shadow="md">
+                <Heading as="h4" size="md" mb={3}>
+                  {card?.title}
+                </Heading>
+                <Text color="gray.600">{card?.body}</Text>
+              </Box>
+            ))}
           </SimpleGrid>
         </Container>
       </Box>
@@ -153,46 +162,41 @@ export default function ProduttoreGhiaccio() {
       {/* ================= VANTAGGI ================= */}
       <Box py={{ base: 12, md: 20 }}>
         <Container maxW="6xl">
-          <Heading
-            as="h3"
-            size="lg"
-            textAlign="center"
-            mb={{ base: 8, md: 12 }}
-            color="nitra.primary"
-          >
-            Vantaggi dei produttori di ghiaccio Nitra System
+          <Heading as="h3" size="lg" textAlign="center" mb={{ base: 8, md: 12 }} color="nitra.primary">
+            {benTitle}
           </Heading>
 
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
-            <Box p={6} bg="white" rounded="xl" shadow="md">
-              <Heading as="h4" size="md" mb={3}>
-                Efficienza e continuità
-              </Heading>
-              <Text color="gray.600">
-                Produzione costante di ghiaccio anche in condizioni ambientali difficili,
-                con sistemi ad alta efficienza energetica e ciclo automatico.
-              </Text>
-            </Box>
-
-            <Box p={6} bg="white" rounded="xl" shadow="md">
-              <Heading as="h4" size="md" mb={3}>
-                Igiene garantita
-              </Heading>
-              <Text color="gray.600">
-                Tutte le parti a contatto con l’acqua sono realizzate in <b>acciaio inox</b>
-                o materiali anticorrosione per assicurare igiene e durata nel tempo.
-              </Text>
-            </Box>
-
-            <Box p={6} bg="white" rounded="xl" shadow="md">
-              <Heading as="h4" size="md" mb={3}>
-                Versatilità d’uso
-              </Heading>
-              <Text color="gray.600">
-                Adatti a diversi settori: alimentare, industriale, sanitario e logistico.
-                Personalizzabili per volume di produzione e tipologia di ghiaccio.
-              </Text>
-            </Box>
+            {(benCards.length > 0 ? benCards : [
+              {
+                title: t("benefits.fallback1.title", { defaultValue: "Efficienza e continuità" }),
+                body: t("benefits.fallback1.body", {
+                  defaultValue:
+                    "Produzione costante con consumi ottimizzati anche in condizioni ambientali difficili.",
+                }),
+              },
+              {
+                title: t("benefits.fallback2.title", { defaultValue: "Igiene garantita" }),
+                body: t("benefits.fallback2.body", {
+                  defaultValue:
+                    "Materiali inox o anticorrosione nelle parti a contatto con l’acqua per massima igiene e durata.",
+                }),
+              },
+              {
+                title: t("benefits.fallback3.title", { defaultValue: "Versatilità d’uso" }),
+                body: t("benefits.fallback3.body", {
+                  defaultValue:
+                    "Per agroalimentare, Ho.Re.Ca., sanitario e industria. Configurazioni su misura di formato e portata.",
+                }),
+              },
+            ]).map((b, i) => (
+              <Box key={i} p={6} bg="white" rounded="xl" shadow="md">
+                <Heading as="h4" size="md" mb={3}>
+                  {b?.title}
+                </Heading>
+                <Text color="gray.600">{b?.body}</Text>
+              </Box>
+            ))}
           </SimpleGrid>
         </Container>
       </Box>
@@ -200,25 +204,24 @@ export default function ProduttoreGhiaccio() {
       {/* ================= CTA ================= */}
       <Box bg="nitra.primary" color="white" py={{ base: 12, md: 16 }} textAlign="center">
         <Container maxW="5xl">
-          <Heading mb={4}>Produzione di ghiaccio su misura per ogni esigenza</Heading>
+          <Heading mb={4}>{ctaTitle}</Heading>
           <Text mb={8} opacity={0.9}>
-            Nitra System progetta e installa impianti per la produzione di ghiaccio
-            granulare, supergranulare e a scaglie. Soluzioni efficienti e igieniche per
-            il settore alimentare e industriale.
+            {ctaDesc}
           </Text>
-          <Box
+          <Button
             as={RouterLink}
-            to="../contatti"
-            bg="orange.500"
+            to={withLang("/contatti")}
+            bg="nitra.accent"
             color="white"
             px={8}
             py={3}
             rounded="full"
             fontWeight="600"
-            _hover={{ bg: "orange.400" }}
+            _hover={{ bg: "#C85B38" }}
+            _active={{ bg: "#9F3A22" }}
           >
-            Contattaci ora
-          </Box>
+            {ctaButton}
+          </Button>
         </Container>
       </Box>
     </Box>

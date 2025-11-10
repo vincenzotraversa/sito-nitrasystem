@@ -1,5 +1,5 @@
 // src/pages/Contatti.jsx
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Container,
@@ -14,8 +14,11 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
+/* --------- small helpers for SEO tags --------- */
 function setMeta(name, content) {
+  if (!content) return;
   let el = document.querySelector(`meta[name='${name}']`);
   if (!el) {
     el = document.createElement("meta");
@@ -24,8 +27,8 @@ function setMeta(name, content) {
   }
   el.setAttribute("content", content);
 }
-
 function setProperty(property, content) {
+  if (!content) return;
   let el = document.querySelector(`meta[property='${property}']`);
   if (!el) {
     el = document.createElement("meta");
@@ -34,8 +37,8 @@ function setProperty(property, content) {
   }
   el.setAttribute("content", content);
 }
-
 function setLink(rel, href) {
+  if (!href) return;
   let el = document.querySelector(`link[rel='${rel}']`);
   if (!el) {
     el = document.createElement("link");
@@ -44,8 +47,8 @@ function setLink(rel, href) {
   }
   el.setAttribute("href", href);
 }
-
 function setJSONLD(id, json) {
+  if (!json) return;
   let el = document.getElementById(id);
   if (!el) {
     el = document.createElement("script");
@@ -57,21 +60,50 @@ function setJSONLD(id, json) {
 }
 
 export default function Contatti() {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || "it";
+
+  /* ====== NEW: stato per settore e oggetto ====== */
+  const [sectorValue, setSectorValue] = useState("");   // value (es. "agroalimentare")
+  const sectorOptions = useMemo(
+    () => t("pages.contatti.form.fields.sector.options", { returnObjects: true }),
+    [t]
+  );
+  // label leggibile dall'option scelta
+  const sectorLabel = useMemo(() => {
+    const found = sectorOptions.find(o => o.value === sectorValue);
+    return found ? found.label : "";
+  }, [sectorValue, sectorOptions]);
+
+  // Oggetto localizzato
+  const subjectText = useMemo(() => {
+    if (!sectorLabel) return "";
+    return lang === "it"
+      ? `Richiesta informazioni – Settore ${sectorLabel}`
+      : `Information request – Sector ${sectorLabel}`;
+  }, [lang, sectorLabel]);
+
   useEffect(() => {
-    /* ---------- SEO BASICS ---------- */
-    const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://www.nitrasystem.example";
-    const pageUrl = `${baseUrl}/contatti`;
-    const title = "Contatti | Nitra System Ltd – Impianti frigoriferi industriali";
-    const description =
-      "Contatta Nitra System: consulenza e progettazione di impianti frigoriferi industriali e commerciali. Sedi a Sliven (BG) e Bari (IT). Risposta entro 24 ore.";
+    const baseUrl =
+      typeof window !== "undefined"
+        ? window.location.origin
+        : "https://www.nitrasystem.example";
+    const pageUrl = `${baseUrl}/${lang === "it" ? "contatti" : "contacts"}`;
+
+    const title = t("pages.contatti.seoTitle");
+    const description = t("pages.contatti.seoDescription");
 
     document.title = title;
     setMeta("description", description);
-    setMeta("keywords", "contatti, impianti frigoriferi industriali, refrigerazione, celle frigo, chiller, Bulgaria, Italia, Bari, Sliven, consulenza, manutenzione");
     setMeta("robots", "index,follow");
+    setMeta("keywords", t("pages.contatti.seoKeywords"));
     setLink("canonical", pageUrl);
 
-    /* ---------- OPEN GRAPH / TWITTER ---------- */
+    const altIt = `${baseUrl}/contatti`;
+    const altEn = `${baseUrl}/contacts`;
+    setLink("alternate", altIt);
+    setLink("alternate", altEn);
+
     setProperty("og:type", "website");
     setProperty("og:title", title);
     setProperty("og:description", description);
@@ -82,102 +114,75 @@ export default function Contatti() {
     setMeta("twitter:description", description);
     setMeta("twitter:image", `${baseUrl}/contattaci.webp`);
 
-    /* ---------- JSON-LD: ContactPage + Organization + Breadcrumb ---------- */
-    setJSONLD(
-      "ld-contactpage",
-      {
-        "@context": "https://schema.org",
-        "@type": "ContactPage",
-        "name": "Contatti - Nitra System Ltd",
-        "url": pageUrl,
-        "description": description,
-        "breadcrumb": {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
-            { "@type": "ListItem", "position": 2, "name": "Contatti", "item": pageUrl }
-          ]
-        },
-        "about": {
-          "@type": "Organization",
-          "name": "Nitra System Ltd",
-          "url": baseUrl,
-          "email": "mailto:nitrasystem@gmail.com",
-          "telephone": ["+359894482526", "+393356179483"],
-          "logo": `${baseUrl}/logonitra.png`,
-          "address": [
-            {
-              "@type": "PostalAddress",
-              "streetAddress": "Road Baba Tonca 5A",
-              "addressLocality": "Sliven",
-              "postalCode": "8800",
-              "addressCountry": "BG"
-            },
-            {
-              "@type": "PostalAddress",
-              "streetAddress": "Via Emanuele Melisurgo 5",
-              "addressLocality": "Bari",
-              "postalCode": "70132",
-              "addressCountry": "IT"
-            }
-          ],
-          "contactPoint": [
-            {
-              "@type": "ContactPoint",
-              "telephone": "+359894482526",
-              "contactType": "customer support",
-              "areaServed": ["BG","IT","EU"],
-              "availableLanguage": ["it","en","bg"]
-            }
-          ]
-        }
-      }
-    );
-
-    setJSONLD(
-      "ld-breadcrumb",
-      {
-        "@context": "https://schema.org",
+    setJSONLD("ld-contactpage", {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      name: title,
+      url: pageUrl,
+      description,
+      breadcrumb: {
         "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
-          { "@type": "ListItem", "position": 2, "name": "Contatti", "item": pageUrl }
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: t("home"), item: baseUrl },
+          { "@type": "ListItem", position: 2, name: t("pages.contatti.hero.title"), item: pageUrl }
+        ]
+      },
+      about: {
+        "@type": "Organization",
+        name: "Nitra System Ltd",
+        url: baseUrl,
+        email: "mailto:nitrasystem@gmail.com",
+        telephone: ["+359894482526", "+393356179483"],
+        logo: `${baseUrl}/logonitra.png`,
+        address: [
+          { "@type": "PostalAddress", streetAddress: "Road Baba Tonca 5A", addressLocality: "Sliven", postalCode: "8800", addressCountry: "BG" },
+          { "@type": "PostalAddress", streetAddress: "Via Emanuele Melisurgo 5", addressLocality: "Bari", postalCode: "70132", addressCountry: "IT" }
+        ],
+        contactPoint: [
+          { "@type": "ContactPoint", telephone: "+359894482526", contactType: "customer support", areaServed: ["BG", "IT", "EU"], availableLanguage: ["it", "en", "bg"] }
         ]
       }
-    );
+    });
 
-    /* ---------- FACOLTATIVO: FAQ per rich snippet ---------- */
-    setJSONLD(
-      "ld-faq",
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "In quanto tempo rispondete?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Generalmente entro 24 ore lavorative." }
-          },
-          {
-            "@type": "Question",
-            "name": "In quali paesi operate?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Operiamo in Italia, Bulgaria e in tutta l’Unione Europea." }
-          },
-          {
-            "@type": "Question",
-            "name": "Quali settori servite?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Agroalimentare, farmaceutico e manifatturiero, con impianti su misura." }
-          }
-        ]
-      }
-    );
-  }, []);
+    setJSONLD("ld-breadcrumb", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: t("home"), item: baseUrl },
+        { "@type": "ListItem", position: 2, name: t("pages.contatti.hero.title"), item: pageUrl }
+      ]
+    });
 
-  /* ---------- Analytics helper opzionale ---------- */
+    setJSONLD("ld-faq", {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: t("pages.contatti.faq.q1"), acceptedAnswer: { "@type": "Answer", text: t("pages.contatti.faq.a1") } },
+        { "@type": "Question", name: t("pages.contatti.faq.q2"), acceptedAnswer: { "@type": "Answer", text: t("pages.contatti.faq.a2") } },
+        { "@type": "Question", name: t("pages.contatti.faq.q3"), acceptedAnswer: { "@type": "Answer", text: t("pages.contatti.faq.a3") } }
+      ]
+    });
+  }, [lang, t]);
+
+  // analytics helper
   const track = (event, payload = {}) => {
-    if (window.dataLayer) {
-      window.dataLayer.push({ event, ...payload });
+    if (window?.dataLayer) window.dataLayer.push({ event, ...payload });
+  };
+
+  /* ====== NEW: gestione submit: sector richiesto + subject ====== */
+  const handleSubmit = (e) => {
+    // settore obbligatorio
+    if (!sectorValue) {
+      e.preventDefault();
+      alert(
+        lang === "it"
+          ? "Seleziona il settore aziendale per continuare."
+          : "Please select your business sector to continue."
+      );
+      return;
     }
+    track("lead_submit", { form: "contact", sector: sectorValue });
+    // nessun preventDefault: lasciamo postare il form
   };
 
   return (
@@ -191,7 +196,7 @@ export default function Contatti() {
         backgroundPosition="center"
         mt={{ base: "72px", md: "80px" }}
         role="img"
-        aria-label="Contatta Nitra System per impianti frigoriferi industriali"
+        aria-label={t("pages.contatti.hero.aria")}
       >
         <Box
           position="absolute"
@@ -206,81 +211,90 @@ export default function Contatti() {
         >
           <VStack spacing={4}>
             <Heading as="h1" size={["xl", "2xl", "3xl"]}>
-              Raccontaci il tuo progetto!
+              {t("pages.contatti.hero.title")}
             </Heading>
+            {t("pages.contatti.hero.subtitle") && (
+              <Text fontSize={["md", "lg"]} opacity={0.95} maxW="3xl">
+                {t("pages.contatti.hero.subtitle")}
+              </Text>
+            )}
           </VStack>
         </Box>
       </Box>
 
-      {/* INFORMAZIONI CONTATTO */}
+      {/* INFO + DATI AZIENDALI */}
       <Container maxW="7xl" py={[12, 16]}>
         <SimpleGrid columns={[1, 2]} spacing={10}>
-          {/* Sinistra: testo motivazionale */}
           <Box>
             <Heading color="#0E4A67" mb={4}>
-              Siamo qui per te
+              {t("pages.contatti.info.title")}
             </Heading>
             <Text fontSize="lg" color="gray.700" mb={4}>
-              Ogni progetto ha una storia, ogni operazione un obiettivo: garantire performance, efficienza e continuità per il tuo impianto frigorifero. Contattarci significa trovare un partner che ascolta, progetta e realizza con esperienza internazionale.
+              {t("pages.contatti.info.p1")}
             </Text>
             <Text fontSize="lg" color="gray.700">
-              Ti risponderemo entro 24 ore e ti guideremo passo dopo passo — dalla richiesta iniziale fino al collaudo e alla manutenzione.
+              {t("pages.contatti.info.p2")}
             </Text>
           </Box>
 
-          {/* Destra: dati contatto */}
           <Box>
             <Heading color="#0E4A67" mb={4}>
-              Dati azienda
+              {t("pages.contatti.company.title")}
             </Heading>
             <Stack spacing={2} fontSize="md" color="gray.700">
-              <Text><b>Sede centrale:</b> 8800 Sliven – Bulgaria, Road Baba Tonca n. 5A</Text>
-              <Text mt={4}><b>Tel.:</b> 00359 894 482 526 / (+39) 335 617 9483</Text>
               <Text>
-                <b>Email:</b>{" "}
+                <b>{t("pages.contatti.company.hq")}</b>{" "}
+                {t("pages.contatti.blocks.hq.address")}
+              </Text>
+
+              <Text mt={4}>
+                <b>{t("pages.contatti.company.tel")}</b>{" "}
+                {t("pages.contatti.blocks.info.phone")}
+              </Text>
+
+              <Text>
+                <b>{t("pages.contatti.company.email")}</b>{" "}
                 <ChakraLink
-                  href="mailto:nitrasystem@gmail.com"
+                  href={`mailto:${t("pages.contatti.blocks.info.email")}`}
                   color="nitra.accent"
                   onClick={() => track("contact_click", { method: "email" })}
                 >
-                  nitrasystem@gmail.com
+                  {t("pages.contatti.blocks.info.email")}
                 </ChakraLink>
               </Text>
-              <Text><b>P.IVA:</b> BG 2046612801</Text>
+
+              <Text>
+                <b>{t("pages.contatti.company.vat")}</b>{" "}
+                {t("pages.contatti.company.vatValue")}
+              </Text>
             </Stack>
           </Box>
         </SimpleGrid>
       </Container>
 
-      {/* SEDI OPERATIVE: MAPPE */}
+      {/* SEDI OPERATIVE + MAPPE */}
       <Box bg="white" py={[8, 12]}>
         <Container maxW="7xl">
-          <Box
-            border="1px solid"
-            borderColor="gray.200"
-            rounded="xl"
-            p={[5, 8]}
-            boxShadow="sm"
-          >
+          <Box border="1px solid" borderColor="gray.200" rounded="xl" p={[5, 8]} boxShadow="sm">
             <Heading size="lg" color="#0E4A67" mb={1}>
-              Sedi operative
+              {t("pages.contatti.offices.title")}
             </Heading>
             <Text color="#0E4A67" mb={6}>
-              Le nostre due sedi operative con mappa interattiva.
+              {t("pages.contatti.offices.subtitle")}
             </Text>
 
             <SimpleGrid columns={[1, 2]} spacing={[6, 8]}>
               {/* Bulgaria */}
               <Box>
                 <Heading size="md" color="#0E4A67" mb={2}>
-                  Bulgaria
+                  {t("pages.contatti.offices.bg.title")}
                 </Heading>
                 <Text color="gray.700" mb={3}>
-                  8800 Sliven – Road Baba Tonca n. 5A
+                  {t("pages.contatti.blocks.hq.address")}
                 </Text>
                 <AspectRatio ratio={16 / 9} rounded="lg" overflow="hidden" border="1px solid" borderColor="gray.200">
                   <iframe
-                    title="Mappa Sede Operativa Bulgaria"
+                    title={t("pages.contatti.offices.bg.mapTitle")}
                     src="https://www.google.com/maps?q=8800+Sliven+Road+Baba+Tonca+5A&output=embed"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -294,21 +308,21 @@ export default function Contatti() {
                   color="nitra.accent"
                   onClick={() => track("map_click", { location: "BG" })}
                 >
-                  Apri su Google Maps →
+                  {t("pages.contatti.offices.openMaps")} →
                 </ChakraLink>
               </Box>
 
               {/* Italia */}
               <Box>
                 <Heading size="md" color="#0E4A67" mb={2}>
-                  Italia
+                  {t("pages.contatti.offices.it.title")}
                 </Heading>
                 <Text color="gray.700" mb={3}>
-                  70132 Bari – Via Emanuele Melisurgo n. 5
+                  {t("pages.contatti.blocks.it.address")}
                 </Text>
                 <AspectRatio ratio={16 / 9} rounded="lg" overflow="hidden" border="1px solid" borderColor="gray.200">
                   <iframe
-                    title="Mappa Sede Operativa Italia"
+                    title={t("pages.contatti.offices.it.mapTitle")}
                     src="https://www.google.com/maps?q=Via+Emanuele+Melisurgo+5+Bari+Italy&output=embed"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -322,24 +336,24 @@ export default function Contatti() {
                   color="nitra.accent"
                   onClick={() => track("map_click", { location: "IT" })}
                 >
-                  Apri su Google Maps →
+                  {t("pages.contatti.offices.openMaps")} →
                 </ChakraLink>
               </Box>
             </SimpleGrid>
 
             <Divider my={6} />
             <Text fontSize="sm" color="gray.500">
-              Le mappe sono a scopo informativo; per appuntamenti contattaci via email o telefono.
+              {t("pages.contatti.offices.disclaimer")}
             </Text>
           </Box>
         </Container>
       </Box>
 
-      {/* FORM DI CONTATTO (accessibile + antispam + analytics) */}
+      {/* FORM DI CONTATTO */}
       <Box bg="nitra.bg" py={[10, 16]}>
         <Container maxW="6xl">
           <Heading textAlign="center" color="nitra.primary" mb={6}>
-            Richiedi una consulenza gratuita
+            {t("pages.contatti.form.title")}
           </Heading>
 
           <Box
@@ -347,9 +361,9 @@ export default function Contatti() {
             method="post"
             action="/api/contact"
             autoComplete="off"
-            onSubmit={() => track("lead_submit", { form: "contact" })}
+            onSubmit={handleSubmit}
           >
-            {/* honeypot antispam */}
+            {/* honeypot */}
             <input
               type="text"
               name="_hp"
@@ -359,196 +373,150 @@ export default function Contatti() {
               aria-hidden="true"
             />
 
+            {/* NEW: oggetto dinamico (hidden) */}
+            <input type="hidden" name="oggetto" value={subjectText} />
+
             <SimpleGrid columns={[1, 2]} spacing={6} mb={6}>
-              {/* Nome */}
               <label style={{ width: "100%" }}>
-                <span className="sr-only">Nome</span>
+                <span className="sr-only">{t("pages.contatti.form.fields.name.label")}</span>
                 <input
                   type="text"
                   name="nome"
-                  placeholder="Nome*"
+                  placeholder={t("pages.contatti.form.fields.name.placeholder")}
                   required
                   aria-required="true"
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                  }}
+                  style={{ width: "100%", padding: 12, border: "1px solid #ccc", borderRadius: 4 }}
                 />
               </label>
 
-              {/* Azienda */}
               <label style={{ width: "100%" }}>
-                <span className="sr-only">Azienda</span>
+                <span className="sr-only">{t("pages.contatti.form.fields.company.label")}</span>
                 <input
                   type="text"
                   name="azienda"
-                  placeholder="Azienda"
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                  }}
+                  placeholder={t("pages.contatti.form.fields.company.placeholder")}
+                  style={{ width: "100%", padding: 12, border: "1px solid #ccc", borderRadius: 4 }}
                 />
               </label>
 
-              {/* Email */}
               <label style={{ width: "100%" }}>
-                <span className="sr-only">Email</span>
+                <span className="sr-only">{t("pages.contatti.form.fields.email.label")}</span>
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email*"
+                  placeholder={t("pages.contatti.form.fields.email.placeholder")}
                   required
                   aria-required="true"
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                  }}
+                  style={{ width: "100%", padding: 12, border: "1px solid #ccc", borderRadius: 4 }}
                 />
               </label>
 
-              {/* Telefono */}
               <label style={{ width: "100%" }}>
-                <span className="sr-only">Telefono</span>
+                <span className="sr-only">{t("pages.contatti.form.fields.phone.label")}</span>
                 <input
                   type="tel"
                   name="telefono"
-                  placeholder="Telefono"
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                  }}
+                  placeholder={t("pages.contatti.form.fields.phone.placeholder")}
+                  style={{ width: "100%", padding: 12, border: "1px solid #ccc", borderRadius: 4 }}
                 />
               </label>
             </SimpleGrid>
 
-            {/* Settore e Origine */}
             <SimpleGrid columns={[1, 2]} spacing={6} mb={6}>
-              {/* Settore */}
+              {/* ===== NEW: Settore OBBLIGATORIO + onChange ===== */}
               <label style={{ width: "100%" }}>
-                <span className="sr-only">Settore aziendale</span>
+                <span className="sr-only">{t("pages.contatti.form.fields.sector.label")}</span>
                 <select
                   name="settore"
                   defaultValue=""
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    color: "#333",
-                  }}
+                  required
+                  aria-required="true"
+                  onChange={(e) => setSectorValue(e.target.value)}
+                  style={{ width: "100%", padding: 12, border: "1px solid #ccc", borderRadius: 4, color: "#333" }}
                 >
                   <option value="" disabled>
-                    Seleziona il tuo settore
+                    {t("pages.contatti.form.fields.sector.placeholder")}
                   </option>
-                  <option value="agroalimentare">Agroalimentare</option>
-                  <option value="farmaceutico">Farmaceutico</option>
-                  <option value="manifatturiero">Manifatturiero</option>
-                  <option value="logistica">Logistica / Distribuzione</option>
-                  <option value="altro">Altro</option>
+                  {sectorOptions.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
                 </select>
               </label>
 
-              {/* Come ci hai trovato */}
               <label style={{ width: "100%" }}>
-                <span className="sr-only">Come ci hai trovato</span>
+                <span className="sr-only">{t("pages.contatti.form.fields.source.label")}</span>
                 <select
                   name="origine"
                   defaultValue=""
                   required
                   aria-required="true"
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    color: "#333",
-                  }}
+                  style={{ width: "100%", padding: 12, border: "1px solid #ccc", borderRadius: 4, color: "#333" }}
                 >
                   <option value="" disabled>
-                    Come ci hai trovato?*
+                    {t("pages.contatti.form.fields.source.placeholder")}
                   </option>
-                  <option value="google">Ricerca su Google</option>
-                  <option value="social">Social network (LinkedIn, Facebook, Instagram)</option>
-                  <option value="passaparola">Passaparola o conoscenza personale</option>
-                  <option value="fiera">Evento o fiera di settore</option>
-                  <option value="altro">Altro</option>
+                  {t("pages.contatti.form.fields.source.options", { returnObjects: true }).map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
+                  ))}
                 </select>
               </label>
             </SimpleGrid>
 
-            {/* Quando vuoi essere ricontattato */}
-            <label style={{ width: "100%", display: "block", marginBottom: "24px" }}>
-              <span className="sr-only">Quando vuoi essere ricontattato</span>
+            <label style={{ width: "100%", display: "block", marginBottom: 24 }}>
+              <span className="sr-only">{t("pages.contatti.form.fields.callback.label")}</span>
               <select
                 name="richiamo"
                 defaultValue=""
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                  color: "#333",
-                }}
+                style={{ width: "100%", padding: 12, border: "1px solid #ccc", borderRadius: 4, color: "#333" }}
               >
                 <option value="" disabled>
-                  Quando preferisci essere ricontattato?
+                  {t("pages.contatti.form.fields.callback.placeholder")}
                 </option>
-                <option value="mattina">Mattina</option>
-                <option value="pomeriggio">Pomeriggio</option>
-                <option value="sera">Sera</option>
-                <option value="qualsiasi">Qualsiasi momento</option>
+                {t("pages.contatti.form.fields.callback.options", { returnObjects: true }).map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
               </select>
             </label>
 
-            {/* Messaggio */}
             <label style={{ width: "100%" }}>
-              <span className="sr-only">Messaggio</span>
+              <span className="sr-only">{t("pages.contatti.form.fields.message.label")}</span>
               <textarea
                 name="messaggio"
-                placeholder="Descrivi il tuo progetto"
+                placeholder={t("pages.contatti.form.fields.message.placeholder")}
                 required
                 aria-required="true"
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                  minHeight: "120px",
-                }}
+                style={{ width: "100%", padding: 12, border: "1px solid #ccc", borderRadius: 4, minHeight: 120 }}
               />
             </label>
 
             <Box textAlign="center" mt={6}>
-              <Button
-                type="submit"
-                variant="solid"
-                size="lg"
-                onClick={() => track("cta_click", { where: "form_submit" })}
-              >
-                Invia richiesta →
+              <Button type="submit" variant="solid" size="lg" onClick={() => track("cta_click", { where: "form_submit" })}>
+                {t("pages.contatti.form.submit")}
               </Button>
             </Box>
+
+            {/* Facoltativo: mostra l’oggetto calcolato (solo debug/QA) */}
+            {/* <Box mt={4} textAlign="center" color="gray.600" fontSize="sm">
+              {subjectText && (lang === "it" ? "Oggetto:" : "Subject:")} {subjectText}
+            </Box> */}
           </Box>
         </Container>
       </Box>
-
 
       {/* FOOT CTA */}
       <Box py={[8, 12]}>
         <Container maxW="7xl" textAlign="center">
           <Heading mb={3} color="nitra.primary">
-            Contattaci senza impegno
+            {t("pages.contatti.footCta.title")}
           </Heading>
           <Text fontSize="lg" color="gray.700" mb={4}>
-            Parliamo del tuo prossimo impianto frigorifero: insieme realizziamo soluzioni efficienti, sostenibili e su misura.
+            {t("pages.contatti.footCta.desc")}
           </Text>
           <Button
             as={RouterLink}
@@ -557,7 +525,7 @@ export default function Contatti() {
             size="lg"
             onClick={() => track("cta_click", { where: "to_azienda" })}
           >
-            Scopri chi siamo →
+            {t("pages.contatti.footCta.button")}
           </Button>
         </Container>
       </Box>

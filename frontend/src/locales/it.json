@@ -1,24 +1,936 @@
 {
+  "home": "Home",
+  "whatWeDo": "Cosa facciamo",
+  "agriFood": "Agroalimentare",
+  "meatProcessing": "Lavorazione Carni",
+  "dairy": "Prodotti Lattiero-Caseari",
+  "fish": "Lavorazione Ittico-Pesce",
+  "fruitVeg": "Frutta e Verdura",
+  "navbarprocessed": "Prodotti alimentari trasformati",
+  "industrial": "Industriale",
+  "navbarhydrocooler": "Hydrocooler",
+  "navbarvacuumCooler": "Vacuum Cooler",
+  "navbarsanitizer": "Sanificatore",
+  "iceMaker": "Produttore Ghiaccio",
+  "company": "Azienda",
+  "navbarpartners": "Partner & Collaborazioni",
+  "contacts": "Contatti",
+  "coldsharing": "Coldsharing",
+  "getAQuote": "Richiedi preventivo",
+  "titlehome": "Refrigerazione industriale",
+  "refrigeratedLogistics": "Logistica refrigerata",
+  "GDOLogistics": "Logistica GdO",
+  "sanitizer": "Sanificatore",
+
+  "brand": "Nitra System",
+  "nav": {
     "home": "Home",
-    "whatWeDo": "Cosa facciamo",
-    "agriFood": "Agroalimentare",
-    "meatProcessing": "Lavorazione Carni",
-    "bakery": "Panificazione",
-    "dairy": "Prodotti Lattiero-Caseari",
-    "fish": "Lavorazione Ittico-Pesce",
-    "fruitVeg": "Frutta e Verdura",
-    "processed": "Prodotti alimentati trasformati",
-    "industrial": "Industriale",
-    "hydrocooler": "Hydrocooler",
-    "vacuumCooler": "Vacuum Cooler",
-    "sanitizer": "Sanitizer",
-    "iceMaker": "Produttore Ghiaccio",
-    "refrigeratedLogistics": "Logistica refrigerata",
-    "GDOLogistics": "GDO Logistics",
     "company": "Azienda",
-    "partners": "Partner & Collaborazioni",
-    "contacts": "Contatti",
+    "whatWeDo": "Cosa facciamo",
     "coldsharing": "Coldsharing",
-    "getAQuote": "Richiedi preventivo",
-    "titlehome": "Refrigerazione industriale"
+    "partners": "Partner & Collaborazioni",
+    "contacts": "Contatti"
+  },
+  "footer": {
+    "aboutText": "Impianti frigoriferi industriali per agroalimentare, farmaceutico e manifatturiero.",
+    "usefulLinks": "Link utili",
+    "legal": "Legale",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "contacts": "Contatti",
+    "openMaps": "Apri la sede Nitra System su Google Maps",
+    "addressBG": {
+      "line1": "8800 Sliven – Bulgaria",
+      "line2": "Road Baba Tonca n. 5A"
+    },
+    "addressIT": {
+      "line1": "70132 Bari – Italia",
+      "line2": "Via Emanuele Melisurgo n. 5"
+    },
+    "rights": "Tutti i diritti riservati.",
+    "madeBy": "Sito realizzato da Marvincla S.R.L. – Polo digitale del settore agroalimentare.",
+    "languageSwitch": "Cambia lingua",
+    "langButton": { "en": "English version", "it": "Versione italiana" }
+  },
+
+  "homePage": {
+    "seo": {
+      "title": "Nitra System | Impianti di refrigerazione industriale"
+    },
+    "hero": {
+      "title": "Impianti di refrigerazione su misura per industria e agroalimentare",
+      "tagline": "Progettazione, realizzazione e manutenzione di impianti frigoriferi per alimentare, pharma e manifatturiero."
+    },
+    "agro": {
+      "overtitle": "Impianti di refrigerazione industriale",
+      "title": "Settore agroalimentare",
+      "cards": {
+        "carni":       { "title": "Lavorazione carni",        "desc": "Impianti e celle per macelli, sezionatori e salumi." },
+        "lattiero":    { "title": "Prodotti lattiero–caseari","desc": "Processi a temperatura controllata per latte e derivati." },
+        "ittico":      { "title": "Lavorazione ittico–pesce", "desc": "Surgelazione, stoccaggio e lavorazioni a freddo." },
+        "ortofrutta":  { "title": "Frutta e verdura",         "desc": "Pre-raffreddamento, conservazione e qualità costante." },
+        "trasformati": { "title": "Prodotti trasformati",     "desc": "Linee di processo e stoccaggio per alimenti pronti." }
+      }
+    },
+    "life": {
+      "overtitle": "Pharma & Life Sciences",
+      "title": "Ambienti a contaminazione controllata",
+      "cards": {
+        "cleanrooms": { "title": "Camere bianche", "desc": "Progettazione e realizzazione di cleanroom ISO 14644 con HVAC e validazione." }
+      }
+    },
+    "manuf": {
+      "overtitle": "Settore manifatturiero",
+      "title": "Impianti per l’industria",
+      "cards": {
+       "hydro": {
+        "title": "Hydrocooler",
+        "desc": "Raffreddamento rapido post-raccolta per ortaggi."},
+      "vacuum": {
+        "title": "Vacuum cooler",
+        "desc": "Raffreddamento sottovuoto per prodotti delicati."},
+      "sanit": {
+        "title": "Sanificatore alimentare",
+        "desc": "Sanificazione sostenibile di aria e superfici."},
+      "ghiaccio": {
+        "title": "Produttore di ghiaccio",
+        "desc": "Produzione e stoccaggio ghiaccio per l’industria."}
+                }
+    },
+    "logistics": {
+      "overtitle": "Logistica del freddo",
+      "title": "Catena del freddo e distribuzione",
+      "cards": {
+        "log-refrig": { "title": "Logistica refrigerata", "desc": "Celle, tunnel e banchi a temperatura controllata per la supply chain." },
+        "log-gdo":    { "title": "Logistica GDO",         "desc": "Soluzioni di refrigerazione per la grande distribuzione." }
+      }
+    },
+    "cta": {
+      "title": "Hai un progetto o un dubbio tecnico?",
+      "desc": "Il nostro team ti aiuta a definire la soluzione più efficiente e sostenibile per il tuo impianto.",
+      "button": "Richiedi un preventivo"
+    }
+  },
+
+  "pages": {
+    "coldsharing": {
+      "seoTitle": "ColdSharing | Il marketplace del freddo",
+      "hero": {
+        "step1": { "line1": "Dalla collaborazione", "line2": "con Marvincla" },
+        "step2": "nasce",
+        "logo": "COLDSHARING",
+        "subtitle": "Il marketplace B2B per cercare o condividere celle frigorifere",
+        "cta": "Registrati gratis",
+        "scroll": "↓ Scorri"
+      },
+      "story": {
+        "title": "Trovare uno spazio refrigerato è molto difficile.",
+        "lead": "Oggi, trovare una cella frigo, container o mezzo refrigerato è ancora complicato: specifiche non comparabili, poche informazioni affidabili e decisioni lente.",
+        "top3": [
+          { "emoji": "🧪", "title": "Esigenze specifiche", "desc": "Ogni prodotto richiede parametri diversi (T°, umidità, ricambi d’aria). Trovare lo spazio giusto è complesso." },
+          { "emoji": "📦", "title": "Soluzioni frammentate", "desc": "Impianti simili con performance e scopi diversi: confronto difficile, decisioni lente." },
+          { "emoji": "🔍", "title": "Poche info affidabili", "desc": "Disponibilità, certificazioni e prezzi spesso non sono chiari o aggiornati." }
+        ],
+        "bottom2": [
+          { "emoji": "🤝", "title": "Mancanza di fiducia", "desc": "Timori su pagamenti e trasparenza frenano la condivisione tra aziende." },
+          { "emoji": "🌦️", "title": "Impatto climatico", "desc": "Eventi meteo estremi creano squilibri di domanda/offerta e urgenze improvvise." }
+        ]
+      },
+      "idea": {
+        "brand": "COLDSHARING",
+        "marketplace": "Marketplace B2B",
+        "pitch": "per la condivisione del tuo locale refrigerato",
+        "text": "Mettiamo in contatto chi ha capacità frigorifera con chi ne ha bisogno in pochi minuti: ricerca geolocalizzata, prenotazioni sicure e tracciabilità completa."
+      },
+      "reasons": {
+        "title": "5 motivi per cui dovresti usarlo.",
+        "badge": "COLDSHARING",
+        "cta": "Richiedilo gratis",
+        "note": "Nessun vincolo. Provalo ora.",
+        "items": [
+          { "emoji": "🔍", "title": "Trovi il locale adatto a te", "desc": "Scegli celle frigorifere certificate vicino a te, filtrando per prodotto, temperatura e capienza." },
+          { "emoji": "💸", "title": "Nessun investimento iniziale", "desc": "Usi solo lo spazio che ti serve e quando ti serve: paghi a consumo, senza costi fissi o investimenti." },
+          { "emoji": "⚙️", "title": "Meno costi di gestione", "desc": "Ottimizza la tua capacità e riduci sprechi ed energia condividendo lo spazio." },
+          { "emoji": "♻️", "title": "Economia circolare", "desc": "Massimizzi l’uso di infrastrutture esistenti riducendo l’impatto ambientale." },
+          { "emoji": "🤝", "title": "Networking", "desc": "Connetti la tua azienda con produttori, trasportatori e operatori della filiera del freddo." }
+        ],
+        "previews": [
+          { "top": "8%",  "left": "5%",  "w": { "base": "78%", "md": "60%" }, "title": "Celle frigorifere",        "subtitle": "Prodotto: Uva",  "img": "/coldsharinglogo.png" },
+          { "top": "28%", "left": "28%", "w": { "base": "75%", "md": "60%" }, "title": "Container refrigerato",     "subtitle": "Prodotto: Carne", "img": "/frutta.jpg" },
+          { "top": "50%", "left": "8%",  "w": { "base": "82%", "md": "62%" }, "title": "Trasporto refrigerato",     "subtitle": "Prodotto: Pesce", "img": "/ittico.jpg" }
+        ]
+      },
+      "how": {
+        "title": "Come funziona",
+        "steps": [
+          { "title": "1. Cerca",   "desc": "Filtra per prodotto, temperatura e posizione. Vedi disponibilità reale." },
+          { "title": "2. Prenota", "desc": "Gestione digitale di prezzi, contratti e pagamenti (escrow) in sicurezza." },
+          { "title": "3. Refrigera","desc": "Deposito e monitoraggio: accessi, temperature, report e audit trail." }
+        ]
+      },
+      "cta": {
+        "title": "Cosa aspetti? Realizziamo il tuo locale refrigerato e condividilo subito.",
+        "subtitle": "Monetizza subito. Inizia ora.",
+        "primary": "Accedi in ColdSharing",
+        "secondary": "Parla con Nitra System"
+      }
+    },
+
+    "meat": {
+      "seoTitle": "Lavorazione carni | Nitra System – Celle, frollatura, tunnel e sale lavorazione",
+      "hero": {
+        "title": "Lavorazione carni",
+        "subtitle": "Celle TN/BT, frollatura e stagionatura, tunnel di raffreddamento/abbattimento e sale lavorazione climatizzate secondo HACCP."
+      },
+      "intro": {
+        "title": "Refrigerazione su misura per macellerie e industria della carne",
+        "body": "Progettiamo impianti per tutte le fasi: ricevimento, pre-raffreddamento, frollatura, lavorazione, confezionamento e stoccaggio. Massima attenzione a qualità del prodotto, igiene e continuità operativa.",
+        "badges": ["Efficienza energetica", "Controllo termo-igrometrico", "Sicurezza alimentare", "Service 24/7"],
+        "features": [
+          "Celle TN/BT per mezzene, disosso e stoccaggio",
+          "Frollatura e stagionatura con controllo umidità",
+          "Sale lavorazione climatizzate, flussi aria ottimizzati",
+          "Tunnel di raffreddamento/abbattimento rapido",
+          "Sanificazione, materiali idonei e drenaggi",
+          "Supervisione, telecontrollo e report energetici"
+        ]
+      },
+      "sections": [
+        {
+          "title": "Celle TN/BT per conservazione e movimentazione",
+          "body": "Progettazione di celle positive/negative per mezzene appese e banchi di disosso: isolamento ad alte prestazioni, evaporatori anti-brina, porte rapide e barriere per ridurre dispersioni all’apertura.",
+          "bullets": ["Ganci e binari inox, guide scorrevoli", "Porte isotermiche scorrevoli/battenti", "Illuminazione LED food-grade"],
+          "img": "/lavorazionecarni.png",
+          "alt": "Celle frigorifere per carni",
+          "imageSide": "right"
+        },
+        {
+          "title": "Frollatura e stagionatura con controllo umidità",
+          "body": "Gestione precisa di temperatura, U.R. e ventilazione per uniformare la maturazione. Possibilità di ricette, registrazione dati e allarmi fuori soglia.",
+          "bullets": ["Sonde ridondate e logging continuo", "Deumidifica con recupero di calore", "Filtri antibatterici e materiali idonei"],
+          "img": "/frollatura2.png",
+          "alt": "Frollatura e maturazione carni",
+          "imageSide": "left"
+        }
+      ],
+      "cta": {
+        "title": "Soluzioni di refrigerazione su misura per il settore carni",
+        "desc": "Affidati a Nitra System per impianti efficienti, sicuri e conformi agli standard igienico–sanitari della lavorazione carni.",
+        "button": "Contattaci ora"
+      }
+    },
+
+    "cleanrooms": {
+      "seoTitle": "Camere bianche | Nitra System",
+      "cleanrooms": "Camere bianche",
+      "cleanroomsSubtitle": "Soluzioni certificate per ambienti a contaminazione controllata",
+      "cleanroomsTitle": "Progettazione e realizzazione di camere bianche",
+      "cleanroomsIntro": "Nitra System progetta e realizza camere bianche conformi alle normative ISO 14644 per i settori farmaceutico, biomedicale, elettronico e della ricerca. Ogni ambiente viene studiato per garantire il massimo controllo particellare, efficienza energetica e affidabilità del sistema HVAC.",
+      "cleanroomsList1": "Progettazione secondo ISO 14644 e GMP",
+      "cleanroomsList2": "Sistemi HVAC con controllo temperatura, umidità e particelle",
+      "cleanroomsList3": "Rivestimenti, porte e arredi in materiali certificati",
+      "cleanroomsList4": "Servizi di validazione, monitoraggio e manutenzione",
+      "cleanroomsCtaTitle": "Hai bisogno di una camera bianca su misura?",
+      "cleanroomsCtaText": "Contattaci per una consulenza tecnica gratuita e scopri come ottimizzare i tuoi ambienti produttivi con le nostre soluzioni certificate."
+    },
+
+    "dairy": {
+      "seoTitle": "Prodotti Lattiero-Caseari | Nitra System",
+      "hero": {
+        "title": "Impianti frigoriferi per il settore lattiero-caseario",
+        "subtitle": "Sistemi di refrigerazione avanzati per garantire la qualità del latte e dei suoi derivati lungo tutto il processo produttivo."
+      },
+      "intro": {
+        "title": "Soluzioni su misura per la catena del freddo nel settore latte e formaggi",
+        "body": "Nitra System progetta e realizza impianti frigoriferi dedicati alla produzione e conservazione dei prodotti lattiero-caseari, con l’obiettivo di preservare le proprietà organolettiche del latte e ottimizzare i consumi.",
+        "points": [
+          "Celle frigorifere per stoccaggio latte e derivati",
+          "Maturazione e stagionatura di formaggi a umidità controllata",
+          "Raffreddamento rapido post-pastorizzazione o post-mungitura",
+          "Gestione automatizzata di temperatura e umidità per fermentazione e conservazione"
+        ]
+      },
+      "images": { "mainAlt": "Impianto frigorifero settore lattiero-caseario" },
+      "benefits": {
+        "title": "Vantaggi per l’industria lattiero-casearia",
+        "cards": [
+          { "title": "Controllo preciso delle temperature", "body": "Ogni fase è gestita con regolazione automatica per qualità e sicurezza alimentare." },
+          { "title": "Efficienza energetica", "body": "Compressori inverter e refrigeranti ecologici per ridurre i consumi." },
+          { "title": "Igiene e affidabilità", "body": "Sistemi conformi HACCP con ambienti facilmente sanificabili." }
+        ]
+      },
+      "cta": {
+        "title": "Progettiamo il freddo su misura per il tuo caseificio",
+        "desc": "Affidati a Nitra System per impianti efficienti, sostenibili e conformi agli standard di qualità del settore lattiero-caseario.",
+        "button": "Contattaci ora"
+      }
+    },
+
+    "fish": {
+      "seoTitle": "Lavorazione Ittico-Pesce | Nitra System",
+      "hero": {
+        "title": "Impianti frigoriferi per la lavorazione del pesce e prodotti ittici",
+        "subtitle": "Soluzioni di refrigerazione su misura per mantenere la catena del freddo e garantire freschezza, qualità e sicurezza alimentare."
+      },
+      "intro": {
+        "title": "Sistemi per la conservazione e lavorazione del pesce",
+        "body": "Nitra System realizza impianti specifici per il settore ittico, preservando le proprietà organolettiche dal pescato allo stoccaggio e distribuzione.",
+        "points": [
+          "Celle frigorifere per pesce fresco o surgelato",
+          "Tunnel di raffreddamento rapido e abbattitori",
+          "Linee per lavorazione, filettatura e confezionamento in atmosfera controllata",
+          "Gestione automatizzata di temperatura, umidità e ventilazione"
+        ]
+      },
+      "images": { "mainAlt": "Impianto frigorifero settore ittico" },
+      "benefits": {
+        "title": "Vantaggi per l’industria ittica",
+        "cards": [
+          { "title": "Freschezza costante", "body": "Temperatura stabile in ogni fase per qualità e sicurezza del prodotto." },
+          { "title": "Igiene e sicurezza alimentare", "body": "Sistemi conformi HACCP e materiali anticorrosione per ambienti marini." },
+          { "title": "Efficienza e sostenibilità", "body": "Tecnologie a basso impatto e refrigeranti naturali per ridurre i consumi." }
+        ]
+      },
+      "cta": {
+        "title": "Tecnologia del freddo per la qualità del tuo pescato",
+        "desc": "Progettiamo impianti su misura, efficienti e conformi alle normative del settore ittico.",
+        "button": "Contattaci ora"
+      }
+    },
+
+    "produce": {
+      "seoTitle": "Frutta e Verdura | Nitra System",
+      "title": "Frutta e Verdura",
+      "intro": "Pre-raffreddamento e conservazione per preservare croccantezza e freschezza.",
+      "introTitle": "Soluzioni per ortofrutta",
+      "introLong": "Dalla raccolta allo stoccaggio, progettiamo sistemi che riducono rapidamente la temperatura di polpa, stabilizzano l’umidità e minimizzano i cali peso per frutta e verdura.",
+      "bullets": [
+        "Pre-cooling immediato post-raccolta",
+        "Celle U.L.O./CA per shelf-life estesa",
+        "Gestione umidità e flussi d’aria dedicati"
+      ],
+      "images": {
+        "mainAlt": "Impianti di refrigerazione per frutta e verdura",
+        "secondaryAlt": "Celle frigo per frutta e verdura"
+      },
+      "sol": {
+        "title": "Soluzioni",
+        "points": ["Pre-cooling", "Celle U.L.O./CA", "Gestione umidità"]
+      },
+      "solText": [
+        "Riduzione rapida della temperatura di polpa con curve di raffreddamento controllate.",
+        "Atmosfera controllata/ultra-bassa per rallentare la respirazione e prolungare la shelf-life.",
+        "Controllo UR% per proteggere croccantezza, aspetto e peso."
+      ],
+      "focus": {
+        "hydro": "Raffreddamento rapido con acqua refrigerata: ideale per ciliegie, uva e ortaggi a foglia.",
+        "vacuum": "Raffreddamento sotto vuoto per prodotti delicati: calo termico uniforme e cicli rapidi.",
+        "ulo": "Celle U.L.O./CA con telemetria, gestione O₂/CO₂ e logging continuo."
+      },
+      "benefits": {
+        "title": "Benefici",
+        "points": ["Shelf-life estesa", "Riduzione cali peso", "Qualità alla consegna"],
+        "body": [
+          "Aumento del vendibile grazie a migliori texture e minore disidratazione.",
+          "Meno scarti e rese più prevedibili lungo la filiera.",
+          "Standard qualitativi costanti fino al punto vendita."
+        ]
+      },
+      "kpi": {
+        "coldChain": "Continuità della catena del freddo",
+        "precision": "Controllo preciso della temperatura",
+        "humidity": "Gestione umidità e cali peso"
+      },
+      "process": {
+        "title": "Metodo di lavoro",
+        "steps": [
+          { "title": "Assessment", "text": "Sopralluogo, analisi prodotto/volumi e layout." },
+          { "title": "Design", "text": "Dimensionamento impianti e selezione tecnologie." },
+          { "title": "Implementazione", "text": "Installazione, collaudo, telemetria e ricette." },
+          { "title": "Operazioni", "text": "Manutenzione programmata e miglioramento continuo." }
+        ]
+      },
+      "cta": {
+        "title": "Mantieni la freschezza dal campo allo scaffale",
+        "desc": "Ti aiutiamo a progettare pre-raffreddamento e conservazione per proteggere struttura, aroma e valore.",
+        "button": "Richiedi una consulenza",
+        "primary": "Contattaci",
+        "secondary": "Torna alla Home"
+      }
+    },
+
+    "processed": {
+      "seoTitle": "Prodotti Trasformati | Nitra System",
+      "title": "Prodotti alimentari trasformati",
+      "intro": "Soluzioni per linee di trasformazione e stoccaggio a temperatura controllata.",
+      "sol": { "title": "Soluzioni", "points": ["Celle di processo", "Stoccaggio FIFO", "Tracciabilità dati"] },
+      "benefits": { "title": "Benefici", "points": ["Processi stabili", "Conformità normativa", "Costi sotto controllo"] }
+    },
+
+    "ice": {
+      "seoTitle": "Produttori di ghiaccio | Nitra System",
+      "title": "Produttori di ghiaccio",
+      "hero": {
+        "title": "Produttori di ghiaccio",
+        "subtitle": "Ghiaccio granulare/supergranulare e a scaglie per conservazione, esposizione e processo."
+      },
+      "intro": {
+        "title": "Perché serve un produttore di ghiaccio?",
+        "body": "Assicura temperatura e umidità costanti per alimenti e bevande. Utile in Ho.Re.Ca., agroalimentare e industria.",
+        "points": [
+          "Ideale per banchi pesce, frutta/verdura e bevande",
+          "Supporta processi di raffreddamento e miscelazione",
+          "Igiene garantita e produzione continua"
+        ]
+      },
+      "images": { "mainAlt": "Produttore di ghiaccio industriale per alimenti e bevande" },
+      "types": {
+        "title": "Tipologie di ghiaccio disponibili",
+        "cards": [
+          { "title": "Ghiaccio granulare e supergranulare", "body": "Il granulare raffredda rapidamente; il supergranulare mantiene più a lungo temperatura e umidità." },
+          { "title": "Ghiaccio a scaglie", "body": "Più freddo e asciutto (≈ -6/-12°C): ideale per lavorazioni e conservazione prolungata." }
+        ]
+      },
+      "benefits": {
+        "title": "Vantaggi dei nostri produttori di ghiaccio",
+        "cards": [
+          { "title": "Efficienza e continuità", "body": "Produzione costante con consumi ottimizzati." },
+          { "title": "Igiene garantita", "body": "Materiali inox o anticorrosione nelle parti a contatto con l’acqua." },
+          { "title": "Versatilità d’uso", "body": "Configurazioni su misura per formati e portate diverse." }
+        ]
+      },
+      "cta": {
+        "title": "Produzione di ghiaccio su misura per ogni esigenza",
+        "desc": "Progettiamo e installiamo impianti per ghiaccio granulare, supergranulare e a scaglie.",
+        "button": "Contattaci ora"
+      }
+    },
+
+    "logiref": {
+      "seoTitle": "Logistica Refrigerata | Nitra System",
+      "hero": {
+        "title": "Logistica refrigerata industriale e commerciale",
+        "subtitle": "Impianti e soluzioni per la catena del freddo, dallo stoccaggio al trasporto, con controllo totale di temperatura e tracciabilità."
+      },
+      "intro": {
+        "title": "Efficienza e controllo lungo tutta la catena del freddo",
+        "body": "Nitra System progetta e realizza impianti di refrigerazione per la logistica alimentare e industriale. Dalla cella frigorifera al magazzino automatizzato, garantiamo continuità della catena del freddo, efficienza energetica e conformità HACCP.",
+        "points": [
+          "Impianti per celle e magazzini refrigerati",
+          "Integrazione con sistemi di trasporto a temperatura controllata",
+          "Monitoraggio digitale e allarmi in tempo reale",
+          "Soluzioni modulari multi-temperatura per diverse esigenze"
+        ]
+      },
+      "images": { "mainAlt": "Impianti di refrigerazione per logistica industriale" },
+      "benefits": {
+        "title": "I vantaggi della nostra logistica refrigerata",
+        "cards": [
+          { "title": "Catena del freddo garantita", "body": "Controllo continuo della temperatura per assicurare la qualità e la sicurezza dei prodotti." },
+          { "title": "Efficienza energetica", "body": "Compressori inverter, recupero di calore e sistemi di gestione intelligente per ridurre i consumi." },
+          { "title": "Conformità normativa", "body": "Impianti conformi agli standard europei e ai protocolli HACCP per la sicurezza alimentare." }
+        ]
+      },
+      "cta": {
+        "title": "Richiedi un progetto personalizzato per la tua logistica del freddo",
+        "desc": "Affidati a Nitra System per impianti efficienti, sicuri e sostenibili per la logistica refrigerata.",
+        "button": "Contattaci ora"
+      }
+    },
+
+    "logisticaGdo": {
+      "seoTitle": "Logistica refrigerata GDO | Nitra System",
+      "hero": {
+        "title": "Logistica refrigerata per la GDO",
+        "subtitle": "Dalla piattaforma al punto vendita: catena del freddo garantita, tracciabilità completa e puntualità di consegna.",
+        "ctaPrimary": "Richiedi preventivo",
+        "ctaSecondary": "Parla con un esperto"
+      },
+      "intro": {
+        "title": "Soluzioni end-to-end per la Grande Distribuzione",
+        "p1": "Progettiamo, installiamo e gestiamo impianti di refrigerazione per centri distributivi, hub e negozi della GDO.",
+        "p2": "Riduciamo dispersioni termiche e costi energetici assicurando qualità del fresco e continuità operativa 24/7.",
+        "points": [
+          "Gestione multi-temperatura (chilled, frozen, ambient)",
+          "Monitoraggio H24 con allarmi proattivi e data-logging",
+          "Integrazione con WMS/TMS e sistemi di tracciabilità"
+        ]
+      },
+      "images": { "introAlt": "Hub logistico GDO con celle frigo" },
+      "services": {
+        "title": "Cosa offriamo",
+        "cards": [
+          { "title": "Catena del freddo verificata", "text": "Sensoristica, registrazione dati e report HACCP per ogni nodo." },
+          { "title": "Ottimizzazione tratte e soste", "text": "Routing e procedure per ridurre i tempi porta-a-porta e gli shock termici." },
+          { "title": "SLA e puntualità", "text": "KPI operativi: on-time, dwell time e temperature in ogni fase." }
+        ]
+      },
+      "process": {
+        "title": "Metodo di lavoro",
+        "subtitle": "Un percorso chiaro per avviare e scalare la logistica del freddo",
+        "steps": [
+          { "title": "Assessment & design", "text": "Sopralluogo, mappatura flussi, dimensionamento e CAPEX/OPEX." },
+          { "title": "Implementazione", "text": "Installazione impianti, sensoristica, integrazioni software e test." },
+          { "title": "Operazioni", "text": "Telemetria H24, manutenzione, gestione allarmi e continuità di servizio." },
+          { "title": "Miglioramento continuo", "text": "Analisi KPI, tuning energetico e ottimizzazione dei processi." }
+        ]
+      },
+      "kpi": {
+        "title": "Risultati misurabili",
+        "items": [
+          { "value": "-15%", "label": "Consumi energetici medi" },
+          { "value": "99,5%", "label": "Consegne on-time" },
+          { "value": "24/7", "label": "Monitoraggio & supporto" },
+          { "value": "100%", "label": "Conformità HACCP" }
+        ]
+      },
+      "cta": {
+        "title": "Porta la tua logistica a standard GDO",
+        "text": "Parliamo del tuo caso: dimensionamento, tempi e ROI stimato senza impegno.",
+        "primary": "Prenota una call",
+        "secondary": "Scarica la brochure"
+      },
+      "disclaimer": "Servizi e funzionalità possono variare per sito, area e normative locali."
+    },
+
+    "azienda": {
+      "seoTitle": "Azienda | Nitra System",
+      "seoDescription": "Nitra System, con sede a Sliven (Bulgaria) e competenze italiane, progetta e realizza impianti frigoriferi industriali e commerciali. Partner strategico per l’espansione in Europa dell’Est.",
+      "seoKeywords": "impianti frigoriferi industriali, refrigerazione Bulgaria, impianti industriali Europa Est, progettazione, consulenza, Nitra System, celle frigo, CO2, NH3, HFO, logistica del freddo, Italia, Bulgaria",
+      "hero": {
+        "title": "Refrigerazione industriale e commerciale",
+        "subtitle": "Il punto di connessione tra l’esperienza italiana e il potenziale produttivo dell’Europa dell’Est.",
+        "aria": "Ponte simbolico tra Italia ed Europa dell’Est"
+      },
+      "about": {
+        "title": "Storia",
+        "p1": "Nitra System nasce a Sliven (Bulgaria) e opera con competenze e metodologia interamente italiane. Questa doppia anima permette di offrire impianti frigoriferi industriali innovativi e certificati, combinando precisione tecnica, competitività e know-how italiano.",
+        "p2": "Grazie alla posizione strategica, siamo il partner ideale per le aziende italiane che vogliono espandere le proprie attività nell’Est Europa o ottimizzare la produzione con impianti efficienti, conformi e sostenibili.",
+        "imageAlt": "Progettazione impianti frigoriferi industriali in Bulgaria"
+      },
+      "custom": {
+        "title": "Soluzioni custom per l’Italia e l’Est Europa",
+        "body": "Siamo il ponte tecnologico tra Italia ed Est Europa: ogni impianto è progettato internamente secondo standard europei, con attenzione all’efficienza energetica. Realizziamo impianti per agroalimentare, farmaceutico e manifatturiero con gestione completa dal design al collaudo.",
+        "bullets": [
+          "Centrali frigo, celle e chiller industriali",
+          "Supervisione e telecontrollo da remoto 24/7",
+          "Hydrocooler e Vacuum Cooler",
+          "Produttori di ghiaccio e sanificatori alimentari"
+        ],
+        "ribbon": "ITALIA • EST EUROPA"
+      },
+      "cta": {
+        "title": "Partner strategico per la tua espansione in Europa",
+        "desc": "Connettiamo l’esperienza italiana con la solidità produttiva dell’Est Europa. Parliamo del tuo prossimo impianto frigorifero industriale.",
+        "button": "Contattaci →"
+      }
+    },
+
+    "sanitizer": {
+      "seoTitle": "Sanificatore alimentare | Nitra System",
+      "hero": {
+        "title": "Sanificatore ad Ionizzazione",
+        "subtitle": "Sistema avanzato per la purificazione e sanificazione dell’aria in ambienti alimentari e industriali. Riduce batteri, muffe, odori e V.O.C. con tecnologia ad alta efficienza."
+      },
+      "images": { "mainAlt": "Sanificatore per ambienti alimentari e industriali" },
+      "intro": {
+        "title": "Sanificazione tramite ionizzazione dell’aria",
+        "body1": "Il sistema di sanificazione ad alta efficienza, sviluppato con istituti di ricerca, è una tecnologia innovativa per la purificazione dell’aria in contesti alimentari e industriali.",
+        "body2": "Il principio si basa sulla ionizzazione dell’aria: alti voltaggi caricano elettricamente atomi e molecole generando ioni positivi e negativi che abbattono batteri, funghi e inquinanti.",
+        "body3": "Nel processo si generano radicali ossigenati reattivi (R.O.S.) che ossidano ed eliminano V.O.C., odori indesiderati e particolato fine (P.M.), migliorando la qualità dell’aria.",
+        "points": [
+          "Riduzione delle cariche batteriche e fungine",
+          "Neutralizzazione di odori e composti organici volatili (V.O.C.)",
+          "Migliore filtrazione del particolato fine (P.M.)",
+          "Bassi consumi energetici e manutenzione ridotta"
+        ]
+      },
+      "principle": {
+        "title": "Principio di funzionamento",
+        "body": "Il sistema opera secondo il principio di Barrier Discharge (scarico a barriera dielettrica): genera in modo controllato ioni e radicali ossigenati reattivi (R.O.S.) garantendo sanificazione continua, efficace e sicura.",
+        "cards": [
+          { "title": "Alta efficienza", "body": "Azione continua anche in ambienti ampi, con assorbimenti ridotti e senza residui chimici." },
+          { "title": "Sicurezza e affidabilità", "body": "Funzionamento stabile che non produce ozono in eccesso e rispetta le normative UE." },
+          { "title": "Bassa manutenzione", "body": "Componenti a lunga durata con esigenze minime di pulizia o sostituzione." }
+        ]
+      },
+      "sectors": {
+        "title": "Settori di applicazione",
+        "groups": [
+          {
+            "title": "Settore agroalimentare",
+            "items": [
+              "Celle di conservazione frutta e verdura",
+              "Riduzione etilene e rallentamento senescenza",
+              "Sale di lavorazione e confezionamento",
+              "Stagionatura formaggi e insaccati (elimina muffe e acari)"
+            ]
+          },
+          {
+            "title": "Settore industriale/terziario",
+            "items": [
+              "Impianti di smaltimento rifiuti e trattamento aria",
+              "Centri commerciali e aree ad alta affluenza",
+              "Ambienti sanitari, laboratori, cleanroom e palestre",
+              "Trattamento V.O.C., odori e cariche microbiche"
+            ]
+          }
+        ]
+      },
+      "cta": {
+        "title": "Sanificazione continua e sostenibile",
+        "desc": "Scopri la linea di sanificatori Nitra System per ambienti alimentari e industriali: efficienza, sicurezza e igiene garantite 24/7.",
+        "button": "Contattaci ora"
+      }
+    },
+
+    "what": {
+      "seoTitle": "Cosa facciamo | Nitra System",
+      "images": {
+        "heroAlt": "Impianti frigoriferi industriali Nitra System",
+        "secondaryAlt": "Centrale frigorifera Nitra System"
+      },
+      "hero": {
+        "title": "Cosa facciamo",
+        "subtitle": "Soluzioni complete per la refrigerazione industriale: progettazione, realizzazione, automazione e manutenzione H24."
+      },
+      "section1": {
+        "title": "Specialisti nella refrigerazione industriale",
+        "body": "Nitra System progetta e realizza impianti frigoriferi per i settori agroalimentare, logistico e manifatturiero. Dalla prima analisi energetica alla manutenzione predittiva, seguiamo l’intero ciclo di vita dell’impianto garantendo prestazioni, efficienza e continuità operativa."
+      },
+      "areas": {
+        "title": "I nostri ambiti di intervento",
+        "items": [
+          { "title": "Progettazione", "body": "Analisi termodinamiche, scelta del refrigerante (NH₃, CO₂, HFO), simulazioni energetiche e layout impiantistico." },
+          { "title": "Realizzazione", "body": "Costruzione e montaggio con componentistica certificata, prove di pressione e collaudo funzionale." },
+          { "title": "Automazione", "body": "PLC, inverter, SCADA e telemonitoraggio per controllo da remoto, sicurezza e ottimizzazione dei consumi." },
+          { "title": "Assistenza e Service", "body": "Manutenzione preventiva, predittiva e correttiva H24 in tutta Europa con squadre specializzate." }
+        ]
+      },
+      "technology": {
+        "title": "Tecnologia e sostenibilità",
+        "body": "Ogni impianto Nitra riduce impatto ambientale e costi energetici. Usiamo refrigeranti naturali, recupero calore e monitoraggio in tempo reale delle prestazioni.",
+        "points": [
+          "Refrigeranti naturali NH₃ e CO₂",
+          "Sistemi HFO a basso GWP",
+          "Recupero calore e fluidi secondari",
+          "Telecontrollo e manutenzione predittiva"
+        ]
+      },
+      "cta": {
+        "title": "Scopri le nostre soluzioni personalizzate",
+        "desc": "Ogni impianto nasce da una progettazione su misura: performance, sicurezza e affidabilità.",
+        "button": "Contattaci →"
+      }
+    },
+
+    "hydrocooler": {
+      "seoTitle": "Hydrocooler | Nitra System",
+      "hero": {
+        "title": "Hydrocooler",
+        "subtitle": "Raffreddamento rapido post-raccolta per frutta e verdura tramite acqua refrigerata (immersione, docciatura o tunnel)."
+      },
+      "images": { "mainAlt": "Hydrocooler per raffreddamento rapido di frutta e verdura" },
+      "intro": {
+        "title": "Tecnologia di raffreddamento ad alta efficienza",
+        "body": "L’Hydrocooler abbassa rapidamente la temperatura interna del prodotto appena raccolto, preservando freschezza, consistenza e shelf-life. Ideale per ciliegie, uva, pesche, meloni, mais dolce, cetrioli e ortaggi a foglia.",
+        "points": [
+          "Configurazioni: immersione, a pioggia o tunnel continuo",
+          "Controllo automatico della temperatura dell’acqua",
+          "Integrazione con lavaggio, asciugatura e celle frigorifere"
+        ]
+      },
+      "features": {
+        "title": "Caratteristiche principali",
+        "points": [
+          { "title": "Raffreddamento uniforme", "body": "Scambio termico efficace per grandi volumi con curve di raffreddamento controllate." },
+          { "title": "Materiali e igiene", "body": "Costruzione in acciaio inox e componenti anticorrosione per ambienti umidi." },
+          { "title": "Efficienza energetica", "body": "Ricircolo acqua e gestione automatica dei cicli per ridurre i consumi." }
+        ]
+      },
+      "benefits": {
+        "title": "Vantaggi del sistema Hydrocooler",
+        "cards": [
+          { "title": "Shelf-life aumentata", "body": "Il rapido abbattimento di temperatura rallenta i processi enzimatici e respiratori." },
+          { "title": "Qualità visiva e nutrizionale", "body": "Migliora colore, consistenza e tenuta, riducendo disidratazione e difetti." },
+          { "title": "Costi sotto controllo", "body": "Meno scarti e maggiore prevedibilità grazie a parametri stabili e tracciati." }
+        ]
+      },
+      "cta": {
+        "title": "Raffredda in modo rapido, sicuro ed efficiente",
+        "desc": "Scopri le soluzioni Nitra System per pre-raffreddamento post-raccolta con Hydrocooler, personalizzate per il tuo prodotto.",
+        "button": "Contattaci ora"
+      }
+    },
+
+    "vacuum": {
+      "seoTitle": "Vacuum Cooler | Nitra System",
+      "hero": {
+        "title": "Vacuum Cooler",
+        "subtitle": "Raffreddamento sottovuoto ad alta efficienza per ortofrutta, fiori recisi e prodotti da forno. Massima rapidità, minima perdita di peso."
+      },
+      "images": { "mainAlt": "Impianto Vacuum Cooler per ortaggi freschi" },
+      "intro": {
+        "title": "Raffreddamento rapido e uniforme con tecnologia sottovuoto",
+        "body1": "Il sistema Vacuum Cooler sfrutta l’evaporazione sotto vuoto: l’acqua contenuta naturalmente negli alimenti evapora a bassa pressione, assorbendo calore e abbassando la temperatura interna in pochi minuti.",
+        "body2": "È ideale per ortaggi a foglia, fiori recisi e prodotti da forno: assicura distribuzione uniforme del freddo, riduce condensa e mantiene la qualità visiva e nutrizionale lungo la catena del freddo.",
+        "points": [
+          "Raffreddamento fino a 1–3 °C in meno di 30 minuti",
+          "Minore disidratazione rispetto ai sistemi ad aria forzata",
+          "Controllo digitale di pressione, umidità e cicli",
+          "Struttura inox e porta a tenuta ermetica con isolamento"
+        ]
+      },
+      "benefits": {
+        "title": "Vantaggi del Vacuum Cooling",
+        "cards": [
+          { "title": "Velocità di raffreddamento", "body": "Fino a 10 volte più rapido dei sistemi tradizionali: ideale per grandi volumi e tempi post-raccolta ridotti." },
+          { "title": "Conservazione della qualità", "body": "Mantiene colore, consistenza e contenuto vitaminico, limitando danni da shock termici o stress meccanici." },
+          { "title": "Efficienza e sostenibilità", "body": "Consumi ridotti, minor refrigerante e ciclo chiuso che minimizza sprechi d’acqua e impatto ambientale." }
+        ]
+      },
+      "cta": {
+        "title": "Tecnologia sottovuoto per un raffreddamento rapido e sicuro",
+        "desc": "Progettiamo e installiamo impianti Vacuum Cooler su misura per ortofrutta, fiori e bakery, con qualità costante e costi sotto controllo.",
+        "button": "Contattaci ora"
+      }
+    },
+
+    "contatti": {
+      "seoTitle": "Contatti | Nitra System",
+      "seoDescription": "Contatta Nitra System: consulenza e progettazione di impianti frigoriferi industriali e commerciali. Sedi a Sliven (BG) e Bari (IT). Risposta entro 24 ore.",
+      "seoKeywords": "contatti, impianti frigoriferi industriali, refrigerazione, celle frigo, chiller, Bulgaria, Italia, Bari, Sliven, consulenza, manutenzione",
+      "hero": {
+        "title": "Raccontaci il tuo progetto!",
+        "subtitle": "Parla con un tecnico: troviamo la soluzione giusta per il tuo impianto",
+        "aria": "Contatta Nitra System per impianti frigoriferi industriali"
+      },
+      "info": {
+        "title": "Siamo qui per te",
+        "p1": "Ogni progetto ha una storia, ogni operazione un obiettivo: garantire performance, efficienza e continuità per il tuo impianto frigorifero.",
+        "p2": "Ti risponderemo entro 24 ore e ti guideremo dal primo contatto fino al collaudo e alla manutenzione."
+      },
+      "company": {
+        "title": "Dati azienda",
+        "hq": "Sede centrale:",
+        "tel": "Tel.:",
+        "email": "Email:",
+        "vat": "P.IVA:",
+        "vatValue": "BG 2046612801"
+      },
+      "blocks": {
+        "hq": { "title": "Sede Bulgaria", "address": "8800 Sliven – Road Baba Tonca n. 5A" },
+        "it": { "title": "Sede Italia", "address": "70132 Bari – Via Emanuele Melisurgo n. 5" },
+        "info": { "title": "Info", "phone": "+359 894 482 526 / (+39) 335 617 9483", "email": "nitrasystem@gmail.com" }
+      },
+      "offices": {
+        "title": "Sedi operative",
+        "subtitle": "Le nostre due sedi operative con mappa interattiva.",
+        "openMaps": "Apri su Google Maps",
+        "bg": { "title": "Bulgaria", "mapTitle": "Mappa Sede Operativa Bulgaria" },
+        "it": { "title": "Italia", "mapTitle": "Mappa Sede Operativa Italia" },
+        "disclaimer": "Le mappe sono a scopo informativo; per appuntamenti contattaci via email o telefono."
+      },
+      "form": {
+        "title": "Richiedi una consulenza gratuita",
+        "submit": "Invia richiesta →",
+        "fields": {
+          "name": { "label": "Nome", "placeholder": "Nome*" },
+          "company": { "label": "Azienda", "placeholder": "Azienda" },
+          "email": { "label": "Email", "placeholder": "Email*" },
+          "phone": { "label": "Telefono", "placeholder": "Telefono" },
+          "sector": {
+            "label": "Settore aziendale",
+            "placeholder": "Seleziona il tuo settore",
+            "options": [
+              { "value": "agroalimentare", "label": "Agroalimentare" },
+              { "value": "farmaceutico", "label": "Farmaceutico" },
+              { "value": "manifatturiero", "label": "Manifatturiero" },
+              { "value": "logistica", "label": "Logistica / Distribuzione" },
+              { "value": "altro", "label": "Altro" }
+            ]
+          },
+          "source": {
+            "label": "Come ci hai trovato",
+            "placeholder": "Come ci hai trovato?*",
+            "options": [
+              { "value": "google", "label": "Ricerca su Google" },
+              { "value": "social", "label": "Social network (LinkedIn, Facebook, Instagram)" },
+              { "value": "passaparola", "label": "Passaparola o conoscenza personale" },
+              { "value": "fiera", "label": "Evento o fiera di settore" },
+              { "value": "altro", "label": "Altro" }
+            ]
+          },
+          "callback": {
+            "label": "Quando preferisci essere ricontattato?",
+            "placeholder": "Quando preferisci essere ricontattato?",
+            "options": [
+              { "value": "mattina", "label": "Mattina" },
+              { "value": "pomeriggio", "label": "Pomeriggio" },
+              { "value": "sera", "label": "Sera" },
+              { "value": "qualsiasi", "label": "Qualsiasi momento" }
+            ]
+          },
+          "message": { "label": "Messaggio", "placeholder": "Descrivi il tuo progetto" }
+        }
+      },
+      "footCta": {
+        "title": "Contattaci senza impegno",
+        "desc": "Parliamo del tuo prossimo impianto frigorifero: realizziamo soluzioni efficienti, sostenibili e su misura.",
+        "button": "Scopri chi siamo →"
+      },
+      "faq": {
+        "q1": "In quanto tempo rispondete?",
+        "a1": "Generalmente entro 24 ore lavorative.",
+        "q2": "In quali paesi operate?",
+        "a2": "Operiamo in Italia, Bulgaria e in tutta l’Unione Europea.",
+        "q3": "Quali settori servite?",
+        "a3": "Agroalimentare, farmaceutico e manifatturiero, con impianti su misura."
+      }
+    },
+
+    "partners": {
+      "seoTitle": "Partner & Collaborazioni | Nitra System",
+      "images": { "heroAlt": "Collaborazioni Nitra System" },
+      "hero": {
+        "title": "Partner & Collaborazioni",
+        "subtitle": "Tecnologie affidabili e una rete di fornitori selezionati per accelerare innovazione e risultati.",
+        "cta": "Contattaci"
+      },
+      "values": {
+        "title": "I partner come leva strategica",
+        "body1": "Crediamo che l’innovazione nasca dalla collaborazione basata su fiducia, competenza e visione comune.",
+        "body2": "Ogni partner rafforza la catena del valore: dalla progettazione degli impianti alla digitalizzazione dei processi."
+      },
+      "cards": {
+        "longTerm": { "title": "Collaborazione a lungo termine", "body": "Relazioni solide che crescono nel tempo grazie a obiettivi condivisi." },
+        "innovation": { "title": "Innovazione condivisa", "body": "Competenze complementari per soluzioni più intelligenti ed efficienti." },
+        "values": { "title": "Valori condivisi", "body": "Rispetto, trasparenza e responsabilità in ogni progetto." }
+      },
+      "case": {
+        "alt": "Collaborazione Nitra System e Marvincla",
+        "title": "Caso di successo: ColdSharing",
+        "body1": "La collaborazione tra Nitra System e Marvincla ha portato alla nascita di ColdSharing, il primo marketplace B2B dedicato alla condivisione del freddo — una piattaforma digitale che consente ad aziende agroalimentari, logistiche e industriali di mettere a disposizione o trovare celle frigorifere, container refrigerati e spazi a temperatura controllata, ottimizzando costi e risorse.",
+        "body2": "Grazie alla partnership, Nitra System ha fornito la propria esperienza nel campo della refrigerazione industriale e della logistica del freddo, contribuendo alla definizione dei criteri tecnici e dei parametri energetici dei locali condivisi. Marvincla, invece, ha sviluppato la piattaforma tecnologica e l’ecosistema digitale che permette la gestione sicura, trasparente e automatizzata di annunci, prenotazioni e pagamenti tra imprese. ColdSharing rappresenta oggi un nuovo paradigma per la logistica del freddo, promuovendo un modello di economia circolare e sostenibilità nel settore industriale.",
+        "cta": "Scopri ColdSharing"
+      },
+      "cta": {
+        "title": "Cresci con noi",
+        "desc": "Se condividi la nostra visione e vuoi portare valore al settore della refrigerazione industriale, entra nel nostro network di partner.",
+        "button": "Contattaci"
+      },
+      "footer": {
+        "title": "Le grandi idee nascono dall’unione di grandi persone",
+        "desc": "Ogni partnership è fondata su fiducia, innovazione e rispetto reciproco. Insieme costruiamo il futuro della refrigerazione.",
+        "note": "Nitra System — costruiamo valore attraverso la collaborazione."
+      }
+    },
+
+    "cookies": {
+      "hero": { "title": "Cookie Policy" },
+      "intro": "Questo sito utilizza **cookie tecnici** e, previo consenso, cookie **analitici** o **di terze parti** per migliorare l’esperienza di navigazione, analizzare il traffico e offrire funzionalità aggiuntive.",
+      "notice": "Puoi modificare le tue preferenze in qualunque momento dal banner cookie (se presente) o dalle impostazioni del browser.",
+      "types": {
+        "title": "Tipologie di cookie utilizzati",
+        "badges": { "essential": "Indispensabili", "functional": "Funzionali", "third": "Terze parti" },
+        "blocks": {
+          "technical": {
+            "title": "Cookie tecnici",
+            "text": "Questi cookies sono essenziali al fine di consentire di spostarsi in tutto il sito ed utilizzare appieno le sue caratteristiche, come ad esempio accedere alle varie aree protette del sito. Senza questi cookies alcuni servizi necessari, come la compilazione di un form, non possono essere fruiti. Utilizzando il nostro sito, accetti che tali cookies possano essere installati sul tuo dispositivo."
+          },
+          "functional": {
+            "title": "Cookie funzionali",
+            "text": "Questi cookie consentono di offrire funzionalità avanzate, nonché maggiori informazioni e funzioni dedicate, come potrebbe essere guardare un video di YouTube, condividere contenuti attraverso i social network o fruire di componenti aggiuntivi del browser."
+          },
+          "third": {
+            "title": "Cookie di terze parti",
+            "text": "Attraverso la navigazione del nostro sito potresti ricevere anche cookies di terze parti come quelli usati per Google Analytics, un servizio di analisi web fornito da Google, Inc. (\"Google\"). Google Analytics utilizza i cookies per analizzare come gli utenti utilizzano il sito. Le informazioni generate dai cookies sull'utilizzo del sito web (compreso il tuo indirizzo IP anonimo) verranno trasmesse e depositate presso i server di Google negli Stati Uniti. Google utilizzerà queste informazioni allo scopo di esaminare il tuo utilizzo del sito web, compilare report sulle attività del sito per gli operatori dello stesso e fornire altri servizi relativi alle attività del sito web e all'utilizzo di internet. Google può anche trasferire queste informazioni a terzi ove ciò sia imposto dalla legge o laddove tali terzi trattino le suddette informazioni per conto di Google. Google non assocerà il tuo indirizzo IP a nessun altro dato posseduto da Google. Puoi rifiutarti di usare i cookies selezionando l'impostazione appropriata sul tuo browser, ma ti ricordiamo che in questo caso è possibile che non si riesca ad utilizzare tutte le funzionalità di questo sito web. Questo sito potrebbe anche utilizzare alcuni \"social-plugin\" per la condivisione e comunicazione di contenuti: il loro utilizzo è facoltativo. Quando utilizzi uno dei plugin il sito si metterà in contatto, attraverso il tuo browser, con i server presso cui vengono gestiti i servizi di social sharing richiamati, comunicando loro i dati che intendi pubblicare e condividere attraverso il tuo profilo social (di cui rimani l'unico responsabile) ed informandoli (i server) delle pagine che hai visitato. Ricorda che per escludere questa possibilità, puoi solamente evitare di condividere contenuti con l'utilizzo dei pulsanti di social share. Per ulteriori dettagli riguardo l´utilizzo e la raccolta di dati attraverso i seguenti plugin e per sapere come vengono trattati (e per quali finalità) i dati così raccolti e trasmessi, ti preghiamo di consultare l´informativa privacy e legale rilasciata dai Titolari dei servizi in questione."
+          }
+        }
+      },
+      "deep": {
+        "title": "Approfondimenti",
+        "ga": {
+          "title": "Google Analytics (terza parte)",
+          "p1": "Attraverso la navigazione del nostro sito potresti ricevere anche cookie di terze parti come quelli usati per **Google Analytics**, un servizio di analisi web fornito da Google LLC (“Google”). Google Analytics utilizza i cookie per analizzare come gli utenti utilizzano il sito.",
+          "p2": "Le informazioni generate dai cookie sull'utilizzo del sito (incluso il tuo indirizzo IP *anonimizzato*) vengono trasmesse e depositate presso i server di Google negli Stati Uniti. Google utilizza tali informazioni per esaminare l'uso del sito, compilare report sulle attività per gli operatori e fornire altri servizi relativi all'utilizzo di Internet. Google può trasferire queste informazioni a terzi ove imposto dalla legge o laddove tali terzi trattino le informazioni per conto di Google. Google non assocerà il tuo indirizzo IP ad altri dati in suo possesso.",
+          "p3": "Puoi rifiutare l’uso dei cookie selezionando le impostazioni appropriate del browser; in tal caso alcune funzionalità del sito potrebbero essere limitate.",
+          "more": "Maggiori info:"
+        },
+        "social": {
+          "title": "Social plugin (condivisione e comunicazione)",
+          "p1": "Il sito potrebbe utilizzare alcuni **social-plugin** per la condivisione di contenuti (uso facoltativo). Quando utilizzi un plugin, attraverso il browser viene stabilito un contatto con i server del relativo servizio di social sharing, comunicando i dati che intendi pubblicare e le pagine che hai visitato. Rimani l’unico responsabile dei contenuti condivisi.",
+          "p2": "Per escludere questa possibilità, evita di condividere contenuti tramite i pulsanti social. Per dettagli su raccolta, uso e finalità del trattamento da parte dei social, consulta le relative informative privacy dei Titolari dei servizi."
+        }
+      },
+      "manage": {
+        "title": "Gestione dei cookie",
+        "lead": "Puoi accettare o rifiutare i cookie non essenziali dal banner iniziale (se presente) o intervenendo sulle impostazioni del tuo browser. Di seguito alcuni link utili:"
+      },
+      "contact": "Per maggiori informazioni, contatta:",
+      "updatedAt": "Ultimo aggiornamento: {{date}}."
+    },
+
+    "privacy": {
+      "seoTitle": "Privacy Policy | Nitra System",
+      "heroTitle": "Privacy Policy",
+      "labels": { "email": "Email" },
+      "intro": {
+        "p1": "Questa informativa descrive come",
+        "p2": " tratta i dati personali degli utenti nel rispetto del Regolamento (UE) 2016/679 (",
+        "p3": ") e della normativa nazionale applicabile."
+      },
+      "owner": { "title": "Titolare del Trattamento" },
+      "types": {
+        "title": "Tipologie di dati trattati",
+        "body1": "Trattiamo, a seconda dei casi, le seguenti categorie di dati: dati anagrafici (nome, cognome, data di nascita), dati di contatto (email, telefono, indirizzo), dati professionali/aziendali (ragione sociale, P.IVA/C.F., ruolo), dati di navigazione e",
+        "tracking": "Strumenti di Tracciamento",
+        "body2": " (cookie, dati di utilizzo), credenziali/account (username/ID) e ulteriori informazioni che decidi di fornirci attraverso form o contatti diretti."
+      },
+      "purposes": {
+        "title": "Finalità e basi giuridiche",
+        "items": [
+          "Erogazione dei servizi e gestione di richieste/ordini (esecuzione di misure precontrattuali/contratto).",
+          "Adempimenti di legge (obblighi amministrativi, fiscali, contabili).",
+          "Assistenza e supporto su prodotti/servizi, gestione ticket e comunicazioni operative (legittimo interesse/contratto).",
+          "Comunicazioni commerciali su servizi e iniziative del Titolare (consenso o legittimo interesse nei limiti di legge).",
+          "Analisi e sicurezza del sito/applicazione, prevenzione di abusi e frodi (legittimo interesse/obbligo di legge)."
+        ]
+      },
+      "methods": {
+        "title": "Modalità del trattamento",
+        "body": "I dati sono trattati con strumenti informatici e/o telematici secondo principi di liceità, trasparenza, minimizzazione e sicurezza. L’accesso ai dati è consentito a personale autorizzato e a soggetti terzi che forniscono servizi al Titolare (es. hosting, IT, consulenza, logistica, amministrazione), nominati ove necessario come Responsabili del Trattamento. I dati non sono diffusi."
+      },
+      "provision": {
+        "title": "Conferimento dei dati",
+        "body": "Il conferimento dei dati contrassegnati come obbligatori è necessario per fornire i servizi richiesti o adempiere a obblighi di legge: il mancato conferimento può impedire l’erogazione del servizio. Il conferimento per finalità promozionali è facoltativo (puoi revocare il consenso in ogni momento)."
+      },
+      "communication": {
+        "title": "Ambito di comunicazione",
+        "body": "I dati possono essere comunicati a fornitori e partner che supportano l’erogazione dei servizi (es. IT, posta elettronica, pagamenti, consulenti, logistica), nonché ad autorità competenti ove richiesto dalla legge. L’elenco aggiornato dei Responsabili è disponibile su richiesta."
+      },
+      "transfers": {
+        "title": "Trasferimenti extra-UE",
+        "body": "Qualora alcuni fornitori abbiano sedi extra-UE, il trasferimento avverrà nel rispetto del Capo V del GDPR (decisioni di adeguatezza, Clausole Contrattuali Standard o altre garanzie adeguate)."
+      },
+      "retention": {
+        "title": "Periodo di conservazione",
+        "body": "Conserviamo i dati per il tempo strettamente necessario alle finalità indicate. I termini possono prolungarsi per obblighi di legge (es. contabili/fiscali) o fino a revoca del consenso per finalità basate su consenso. Al termine, i dati sono cancellati o anonimizzati."
+      },
+      "rights": {
+        "title": "Diritti degli interessati",
+        "items": [
+          "accesso, rettifica, aggiornamento;",
+          "cancellazione e limitazione del trattamento;",
+          "portabilità dei dati;",
+          "opposizione al trattamento (incluse comunicazioni di marketing);",
+          "revoca del consenso, ove il trattamento si basi sul consenso."
+        ],
+        "contact": {
+          "pre": "Per esercitare i diritti: scrivi a ",
+          "post": ". Hai inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali."
+        }
+      }
+    }
+  }
 }

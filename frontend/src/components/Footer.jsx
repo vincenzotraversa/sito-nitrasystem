@@ -21,7 +21,8 @@ import { useTranslation } from "react-i18next";
 
 export default function Footer() {
   const { t, i18n } = useTranslation("common");
-  const lang = i18n.resolvedLanguage;
+  const lang = i18n.resolvedLanguage || "it";
+  const currentYear = new Date().getFullYear();
 
   // ---- routing helpers
   const routes = {
@@ -37,11 +38,9 @@ export default function Footer() {
   const make = (key) => `/${routes[key]}`.replace(/\/$/, "");
 
   // ---- switch lingua
-  const switchLang = () => {
-    i18n.changeLanguage(lang === "it" ? "en" : "it");
-  };
+  const switchLang = () => i18n.changeLanguage(lang.startsWith("it") ? "en" : "it");
 
-  // ---- JSON-LD Organization (aiuta SEO locale)
+  // ---- JSON-LD Organization (SEO)
   useEffect(() => {
     const id = "ld-org-nitra";
     let el = document.getElementById(id);
@@ -72,42 +71,29 @@ export default function Footer() {
   return (
     <Box as="footer" bg="nitra.dark" color="white" mt={16} pt={10} pb={6}>
       <Container maxW="7xl">
-        <SimpleGrid
-          columns={{ base: 1, md: 2, lg: 4 }}
-          spacing={{ base: 8, md: 10, lg: 12 }}
-        >
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={{ base: 8, md: 10, lg: 12 }}>
           {/* Col 1 - Intro breve */}
           <Stack spacing={3} pr={{ lg: 8 }}>
             <Heading as="h2" size="md">
-              Nitra System
+              {t("brand")}
             </Heading>
             <Text fontSize="sm" opacity={0.9}>
-              Impianti frigoriferi industriali per agroalimentare, farmaceutico
-              e manifatturiero.
+              {t("footer.aboutText")}
             </Text>
           </Stack>
 
           {/* Col 2 - Link utili */}
           <Stack spacing={2}>
             <Heading as="h3" size="sm" color="nitra.accent">
-              {lang === "it" ? "Link utili" : "Useful links"}
+              {t("footer.usefulLinks")}
             </Heading>
             {[
-              { key: "home", label: lang === "it" ? "Home" : "Home" },
-              { key: "azienda", label: lang === "it" ? "Azienda" : "Company" },
-              {
-                key: "cosa",
-                label: lang === "it" ? "Cosa facciamo" : "Solutions",
-              },
-              { key: "cold", label: "Coldsharing" },
-              {
-                key: "partner",
-                label: lang === "it" ? "Partner e Collaborazioni" : "Partners",
-              },
-              {
-                key: "contatti",
-                label: lang === "it" ? "Contatti" : "Contacts",
-              },
+              { key: "home", label: t("nav.home") },
+              { key: "azienda", label: t("nav.company") },
+              { key: "cosa", label: t("nav.whatWeDo") },
+              { key: "cold", label: t("nav.coldsharing") },
+              { key: "partner", label: t("nav.partners") },
+              { key: "contatti", label: t("nav.contacts") },
             ].map((it) => (
               <Link
                 key={it.key}
@@ -124,79 +110,66 @@ export default function Footer() {
           {/* Col 3 - Legale */}
           <Stack spacing={2}>
             <Heading as="h3" size="sm" color="nitra.accent">
-              {lang === "it" ? "Legale" : "Legal"}
+              {t("footer.legal")}
             </Heading>
             <Link
               as={RouterLink}
-              to={`/${lang}/privacy`}
+              to={`/privacy`}
               fontSize="sm"
               _hover={{ color: "nitra.accent" }}
             >
-              Privacy Policy
+              {t("footer.privacy")}
             </Link>
             <Link
               as={RouterLink}
-              to={`/${lang}/cookies`}
+              to={`/cookies`}
               fontSize="sm"
               _hover={{ color: "nitra.accent" }}
             >
-              Cookie Policy
+              {t("footer.cookies")}
             </Link>
           </Stack>
 
           {/* Col 4 - Contatti */}
           <Stack spacing={3}>
             <Heading as="h3" size="sm" color="nitra.accent">
-              {lang === "it" ? "Contatti" : "Contacts"}
+              {t("footer.contacts")}
             </Heading>
 
             <HStack align="start" spacing={3}>
-              <Icon
-                as={FaMapMarkerAlt}
-                boxSize={4}
-                mt={1}
-                color="nitra.accent"
-              />
+              <Icon as={FaMapMarkerAlt} boxSize={4} mt={1} color="nitra.accent" />
               <Link
                 href="https://maps.google.com/?q=Road+Baba+Tonca+5A,+Sliven,+Bulgaria"
                 isExternal
                 fontSize="sm"
                 _hover={{ color: "nitra.accent" }}
-                aria-label="Apri la sede Nitra System su Google Maps"
+                aria-label={t("footer.openMaps")}
               >
-                8800 Sliven – Bulgaria
+                {t("footer.addressBG.line1")}
                 <br />
-                Road Baba Tonca n. 5A
+                {t("footer.addressBG.line2")}
               </Link>
             </HStack>
 
             <HStack align="start" spacing={3}>
-              <Icon
-                as={FaMapMarkerAlt}
-                boxSize={4}
-                mt={1}
-                color="nitra.accent"
-              />
+              <Icon as={FaMapMarkerAlt} boxSize={4} mt={1} color="nitra.accent" />
               <Link
                 href="https://www.google.com/maps?q=Via+Emanuele+Melisurgo+5+Bari+Italy&output=embed"
                 isExternal
                 fontSize="sm"
                 _hover={{ color: "nitra.accent" }}
-                aria-label="Apri la sede Nitra System su Google Maps"
+                aria-label={t("footer.openMaps")}
               >
-                70132 Bari – Italia
+                {t("footer.addressIT.line1")}
                 <br />
-                Via Emanuele Melisurgo n. 5
+                {t("footer.addressIT.line2")}
               </Link>
             </HStack>
 
             <HStack spacing={3} align="start">
               <Icon as={FaPhone} boxSize={4} mt={1} color="nitra.accent" />
               <Stack spacing={1} fontSize="sm">
-                <Link
-                  href="tel:+359894482526"
-                  _hover={{ color: "nitra.accent" }}
-                >
+                <Link href="tel:+359894482526" _hover={{ color: "nitra.accent" }}>
                   +359 894 482 526
                   <br />
                   +39 335 617 9483
@@ -206,11 +179,7 @@ export default function Footer() {
 
             <HStack spacing={3}>
               <Icon as={FaEnvelope} boxSize={4} color="nitra.accent" />
-              <Link
-                href="mailto:nitrasystem@gmail.com"
-                fontSize="sm"
-                _hover={{ color: "nitra.accent" }}
-              >
+              <Link href="mailto:nitrasystem@gmail.com" fontSize="sm" _hover={{ color: "nitra.accent" }}>
                 nitrasystem@gmail.com
               </Link>
             </HStack>
@@ -220,23 +189,17 @@ export default function Footer() {
         <Divider borderColor="whiteAlpha.300" my={6} />
 
         {/* Bottom bar */}
-        <Flex
-          align="center"
-          justify="space-between"
-          direction={{ base: "column", md: "row" }}
-          gap={3}
-        >
+        <Flex align="center" justify="space-between" direction={{ base: "column", md: "row" }} gap={3}>
           <Text fontSize="xs" opacity={0.8}>
-            © {new Date().getFullYear()} Nitra System Ltd · P.IVA BG 2046612801
+            © {currentYear} Nitra System Ltd · P.IVA BG 2046612801 — {t("footer.rights")}
           </Text>
           <Text fontSize="xs" opacity={0.8}>
-            Sito realizzato da Marvincla S.R.L. - Polo digitale del settore
-            agroalimentare.
+            {t("footer.madeBy")}
           </Text>
 
-          {/* Lingue visibili, stile “pill” */}
+          {/* Switch lingua */}
           <HStack spacing={2}>
-            <VisuallyHidden>Language switch</VisuallyHidden>
+            <VisuallyHidden>{t("footer.languageSwitch")}</VisuallyHidden>
             <Button
               size="xs"
               variant="outline"
@@ -245,7 +208,7 @@ export default function Footer() {
               _hover={{ bg: "nitra.accent", color: "white" }}
               onClick={switchLang}
             >
-              {lang === "it" ? "English version" : "Versione italiana"}
+              {t(`footer.langButton.${lang.startsWith("it") ? "en" : "it"}`)}
             </Button>
           </HStack>
         </Flex>

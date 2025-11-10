@@ -10,196 +10,185 @@ import {
   Image,
   SimpleGrid,
   Stack,
-  HStack,
   LinkBox,
   LinkOverlay,
+  chakra,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { motion, isValidMotionProp } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { shouldForwardProp as chakraShouldForwardProp } from "@chakra-ui/react";
 
-const MotionBox = motion(Box);
-const MotionImage = motion(Image);
+/* -------- Motion components -------- */
+const MotionBox = motion(
+  chakra.div,
+  {
+    shouldForwardProp: (prop) =>
+      isValidMotionProp(prop) || chakraShouldForwardProp(prop),
+  }
+);
 
-// NOTE: gli slug qui sotto sono allineati alle rotte che hai in App.jsx
-// - carni: .../lavorazionecarni  (senza trattino)
-// - gli altri come da Navbar che avevi condiviso
+const MotionImage = motion(
+  chakra.img,
+  {
+    shouldForwardProp: (prop) =>
+      isValidMotionProp(prop) || chakraShouldForwardProp(prop),
+  }
+);
+
+/* -------- Util lingua (se usi prefix nelle route, gestiscilo qui) -------- */
+const withLang = (path) => path;
+
+/* -------- Dataset card (img + route) -------- */
+/* Agroalimentare: NIENTE panificazione */
 const AGRO_CARDS = [
-  {
-    img: "/lavorazionecarne.jpg",
-    title: "Lavorazione carni",
-    desc: "Impianti frigoriferi per la lavorazione delle carni: celle TN e BT, tunnel di raffreddamento e abbattimento, sistemi per salatura e stagionatura con controllo di temperatura e umidità per garantire qualità e sicurezza alimentare.",
-    to: "/settori/agroalimentare/lavorazione-carni",
-  },
-  {
-    img: "/panificazione.webp",
-    title: "Panificazione",
-    desc: "Impianti per fermalievita, abbattimento, conservazione impasti e camere di lievitazione controllata.",
-    to: "/settori/agroalimentare/panificazione",
-  },
-  {
-    img: "/lattiero.jpg",
-    title: "Prodotti lattiero-caseari",
-    desc: "Raffreddamento latte, maturazione, stagionatura formaggi e celle a umidità controllata.",
-    to: "/settori/agroalimentare/lattiero-caseari",
-  },
-  {
-    img: "/ittico.jpg",
-    title: "Lavorazione ittico-pesce",
-    desc: "Processo a bassa temperatura, surgelazione rapida, stoccaggio e sala lavorazione igienizzata.",
-    to: "/settori/agroalimentare/ittico",
-  },
-  {
-    img: "/frutta.jpg",
-    title: "Frutta e verdura",
-    desc: "Pre-cooling, atmosfera controllata, celle frigoconservazione e linee di confezionamento.",
-    to: "/settori/agroalimentare/ortofrutta",
-  },
-  {
-    img: "/processoalimentare.jpg",
-    title: "Prodotti alimentari trasformati",
-    desc: "Refrigerazione di processo, tunnel, chiller per fluidi secondari e stoccaggi a temperatura.",
-    to: "/settori/agroalimentare/trasformati",
-  },
+  { id: "carni",        img: "/lavorazionecarni.png",   to: "/settori/agroalimentare/lavorazione-carni" },
+  { id: "lattiero",     img: "/lattiero.jpg",           to: "/settori/agroalimentare/lattiero-caseari" },
+  { id: "ittico",       img: "/ittico.jpg",             to: "/settori/agroalimentare/ittico" },
+  { id: "ortofrutta",   img: "/ortofrutta.png",         to: "/settori/agroalimentare/ortofrutta" },
+  { id: "trasformati",  img: "/processoalimentare.jpg", to: "/settori/agroalimentare/trasformati" },
 ];
 
+/* Manifatturiero + Logistica */
 const MANIF_CARDS = [
-  {
-    img: "/logisticarefrigerata.jpg",
-    title: "Logistica refrigerata",
-    desc: "Magazzini TN/BT, baie isotermiche, anticamere e gestione carichi con riduzione dispersioni.",
-    to: "/settori/manifatturiero/logistica-refrigerata",
-  },
-  {
-    img: "/logisticagdo.webp",
-    title: "Logistica GDO e distribuzione",
-    desc: "Hub multi-temperatura, sistemi di supervisione energetica e continuità H24.",
-    to: "/settori/manifatturiero/logistica-gdo",
-  },
-  {
-    img: "/hydrocooler.jpg",
-    title: "Hydrocooler",
-    desc: "Raffreddamento rapido post-raccolta per ortofrutta con alte portate d’acqua a temperatura controllata.",
-    to: "/settori/manifatturiero/hydrocooler",
-  },
-  {
-    img: "/vacuumcooler.jpg",
-    title: "Vacuumcooler",
-    desc: "Raffreddamento sottovuoto di prodotto fresco: qualità elevata e shelf-life estesa.",
-    to: "/settori/manifatturiero/vacuumcooler",
-  },
-  {
-    img: "/sanificatore.webp",
-    title: "Sanificatore alimentare",
-    desc: "Ionizzazione aria per abbattimento cariche microbiche, odori e VOC in ambienti alimentari.",
-    to: "/settori/manifatturiero/sanificatore",
-  },
-  {
-    img: "/produttoreghiaccio.webp",
-    title: "Produttori di ghiaccio",
-    desc: "Ghiaccio granulare/supergranulare e a scaglie per conservazione e presentazione prodotto.",
-    to: "/settori/manifatturiero/produttoreghiaccio",
-  },
+  { id: "log-refrig", img: "/logisticarefrigerata3.png", to: "/settori/manifatturiero/logistica-refrigerata" },
+  { id: "log-gdo",    img: "/gdo2.png",                  to: "/settori/manifatturiero/logistica-gdo" },
+  { id: "hydro",      img: "/hydrocooler2.png",          to: "/settori/manifatturiero/hydrocooler" },
+  { id: "vacuum",     img: "/vacuumcooler3.png",         to: "/settori/manifatturiero/vacuumcooler" },
+  { id: "sanit",      img: "/sanificatore.webp",         to: "/settori/manifatturiero/sanificatore" },
+  { id: "ghiaccio",   img: "/produttoreghiaccio2.png",   to: "/settori/manifatturiero/produttoreghiaccio" },
 ];
 
-/* -------------------------------------------------------------------------- */
-/*                           COMPONENTE CARD MORBIDA                          */
-/* -------------------------------------------------------------------------- */
+/* Life Sciences / Pharma: Camere bianche */
+const LIFE_CARDS = [
+  { id: "cleanrooms", img: "/camerebianche.png", to: "/camere-bianche" },
+];
+
+/* -------- UI: Card uniforme -------- */
 function SoftCard({ img, title, desc, to }) {
+  const cardRadius = "24px";
+
   return (
     <LinkBox
       as={MotionBox}
       role="group"
       tabIndex={0}
+      h="100%"                          // <-- occupa sempre tutta la riga del grid
+      display="flex"
+      flexDir="column"
       bg="white"
       border="1px solid"
       borderColor="nitra.accent"
-      borderRadius="28px"
+      borderRadius={cardRadius}
       overflow="hidden"
       transition="all .25s ease"
       _hover={{ boxShadow: "xl", transform: "translateY(-4px)" }}
-      _focusWithin={{ boxShadow: "0 0 0 3px rgba(14,74,103,0.5)" }} // blu scuro con opacità
-      color="#0E4A67" // 👈 testo blu scuro per tutto il contenuto
+      _focusWithin={{ boxShadow: "0 0 0 3px rgba(14,74,103,0.5)" }}
+      color="#0E4A67"
+      sx={{
+        clipPath: `inset(0 round ${cardRadius})`,
+        WebkitMaskImage: "radial-gradient(#000,#000)", // Safari fix
+        willChange: "transform",
+      }}
     >
-      {/* Immagine */}
+      {/* Immagine: altezza fissa per uniformità */}
       <Box position="relative">
         <MotionImage
           src={img}
           alt={title}
           w="100%"
-          h={["140px", "160px", "180px"]}
+          h={["150px", "170px", "190px"]} // <-- stessa altezza per tutte
           objectFit="cover"
-          borderTopLeftRadius="28px"
-          borderTopRightRadius="28px"
           initial={{ scale: 1.02 }}
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.35 }}
+          display="block"
+          style={{ borderTopLeftRadius: cardRadius, borderTopRightRadius: cardRadius }}
         />
         <Box
           position="absolute"
           inset={0}
           bgGradient="linear(to-b, blackAlpha.100, blackAlpha.0 60%)"
-          borderTopLeftRadius="28px"
-          borderTopRightRadius="28px"
+          borderTopLeftRadius={cardRadius}
+          borderTopRightRadius={cardRadius}
+          pointerEvents="none"
         />
       </Box>
 
-      {/* Corpo testo */}
-      <Stack spacing={3} p={[4, 5]}>
-        <Heading as="h3" size="md" color="#0E4A67">
-          <LinkOverlay as={RouterLink} to={to}>
-            {title}
-          </LinkOverlay>
-        </Heading>
-        <Text fontSize="sm" color="#0E4A67">
-          {desc}
-        </Text>
+      {/* Testo + CTA: spinto in basso per allineare i bottoni */}
+      <Stack spacing={3} p={[4, 5]} flex="1" justify="space-between">
+        <Box>
+          <Heading as="h3" size="md" color="#0E4A67" noOfLines={2}>
+            <LinkOverlay as={RouterLink} to={to}>
+              {title}
+            </LinkOverlay>
+          </Heading>
+          <Text mt={2} fontSize="sm" color="#0E4A67" noOfLines={2}>
+            {desc}
+          </Text>
+        </Box>
 
         <Button
           as={RouterLink}
           to={to}
           mt={2}
           size="sm"
-          bg="#B04125" // arancione brand
+          bg="#B04125"
           color="white"
           borderRadius="999px"
-          alignSelf="start"
+          alignSelf="flex-start"
           _hover={{ bg: "#C85B38", transform: "translateY(-1px)" }}
           _active={{ bg: "#9F3A22", transform: "translateY(0)" }}
           transition="all .2s ease"
         >
-          Scopri di più →
+          »
         </Button>
       </Stack>
     </LinkBox>
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                  HOME PAGE                                 */
-/* -------------------------------------------------------------------------- */
+/* -------- Pagina -------- */
 export default function Home() {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   useEffect(() => {
-    document.title =
-      "Nitra System | Refrigerazione industriale per agroalimentare e di processo";
-  }, []);
+    document.title = t("homePage.seo.title");
+  }, [t]);
 
-  // Helper per pre-pendere /:lang ai link
-  const withLang = (path) => `/${path}`;
+  /* Mappa testi i18n 1:1 sugli id */
+  const agroCards = AGRO_CARDS.map((c) => ({
+    ...c,
+    title: t(`homePage.agro.cards.${c.id}.title`),
+    desc:  t(`homePage.agro.cards.${c.id}.desc`),
+  }));
+
+  const manufCards = MANIF_CARDS.map((c) => {
+    const isLog = c.id.startsWith("log-");
+    const ns = isLog ? "homePage.logistics.cards" : "homePage.manuf.cards";
+    return {
+      ...c,
+      title: t(`${ns}.${c.id}.title`),
+      desc:  t(`${ns}.${c.id}.desc`),
+    };
+  });
+
+  const lifeCards = LIFE_CARDS.map((c) => ({
+    ...c,
+    title: t(`homePage.life.cards.${c.id}.title`),
+    desc:  t(`homePage.life.cards.${c.id}.desc`),
+  }));
 
   return (
     <>
-      {/* ====================== HERO (restyling) ====================== */}
+      {/* HERO */}
       <Box position="relative" mt={{ base: "72px", md: "80px" }}>
         <Image
           src="/sfondohome.png"
-          alt="Impianti frigoriferi Nitra System"
+          alt={t("homePage.hero.title")}
           w="100%"
           h={{ base: "70vh", md: "78vh" }}
           objectFit="cover"
         />
-
         <Box
           position="absolute"
           inset={0}
@@ -208,7 +197,6 @@ export default function Home() {
             linear(to-b, rgba(0,0,0,0.55), rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.25))
           `}
         />
-
         <Box
           position="absolute"
           inset={0}
@@ -233,13 +221,8 @@ export default function Home() {
               fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }}
               textShadow="0 6px 22px rgba(0,0,0,0.35)"
             >
-              {t("titlehome")}
-              REFRIGERAZIONE INDUSTRIALE
-              <Box as="span" display="block">
-                E COMMERCIALE.
-              </Box>
+              {t("homePage.hero.title")}
             </Heading>
-
             <Text
               mt={{ base: 3, md: 4 }}
               fontSize={{ base: "md", md: "lg" }}
@@ -248,49 +231,10 @@ export default function Home() {
               maxW="3xl"
               mx="auto"
             >
-              Progettazione e realizzazione di Celle frigorifere, Magazzini
-              refrigerati, Hydrocooler e Vacuumcooler per il settore industriale
-              e commerciale.
+              {t("homePage.hero.tagline")}
             </Text>
-
-            {/*<HStack justify="center" spacing={4} mt={{ base: 5, md: 6 }}>
-              <Button
-                as={RouterLink}
-                to={withLang("#agro")}
-                size="lg"
-                borderRadius="999px"
-                px={6}
-                bg="#B04125" p={6} rounded="xl"
-                color="white"
-                boxShadow="0 8px 24px rgba(56,178,172,0.35)"
-                _hover={{ bg: "teal.500", transform: "translateY(-2px)" }}
-                _active={{ transform: "translateY(0)" }}
-                transition="all .2s ease"
-              >
-                Settore Agroalimentare
-              </Button>
-
-              <Button
-                as={RouterLink}
-                to={withLang("#manif")}
-                size="lg"
-                borderRadius="999px"
-                px={6}
-                bg="#B04125" p={6} rounded="xl"
-                border="1px solid"
-                borderColor="whiteAlpha.300"
-                color="white"
-                backdropFilter="saturate(140%) blur(6px)"
-                _hover={{ bg: "rgba(255,255,255,0.12)", transform: "translateY(-2px)" }}
-                _active={{ transform: "translateY(0)" }}
-                transition="all .2s ease"
-              >
-                Settore Industriale
-              </Button>
-            </HStack>*/}
           </MotionBox>
         </Box>
-
         <Box position="absolute" bottom="-1px" left={0} right={0}>
           <Box
             as="svg"
@@ -300,87 +244,89 @@ export default function Home() {
             preserveAspectRatio="none"
             display="block"
           >
-            <path
-              d="M0,32 C240,64 480,64 720,32 C960,0 1200,0 1440,32 L1440,80 L0,80 Z"
-              fill="#fff"
-            />
+            <path d="M0,32 C240,64 480,64 720,32 C960,0 1200,0 1440,32 L1440,80 L0,80 Z" fill="#fff" />
           </Box>
         </Box>
       </Box>
 
-      {/* ====================== SETTORE AGROALIMENTARE ====================== */}
+      {/* AGROALIMENTARE */}
       <Container id="agro" maxW="7xl" py={[12, 16]}>
-        <Heading
-          size="sm"
-          textAlign="center"
-          color="nitra.accent"
-          letterSpacing="widest"
-        >
-          IMPIANTI DI REFRIGERAZIONE INDUSTRIALE
+        <Heading size="sm" textAlign="center" color="nitra.accent" letterSpacing="widest">
+          {t("homePage.agro.overtitle")}
         </Heading>
         <Heading textAlign="center" color="#0E4A67" mt={2} mb={8}>
-          SETTORE AGROALIMENTARE
+          {t("homePage.agro.title")}
         </Heading>
 
-        <SimpleGrid columns={[1, 2, 3]} spacing={[4, 6, 8]}>
-          {AGRO_CARDS.map((c, i) => (
-            <SoftCard
-              key={i}
-              img={c.img}
-              title={c.title}
-              desc={c.desc}
-              to={withLang(c.to)} // <-- PREFISSO LINGUA
-            />
+        <SimpleGrid
+          columns={[1, 2, 3]}
+          spacing={[4, 6, 8]}
+          alignItems="stretch"        // <-- allinea le altezze
+          gridAutoRows="1fr"          // <-- righe della stessa altezza
+        >
+          {agroCards.map((c) => (
+            <Box key={`agro-${c.id}`} h="100%">
+              <SoftCard img={c.img} title={c.title} desc={c.desc} to={withLang(c.to)} />
+            </Box>
           ))}
         </SimpleGrid>
       </Container>
 
-      {/* ====================== SETTORE MANIFATTURIERO ====================== */}
-      <Container id="manif" maxW="7xl" py={[6, 12]}>
-        <Heading
-          size="sm"
-          textAlign="center"
-          color="nitra.accent"
-          letterSpacing="widest"
-        >
-          IMPIANTI DI REFRIGERAZIONE INDUSTRIALE E COMMERCIALE
+      {/* LIFE SCIENCES */}
+      <Container id="life" maxW="7xl" py={[6, 12]}>
+        <Heading size="sm" textAlign="center" color="nitra.accent" letterSpacing="widest">
+          {t("homePage.life.overtitle")}
         </Heading>
         <Heading textAlign="center" color="#0E4A67" mt={2} mb={8}>
-          SETTORE INDUSTRIALE
+          {t("homePage.life.title")}
         </Heading>
 
         <SimpleGrid
           columns={{ base: 1, sm: 2, lg: 3 }}
           spacing={[4, 6, 8]}
-          justifyItems="center"
+          alignItems="stretch"
+          gridAutoRows="1fr"
         >
-          {MANIF_CARDS.map((c, i) => (
-            <SoftCard
-              key={i}
-              img={c.img}
-              title={c.title}
-              desc={c.desc}
-              to={withLang(c.to)} // <-- PREFISSO LINGUA
-            />
+          {lifeCards.map((c) => (
+            <Box key={`life-${c.id}`} h="100%">
+              <SoftCard img={c.img} title={c.title} desc={c.desc} to={withLang(c.to)} />
+            </Box>
           ))}
         </SimpleGrid>
       </Container>
 
-      {/* ====================== FOOT CTA ====================== */}
+      {/* MANIFATTURIERO / LOGISTICA */}
+      <Container id="manif" maxW="7xl" py={[6, 12]}>
+        <Heading size="sm" textAlign="center" color="nitra.accent" letterSpacing="widest">
+          {t("homePage.manuf.overtitle")}
+        </Heading>
+        <Heading textAlign="center" color="#0E4A67" mt={2} mb={8}>
+          {t("homePage.manuf.title")}
+        </Heading>
+
+        <SimpleGrid
+          columns={{ base: 1, sm: 2, lg: 3 }}
+          spacing={[4, 6, 8]}
+          alignItems="stretch"
+          gridAutoRows="1fr"
+        >
+          {manufCards.map((c) => (
+            <Box key={`manif-${c.id}`} h="100%">
+              <SoftCard img={c.img} title={c.title} desc={c.desc} to={withLang(c.to)} />
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Container>
+
+      {/* CTA */}
       <Box bg="gray.50" py={[10, 14]}>
         <Container maxW="7xl" textAlign="center">
-          <Heading mb={3}>Parla con i nostri tecnici</Heading>
+          <Heading mb={3}>{t("homePage.cta.title")}</Heading>
           <Text color="gray.700" mb={6}>
-            Operiamo in tutta Italia e in Bulgaria. Partner ideale per espandere
-            la tua attività nell'Europa dell'Est.
+            {t("homePage.cta.desc")}
           </Text>
-          <Button
-            as={RouterLink}
-            to={withLang("/contatti")}
-            colorScheme="teal"
-            size="lg"
-          >
-            Richiedi una consulenza →
+          <Button as={RouterLink} to={withLang("/contatti")} colorScheme="teal" size="lg">
+            {t("homePage.cta.button")}
           </Button>
         </Container>
       </Box>

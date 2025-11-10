@@ -3,12 +3,15 @@ import React from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ChakraProvider, extendTheme, Box } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import "./i18n"; // << inizializza i18n una volta
+import { HelmetProvider } from "react-helmet-async";
+import "./i18n";
 
+// Layout
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/Whatsapp-button";
 
+// Pagine
 import Home from "./pages/Home";
 import Coldsharing from "./pages/Coldsharing";
 import Contatti from "./pages/Contatti";
@@ -17,7 +20,6 @@ import Partnercollaborazioni from "./pages/Partnercollaborazioni";
 import Cookies from "./pages/Cookies";
 import Privacy from "./pages/Privacy";
 import LavorazioneCarni from "./pages/LavorazioneCarni";
-import Panificazione from "./pages/Panificazione";
 import LattieroCaseario from "./pages/LattieroCaseario";
 import LavorazioneIttico from "./pages/LavorazioneIttico.jsx";
 import FruttaVerdura from "./pages/FruttaVerdura.jsx";
@@ -28,8 +30,9 @@ import Hydrocooler from "./pages/Hydrocooler.jsx";
 import VacuumCooler from "./pages/VacuumCooler.jsx";
 import Sanificatore from "./pages/Sanificatore.jsx";
 import ProduttoreGhiaccio from "./pages/ProduttoreGhiaccio.jsx";
+import CamereBianche from "./pages/CamereBianche.jsx";
 
-/* Tema */
+/* Tema Chakra */
 const theme = extendTheme({
   colors: {
     nitra: {
@@ -72,7 +75,7 @@ function ScrollToTop() {
   return null;
 }
 
-/** Mantiene <html lang/dir> in sync con i18n */
+/** Mantiene <html lang|dir> in sync con i18n */
 function HtmlLangDir() {
   const { i18n } = useTranslation();
   React.useEffect(() => {
@@ -84,13 +87,12 @@ function HtmlLangDir() {
     };
     update();
     i18n.on("languageChanged", update);
-    return () => {
-      i18n.off("languageChanged", update);
-    };
+    return () => i18n.off("languageChanged", update);
   }, [i18n]);
   return null;
 }
 
+/** Rimuove eventuale prefisso /it o /en dalle vecchie URL */
 function StripLegacyLangPrefix() {
   const { pathname } = useLocation();
   if (/^\/(it|en)(?=\/|$)/.test(pathname)) {
@@ -102,86 +104,51 @@ function StripLegacyLangPrefix() {
 
 export default function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <HtmlLangDir />
-      <StripLegacyLangPrefix />
-      <Navbar />
-      <ScrollToTop />
+    <HelmetProvider>
+      <ChakraProvider theme={theme}>
+        <HtmlLangDir />
+        <StripLegacyLangPrefix />
+        <Navbar />
+        <ScrollToTop />
 
-      <Box as="main" w="100%" px={{ base: 0, md: 0 }}>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="coldsharing" element={<Coldsharing />} />
-          <Route path="contatti" element={<Contatti />} />
-          <Route path="azienda" element={<Azienda />} />
-          <Route
-            path="partnercollaborazioni"
-            element={<Partnercollaborazioni />}
-          />
+        <Box as="main" w="100%" px={{ base: 0, md: 0 }}>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="coldsharing" element={<Coldsharing />} />
+            <Route path="contatti" element={<Contatti />} />
+            <Route path="azienda" element={<Azienda />} />
+            <Route path="partnercollaborazioni" element={<Partnercollaborazioni />} />
 
-          {/* Agroalimentare */}
-          <Route
-            path="settori/agroalimentare/lavorazione-carni"
-            element={<LavorazioneCarni />}
-          />
-          <Route
-            path="settori/agroalimentare/panificazione"
-            element={<Panificazione />}
-          />
-          <Route
-            path="settori/agroalimentare/lattiero-caseari"
-            element={<LattieroCaseario />}
-          />
-          <Route
-            path="settori/agroalimentare/ittico"
-            element={<LavorazioneIttico />}
-          />
-          <Route
-            path="settori/agroalimentare/ortofrutta"
-            element={<FruttaVerdura />}
-          />
-          <Route
-            path="settori/agroalimentare/trasformati"
-            element={<ProdottiTransformati />}
-          />
+            {/* Agroalimentare */}
+            <Route path="settori/agroalimentare/lavorazione-carni" element={<LavorazioneCarni />} />
+            <Route path="settori/agroalimentare/lattiero-caseari" element={<LattieroCaseario />} />
+            <Route path="settori/agroalimentare/ittico" element={<LavorazioneIttico />} />
+            <Route path="settori/agroalimentare/ortofrutta" element={<FruttaVerdura />} />
+            <Route path="settori/agroalimentare/trasformati" element={<ProdottiTransformati />} />
 
-          {/* Industriale */}
-          <Route
-            path="settori/manifatturiero/logistica-refrigerata"
-            element={<LogisticaRefrigerata />}
-          />
-          <Route
-            path="settori/manifatturiero/logistica-gdo"
-            element={<LogisticaGDO />}
-          />
-          <Route
-            path="settori/manifatturiero/hydrocooler"
-            element={<Hydrocooler />}
-          />
-          <Route
-            path="settori/manifatturiero/vacuumcooler"
-            element={<VacuumCooler />}
-          />
-          <Route
-            path="settori/manifatturiero/sanificatore"
-            element={<Sanificatore />}
-          />
-          <Route
-            path="settori/manifatturiero/produttoreghiaccio"
-            element={<ProduttoreGhiaccio />}
-          />
+            {/* Industriale / Manifatturiero */}
+            <Route path="settori/manifatturiero/logistica-refrigerata" element={<LogisticaRefrigerata />} />
+            <Route path="settori/manifatturiero/logistica-gdo" element={<LogisticaGDO />} />
+            <Route path="settori/manifatturiero/hydrocooler" element={<Hydrocooler />} />
+            <Route path="settori/manifatturiero/vacuumcooler" element={<VacuumCooler />} />
+            <Route path="settori/manifatturiero/sanificatore" element={<Sanificatore />} />
+            <Route path="settori/manifatturiero/produttoreghiaccio" element={<ProduttoreGhiaccio />} />
 
-          {/* extra */}
-          <Route path="cookies" element={<Cookies />} />
-          <Route path="privacy" element={<Privacy />} />
+            {/* Life Sciences */}
+            <Route path="camere-bianche" element={<CamereBianche />} />
 
-          {/* 404 -> Home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Box>
+            {/* Extra */}
+            <Route path="cookies" element={<Cookies />} />
+            <Route path="privacy" element={<Privacy />} />
 
-      <Footer />
-      <WhatsAppButton />
-    </ChakraProvider>
+            {/* 404 -> Home */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Box>
+
+        <Footer />
+        <WhatsAppButton />
+      </ChakraProvider>
+    </HelmetProvider>
   );
 }
