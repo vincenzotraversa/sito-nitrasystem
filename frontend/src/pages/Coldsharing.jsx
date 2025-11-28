@@ -93,7 +93,7 @@ function HeroSequence() {
           {/* 1) Collaborazione */}
           <Heading
             position="absolute"
-            left="25%"
+            left="20%"
             top="30%"
             transform="translate(-50%, -50%)"
             lineHeight="1.05"
@@ -125,13 +125,13 @@ function HeroSequence() {
           {/* 3) COLDSHARING */}
           <Heading
             position="absolute"
-            left="10%"
-            top="31%"
+            left={{ base: "10%", md: "10%" }}
+            top={{ base: "38%", md: "31%" }}
             transform="translate(-50%, -50%)"
             lineHeight="1.0"
             fontWeight={900}
             letterSpacing="-0.01em"
-            fontSize={["15vw", "13vw", "10.5vw"]}
+            fontSize={{ base: "11vw", md: "13vw", lg: "10.5vw" }}
             textShadow="0 14px 40px rgba(0,0,0,.6)"
             sx={{ animation: `${fadeHold} .65s ease-out ${DELAY3}s both` }}
           >
@@ -548,14 +548,12 @@ function BarCard({ title, desc, variant, ctrl }) {
       {/* Track + progress fill */}
       <Box h="12px" bg="gray.100" rounded="full" overflow="hidden">
         <MBox
-          h="12px"
+          h="100%"
           rounded="full"
           initial={{ width: "0%" }}
           animate={ctrl}
           style={{
             background: fillBg,
-            borderTopRightRadius: 999,
-            borderBottomRightRadius: 999,
           }}
         />
       </Box>
