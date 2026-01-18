@@ -27,7 +27,7 @@
     "home": "Home",
     "company": "Company",
     "whatWeDo": "What we do",
-    "coldsharing": "Coldsharing",
+    "coldsharing": "Cold Sharing",
     "partners": "Partners & Collaborations",
     "contacts": "Contacts"
   },
@@ -112,11 +112,11 @@
 
   "pages": {
     "coldsharing": {
-      "seoTitle": "ColdSharing | The cold marketplace",
+      "seoTitle": "Cold Sharing | The cold marketplace",
       "hero": {
         "step1": { "line1": "From the collaboration", "line2": "with Marvincla" },
         "step2": "comes",
-        "logo": "COLDSHARING",
+        "logo": "COLD SHARING",
         "subtitle": "The B2B marketplace to find or share refrigerated rooms",
         "cta": "Sign up free",
         "scroll": "↓ Scroll"
@@ -135,14 +135,14 @@
         ]
       },
       "idea": {
-        "brand": "COLDSHARING",
+        "brand": "COLD SHARING",
         "marketplace": "B2B marketplace",
         "pitch": "to share your refrigerated space",
         "text": "We connect spare refrigeration capacity with demand in minutes: geo search, secure bookings and full traceability."
       },
       "reasons": {
         "title": "5 reasons to use it.",
-        "badge": "COLDSHARING",
+        "badge": "COLD SHARING",
         "cta": "Try it free",
         "note": "No strings attached.",
         "items": [
@@ -169,7 +169,7 @@
       "cta": {
         "title": "What are you waiting for? Build your refrigerated space and share it today.",
         "subtitle": "Start monetizing now.",
-        "primary": "Enter ColdSharing",
+        "primary": "Enter Cold Sharing",
         "secondary": "Talk to Nitra System"
       }
     },
@@ -807,10 +807,10 @@
       },
       "case": {
         "alt": "Nitra System and Marvincla collaboration",
-        "title": "Success Story: ColdSharing",
-        "body1": "Together with Marvincla we created ColdSharing, the first B2B marketplace dedicated to cold-chain sharing.",
+        "title": "Success Story: Cold Sharing",
+        "body1": "Together with Marvincla we created Cold Sharing, the first B2B marketplace dedicated to cold-chain sharing.",
         "body2": "Nitra System contributed refrigeration expertise; Marvincla built the secure, transparent digital platform.",
-        "cta": "Discover ColdSharing"
+        "cta": "Discover Cold Sharing"
       },
       "cta": {
         "title": "Grow with us",

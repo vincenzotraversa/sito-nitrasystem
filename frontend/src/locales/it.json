@@ -15,7 +15,7 @@
   "company": "Azienda",
   "navbarpartners": "Partner & Collaborazioni",
   "contacts": "Contatti",
-  "coldsharing": "Coldsharing",
+  "coldsharing": "Cold Sharing",
   "getAQuote": "Richiedi preventivo",
   "titlehome": "Refrigerazione industriale",
   "refrigeratedLogistics": "Logistica refrigerata",
@@ -27,7 +27,7 @@
     "home": "Home",
     "company": "Azienda",
     "whatWeDo": "Cosa facciamo",
-    "coldsharing": "Coldsharing",
+    "coldsharing": "Cold Sharing",
     "partners": "Partner & Collaborazioni",
     "contacts": "Contatti"
   },
@@ -114,11 +114,11 @@
 
   "pages": {
     "coldsharing": {
-      "seoTitle": "ColdSharing | Il marketplace del freddo",
+      "seoTitle": "Cold Sharing | Il marketplace del freddo",
       "hero": {
         "step1": { "line1": "Dalla collaborazione", "line2": "con Marvincla" },
         "step2": "nasce",
-        "logo": "COLDSHARING",
+        "logo": "COLD SHARING",
         "subtitle": "Il marketplace B2B per cercare o condividere celle frigorifere",
         "cta": "Registrati gratis",
         "scroll": "↓ Scorri"
@@ -137,14 +137,14 @@
         ]
       },
       "idea": {
-        "brand": "COLDSHARING",
+        "brand": "COLD SHARING",
         "marketplace": "Marketplace B2B",
         "pitch": "per la condivisione del tuo locale refrigerato",
         "text": "Mettiamo in contatto chi ha capacità frigorifera con chi ne ha bisogno in pochi minuti: ricerca geolocalizzata, prenotazioni sicure e tracciabilità completa."
       },
       "reasons": {
         "title": "5 motivi per cui dovresti usarlo.",
-        "badge": "COLDSHARING",
+        "badge": "COLD SHARING",
         "cta": "Richiedilo gratis",
         "note": "Nessun vincolo. Provalo ora.",
         "items": [
@@ -171,7 +171,7 @@
       "cta": {
         "title": "Cosa aspetti? Realizziamo il tuo locale refrigerato e condividilo subito.",
         "subtitle": "Monetizza subito. Inizia ora.",
-        "primary": "Accedi in ColdSharing",
+        "primary": "Accedi in Cold Sharing",
         "secondary": "Parla con Nitra System"
       }
     },
@@ -809,10 +809,10 @@
       },
       "case": {
         "alt": "Collaborazione Nitra System e Marvincla",
-        "title": "Caso di successo: ColdSharing",
-        "body1": "La collaborazione tra Nitra System e Marvincla ha portato alla nascita di ColdSharing, il primo marketplace B2B dedicato alla condivisione del freddo — una piattaforma digitale che consente ad aziende agroalimentari, logistiche e industriali di mettere a disposizione o trovare celle frigorifere, container refrigerati e spazi a temperatura controllata, ottimizzando costi e risorse.",
-        "body2": "Grazie alla partnership, Nitra System ha fornito la propria esperienza nel campo della refrigerazione industriale e della logistica del freddo, contribuendo alla definizione dei criteri tecnici e dei parametri energetici dei locali condivisi. Marvincla, invece, ha sviluppato la piattaforma tecnologica e l’ecosistema digitale che permette la gestione sicura, trasparente e automatizzata di annunci, prenotazioni e pagamenti tra imprese. ColdSharing rappresenta oggi un nuovo paradigma per la logistica del freddo, promuovendo un modello di economia circolare e sostenibilità nel settore industriale.",
-        "cta": "Scopri ColdSharing"
+        "title": "Caso di successo: Cold Sharing",
+        "body1": "La collaborazione tra Nitra System e Marvincla ha portato alla nascita di Cold Sharing, il primo marketplace B2B dedicato alla condivisione del freddo — una piattaforma digitale che consente ad aziende agroalimentari, logistiche e industriali di mettere a disposizione o trovare celle frigorifere, container refrigerati e spazi a temperatura controllata, ottimizzando costi e risorse.",
+        "body2": "Grazie alla partnership, Nitra System ha fornito la propria esperienza nel campo della refrigerazione industriale e della logistica del freddo, contribuendo alla definizione dei criteri tecnici e dei parametri energetici dei locali condivisi. Marvincla, invece, ha sviluppato la piattaforma tecnologica e l’ecosistema digitale che permette la gestione sicura, trasparente e automatizzata di annunci, prenotazioni e pagamenti tra imprese. Cold Sharing rappresenta oggi un nuovo paradigma per la logistica del freddo, promuovendo un modello di economia circolare e sostenibilità nel settore industriale.",
+        "cta": "Scopri Cold Sharing"
       },
       "cta": {
         "title": "Cresci con noi",
